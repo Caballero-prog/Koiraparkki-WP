@@ -7,6 +7,7 @@ const HeroSection = () => {
   const [open, setOpen] = useState(false);
   const navRef = useRef(null);
 
+
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -14,7 +15,7 @@ const HeroSection = () => {
     };
   }, [open]);
 
-  useLayoutEffect(() => {
+useLayoutEffect(() => {
     const el = navRef.current;
     if (!el) return;
 
@@ -43,35 +44,29 @@ const HeroSection = () => {
         </button>
 
         <h1 className="hero-title">Koiraparkki</h1>
+
+        {/* Desktop nav */}
+        <ul className="desktop-nav">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
         <div className="nav-spacer" aria-hidden="true" />
       </nav>
 
+      {/* Mobile slide menu */}
       <nav
         id="mobile-menu"
         className={`mobile-menu ${open ? "open" : ""}`}
         aria-hidden={!open}
       >
         <ul>
-          <li>
-            <a href="#home" onClick={() => setOpen(false)}>
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#services" onClick={() => setOpen(false)}>
-              Services
-            </a>
-          </li>
-          <li>
-            <a href="#pricing" onClick={() => setOpen(false)}>
-              Pricing
-            </a>
-          </li>
-          <li>
-            <a href="#contact" onClick={() => setOpen(false)}>
-              Contact
-            </a>
-          </li>
+          <li><a href="#home" onClick={() => setOpen(false)}>Home</a></li>
+          <li><a href="#services" onClick={() => setOpen(false)}>Services</a></li>
+          <li><a href="#pricing" onClick={() => setOpen(false)}>Pricing</a></li>
+          <li><a href="#contact" onClick={() => setOpen(false)}>Contact</a></li>
         </ul>
       </nav>
     </header>

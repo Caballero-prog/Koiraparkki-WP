@@ -21,6 +21,7 @@
 }
 
 .hero-title {
+  font-size: 1.6rem;
   justify-self: center;
   margin: 0;
 }
@@ -73,5 +74,30 @@
   font-size: 1.2rem;
   font-weight: 600;
   text-decoration: none;
-  color: #222;
+  color: #4a4a4a;
+}
+
+/* Desktop navigation bar */
+
+.desktop-nav {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 1.25rem;
+  justify-self: end;
+}
+
+.desktop-nav a {
+  text-decoration: none;
+  color: #4a4a4a;
+  font-weight: 600;
+}
+
+@media (min-width: 1024px) {
+  .burger-menu { display: none; }
+  .mobile-menu { display: none; }
+  .desktop-nav { display: flex; }
+  .hero-title { justify-self: start; }
+  .nav-spacer { display: none; }
 }
