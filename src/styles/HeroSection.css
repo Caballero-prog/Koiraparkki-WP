@@ -1,5 +1,5 @@
 .site-header {
-  position: sticky;
+  position: static;
   top: 0;
   z-index: 50;
 }
@@ -11,6 +11,10 @@
   padding: 1rem;
   position: relative;
   z-index: 60;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .burger-menu {
@@ -97,11 +101,22 @@
 }
 
 @media (min-width: 1024px) {
-  .burger-menu { display: none; }
-  .mobile-menu { display: none; }
-  .desktop-nav { display: flex; }
-  .hero-title { justify-self: start; }
-  .nav-spacer { display: none; }
+  .burger-menu {
+    display: none;
+  }
+  .mobile-menu {
+    display: none;
+  }
+  .desktop-nav {
+    display: flex;
+  }
+  .hero-title {
+    font-size: 2.2rem;
+    padding: 1rem;
+  }
+  .nav-spacer {
+    display: none;
+  }
 }
 
 /* Hero content */
@@ -121,12 +136,22 @@
 .hero-content {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   flex: 1;
   padding: 2rem;
-  color: #f7f7f7;
+  gap: 1rem;
 }
 
 .hero-content h2 {
-  font-size: 2.2rem;
+  font-size: 8rem;
+  font-weight: 600;
+  color: #f7f7f7;
+  max-width: 30rem;
+}
+
+.hero-content p {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #4a4a4a;
+  max-width: 40rem;
 }
