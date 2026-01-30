@@ -1,7 +1,9 @@
 * {
-    outline: 2px hotpink solid;
+    outline: 1px solid hotpink;
 }
 
 body {
     font-family: "Montserrat Alternates", sans-serif;
+    background-color: #f7f7f7;
+    box-sizing: border-box;
 }
