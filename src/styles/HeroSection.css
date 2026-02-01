@@ -4,16 +4,13 @@ body {
 
 .site-header {
   position: static;
-  top: 0;
-  z-index: 50;
-  background-color: #f7f7f7;
 }
 
 .navigation-bar {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  padding: 1rem;
+  padding: 3rem 0rem 1rem 0rem;
   position: relative;
   z-index: 60;
 }
@@ -127,11 +124,12 @@ body {
 /* Hero content */
 
 .hero {
-  min-height: 100svh;
+  min-height: calc(100svh - var(--nav-h, 60px));
   background-image: url("../assets/herodog.webp");
   background-size: cover;
   background-position: 60% center;
   background-repeat: no-repeat;
+  border-radius: 8px;
 
   display: flex;
   flex-direction: column;
@@ -189,7 +187,7 @@ body {
   }
 
   .hero-content h2 {
-    font-size: 6rem;
+    font-size: 8rem;
     max-width: 40rem;
   }
 

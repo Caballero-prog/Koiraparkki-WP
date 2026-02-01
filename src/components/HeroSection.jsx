@@ -29,7 +29,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="hero">
+    <>
       <header className="site-header">
         <nav ref={navRef} className="navigation-bar" aria-label="Main">
           <button
@@ -63,13 +63,11 @@ const HeroSection = () => {
 
           <div className="nav-spacer" aria-hidden="true" />
         </nav>
-
         {/* Mobile slide menu */}
         <nav
           id="mobile-menu"
           className={`mobile-menu ${open ? "open" : ""}`}
           aria-hidden={!open}
-          inert={!open ? "" : undefined}
         >
           <ul>
             <li>
@@ -95,11 +93,13 @@ const HeroSection = () => {
           </ul>
         </nav>
       </header>
-      <div className="hero-content">
-        <h2>Häkitön koirahoitola</h2>
-        <p>Turvallinen päivähoito koirille</p>
-      </div>
-    </section>
+      <section className="hero" id="home">
+        <div className="hero-content">
+          <h2>Häkitön koirahoitola</h2>
+          <p>Turvallinen päivähoito koirille</p>
+        </div>
+      </section>
+    </>
   );
 };
 
