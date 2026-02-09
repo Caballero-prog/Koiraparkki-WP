@@ -4,38 +4,27 @@
 
 .hero {
   display: flex;
+  min-height: calc(100svh - var(--nav-h, 60px));
+  background-color: #f8f9fa;
 }
 
 .hero-bg {
   width: 100%;
-  min-height: calc(100svh - var(--nav-h, 60px));
+  min-height: 0;
   background-image: url("../assets/herodog.webp");
   background-size: cover;
   background-position: 60% center;
   background-repeat: no-repeat;
   display: flex;
+  flex: 1;
   align-items: flex-end;
   overflow: hidden;
 }
 
-
-@media (min-width: 768px) {
-  .hero-bg {
-    background-position: 40% center;
-  }
-}
-
-@media (min-width: 1024px) {
-  .hero-bg {
-    background-position: center;
-  }
-}
-
 .hero-content {
-  width: 100%;
-  padding: 2.5rem 1.5rem 3rem;
   display: flex;
   flex-direction: column;
+  padding-bottom: 12svh;
   gap: 0.6rem;
   text-align: center;
   color: #f7f7f7;
@@ -43,18 +32,21 @@
 }
 
 .hero-content h2 {
-  font-size: 2.1rem;
+  font-size: 2.8rem;
   line-height: 1.05;
   font-weight: 600;
 }
 
 .hero-content p {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   line-height: 1.4;
   font-weight: 500;
 }
 
 @media (min-width: 768px) {
+  .hero-bg {
+    background-position: 40% center;
+  }
   .hero-content h2 {
     font-size: 2.6rem;
   }
@@ -64,6 +56,18 @@
 }
 
 @media (min-width: 1024px) {
+  .hero {
+    padding-left: clamp(4rem, -8.118rem + 18.93vw, 12rem);
+    padding-right: clamp(4rem, -8.118rem + 18.93vw, 12rem);
+    padding-top: 1rem;
+    padding-bottom: clamp(4rem, -8.118rem + 18.93vw, 12rem);
+  }
+
+  .hero-bg {
+    background-position: center;
+    border-radius: 12px;
+  }
+
   .hero-content {
     text-align: left;
     align-items: flex-start;

@@ -1,6 +1,6 @@
 .site-header {
   position: static;
-  background-color: #f7f7f7;
+  background-color: #f8f9fa;
 }
 
 .navigation-bar {
@@ -15,7 +15,7 @@
 .burger-menu {
   background: none;
   border: none;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   cursor: pointer;
 }
 
@@ -24,10 +24,11 @@
   font-size: 1.8rem;
   font-weight: 500;
   font-family: "Bitter", serif;
+  color: #262626;
 }
 
 .nav-spacer {
-  width: 1.8rem;
+  width: 1.6rem;
 }
 
 .mobile-menu {
@@ -66,7 +67,7 @@
   font-size: 1.2rem;
   font-weight: 600;
   text-decoration: none;
-  color: #4a4a4a;
+  color: #f7f7f7;
 }
 
 .desktop-nav {
@@ -82,10 +83,19 @@
   font-size: 1.2rem;
   text-decoration: none;
   font-weight: 600;
+  color: #262626;
 }
 
-
 @media (min-width: 1024px) {
+  .site-header {
+    padding-left: clamp(4rem, -8.118rem + 18.93vw, 12rem);
+    padding-right: clamp(4rem, -8.118rem + 18.93vw, 12rem);
+  }
+  .navigation-bar {
+    padding-top: 2rem;
+    padding-bottom: 0rem;
+  }
+
   .burger-menu {
     display: none;
   }
@@ -103,4 +113,3 @@
     display: none;
   }
 }
-

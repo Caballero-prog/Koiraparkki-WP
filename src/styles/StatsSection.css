@@ -22,13 +22,12 @@
 }
 
 .stat-icon {
-  background-color: #fae8dB;
+  background-color: #f8f9fa;
   font-size: 1.4rem;
   color: #454545;
   padding: 0.6rem;
   border-radius: 4px;
 }
-
 
 .stat-number {
   font-size: 2rem;
