@@ -3,7 +3,6 @@
 }
 
 .stats-inner {
-  max-width: 1100px;
   margin: 0 auto;
 }
 
@@ -23,7 +22,7 @@
 }
 
 .stat-icon {
-  background-color: #e7e7e7;
+  background-color: #fae8dB;
   font-size: 1.4rem;
   color: #454545;
   padding: 0.6rem;
@@ -46,6 +45,7 @@
 @media (min-width: 768px) {
   .stats {
     padding: 2.6rem;
+    margin: 0 4rem;
   }
 
   .stats-grid {
@@ -65,7 +65,7 @@
 
 @media (min-width: 1024px) {
   .stats {
-    padding: 4rem 8rem;
+    padding: 4rem 6rem;
   }
 
   .stat-number {

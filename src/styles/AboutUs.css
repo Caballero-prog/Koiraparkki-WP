@@ -1,0 +1,33 @@
+.about {
+    background-color: #d9d9d9;
+    padding: 3rem 4rem;
+}
+
+.about-inner {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.about-content {
+    gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .about-inner {
+    grid-template-columns: repeat(2, 1fr);
+    align-items: flex-start;
+    justify-content: left;
+    gap: 2rem;
+    padding: 0 6rem;
+  }
+
+  .about-inner h2 {
+    font-size: 4.6rem;
+  }
+
+  .about-content p {
+    font-size: 1.15rem;
+  }
+}
