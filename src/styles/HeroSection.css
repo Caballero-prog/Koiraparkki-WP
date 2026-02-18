@@ -9,8 +9,9 @@
 }
 
 .hero-bg {
+  position: relative;
   width: 100%;
-  min-height: 0;
+  min-height: 100%;
   background-image: url("../assets/herodog.webp");
   background-size: cover;
   background-position: 60% center;
@@ -21,7 +22,22 @@
   overflow: hidden;
 }
 
+.hero-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(40, 28, 18, 0.1),
+    rgba(18, 28, 40, 0.5)
+  );
+
+  pointer-events: none;
+}
+
 .hero-content {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   padding-bottom: 12svh;
