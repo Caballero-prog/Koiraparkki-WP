@@ -90,20 +90,18 @@
   .navigation-bar {
     padding: 1rem 1rem 0rem 1rem;
   }
-
   .mobile-menu {
     right: auto;
+    left: 1rem;
+    bottom: 1rem;
     width: min(420px, 100%);
     background: rgba(74, 74, 74, 0.15);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-
     top: calc(var(--nav-h, 60px) + 1rem);
     margin-top: 0;
-
     transform: translateX(-100%);
   }
-
   .mobile-menu.open {
     transform: translateX(0);
   }
@@ -118,7 +116,6 @@
     padding-top: 2rem;
     padding-bottom: 0rem;
   }
-
   .burger-menu {
     display: none;
   }
