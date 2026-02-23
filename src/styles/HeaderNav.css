@@ -80,7 +80,7 @@
 }
 
 .desktop-nav a {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   text-decoration: none;
   font-weight: 600;
   color: #262626;
@@ -88,8 +88,8 @@
 
 @media (min-width: 1024px) {
   .site-header {
-    padding-left: clamp(4rem, -8.118rem + 18.93vw, 12rem);
-    padding-right: clamp(4rem, -8.118rem + 18.93vw, 12rem);
+    padding-left: 8rem;
+    padding-right: 8rem;
   }
   .navigation-bar {
     padding-top: 2rem;

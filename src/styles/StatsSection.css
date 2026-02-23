@@ -9,7 +9,7 @@
 .stats-grid {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 4rem;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.6rem;
@@ -18,8 +18,10 @@
 .stat-card {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   row-gap: 0.6rem;
-}
+}  
 
 .stat-icon {
   background-color: #f8f9fa;
@@ -43,8 +45,31 @@
 
 @media (min-width: 768px) {
   .stats {
-    padding: 2.6rem;
-    margin: 0 4rem;
+    padding: 0rem;
+  }
+
+  .stat-card {
+    position: relative;
+  }
+
+  .stat-card:nth-child(2)::before,
+  .stat-card:nth-child(2)::after {
+    content: "";
+    position: absolute;
+    top: 12%;
+    bottom: 12%;
+    border-left: 1px solid rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+  }
+
+  /* left divider */
+  .stat-card:nth-child(2)::before {
+    left: -4rem;
+  }
+
+  /* right divider */
+  .stat-card:nth-child(2)::after {
+    right: -4rem;
   }
 
   .stats-grid {
@@ -64,7 +89,7 @@
 
 @media (min-width: 1024px) {
   .stats {
-    padding: 4rem 6rem;
+    padding: 0rem;
   }
 
   .stat-number {
