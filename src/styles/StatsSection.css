@@ -1,5 +1,6 @@
 .stats {
-  padding: 2rem;
+ padding: 1rem;
+ background-color: #f8f9fa;
 }
 
 .stats-inner {
@@ -9,7 +10,6 @@
 .stats-grid {
   list-style: none;
   margin: 0;
-  padding: 4rem;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.6rem;
@@ -21,7 +21,12 @@
   align-items: center;
   text-align: center;
   row-gap: 0.6rem;
-}  
+  padding: 1.6rem 0rem;
+}
+
+.stat-card:nth-child(2) {
+  background-color: #eceff2;
+}
 
 .stat-icon {
   background-color: #f8f9fa;
