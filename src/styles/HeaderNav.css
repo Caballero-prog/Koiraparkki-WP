@@ -86,6 +86,25 @@
   color: #262626;
 }
 
+@media (min-width: 768px) and (max-width: 1023px) {
+  .mobile-menu {
+    right: auto;
+    width: min(420px, 100%);
+    background: rgba(74, 74, 74, 0.15);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    top: calc(var(--nav-h, 60px) + 1rem); /* ✅ actual spacing */
+    margin-top: 0;                         /* ✅ remove margin hack */
+
+    transform: translateX(-100%);
+  }
+
+  .mobile-menu.open {
+    transform: translateX(0);
+  }
+}
+
 @media (min-width: 1024px) {
   .site-header {
     padding-left: 8rem;
