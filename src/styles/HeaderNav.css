@@ -7,7 +7,7 @@
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  padding: 1rem 1rem 0rem 1rem;
+  padding: 1rem 1rem 1rem 1rem;
   position: relative;
   z-index: 60;
 }
@@ -87,6 +87,10 @@
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
+  .navigation-bar {
+    padding: 1rem 1rem 0rem 1rem;
+  }
+
   .mobile-menu {
     right: auto;
     width: min(420px, 100%);
@@ -94,8 +98,8 @@
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
 
-    top: calc(var(--nav-h, 60px) + 1rem); /* ✅ actual spacing */
-    margin-top: 0;                         /* ✅ remove margin hack */
+    top: calc(var(--nav-h, 60px) + 1rem);
+    margin-top: 0;
 
     transform: translateX(-100%);
   }
