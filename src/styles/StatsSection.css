@@ -1,6 +1,6 @@
 .stats {
- padding: 1rem;
- background-color: #f8f9fa;
+  padding: 1rem;
+  background-color: #f8f9fa;
 }
 
 .stats-inner {
@@ -50,37 +50,15 @@
 
 @media (min-width: 768px) {
   .stats {
-    padding: 0rem;
+    padding: 1rem;
   }
-
   .stat-card {
     position: relative;
   }
-
-  .stat-card:nth-child(2)::before,
-  .stat-card:nth-child(2)::after {
-    content: "";
-    position: absolute;
-    top: 12%;
-    bottom: 12%;
-    border-left: 1px solid rgba(0, 0, 0, 0.5);
-    pointer-events: none;
-  }
-
-  /* left divider */
-  .stat-card:nth-child(2)::before {
-    left: -4rem;
-  }
-
-  /* right divider */
-  .stat-card:nth-child(2)::after {
-    right: -4rem;
-  }
-
   .stats-grid {
-    grid-template-columns: repeat(auto-fit, minmax(220px, max-content));
+    grid-template-columns: repeat(3, 1fr);
     justify-content: center;
-    gap: 8rem;
+    gap: 0rem;
   }
 
   .stat-number {
@@ -94,7 +72,7 @@
 
 @media (min-width: 1024px) {
   .stats {
-    padding: 0rem;
+    padding: 2rem;
   }
 
   .stat-number {
