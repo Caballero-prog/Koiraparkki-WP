@@ -92,7 +92,6 @@
   }
   .mobile-menu {
     right: auto;
-    left: 1rem;
     bottom: 1rem;
     width: min(420px, 100%);
     background: rgba(74, 74, 74, 0.15);
@@ -104,6 +103,7 @@
   }
   .mobile-menu.open {
     transform: translateX(0);
+    left: 1rem;
   }
 }
 
