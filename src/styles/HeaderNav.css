@@ -103,6 +103,7 @@
   .mobile-menu.open {
     transform: translateX(0);
     left: 1rem;
+    bottom: 1rem;
   }
 }
 
