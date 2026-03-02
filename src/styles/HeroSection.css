@@ -116,11 +116,16 @@
   }
 
   .hero-content h2 {
-    font-size: 6.4rem;
+    font-size: 4.4rem;
     line-height: 1.05;
   }
 
   .hero-content p {
     font-size: 1.35rem;
   }
+}
+@media (min-width: 1440px) {
+ .hero-content h2 {
+  font-size: 6.4rem;
+ }
 }
