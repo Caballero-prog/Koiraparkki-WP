@@ -1,6 +1,6 @@
 .site-header {
   position: static;
-  background-color: #f8f9fa;
+  background-color: #ffffff;
 }
 
 .navigation-bar {
@@ -92,8 +92,7 @@
   }
   .mobile-menu {
     right: auto;
-    bottom: 1rem;
-    width: min(420px, 100%);
+    width: min(320px, 100%);
     background: rgba(74, 74, 74, 0.15);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
