@@ -2,6 +2,11 @@
     outline: 1px solid hotpink;
 }
 */
+
+* {
+  box-sizing: border-box;
+}
+
 body {
     font-family: "Montserrat Alternates", sans-serif;
     box-sizing: border-box;

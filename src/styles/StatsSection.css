@@ -20,14 +20,14 @@
   align-items: center;
   text-align: center;
   row-gap: 0.6rem;
-  padding: 1.6rem 0rem;
+  padding: 1.6rem 1rem;
   background-color: #f7f7f7;
 }
 
 .stat-icon {
-  background-color: #ffffff;
+  background-color: #6a7282;
   font-size: 1.4rem;
-  color: #101828;
+  color: #f7f7f7;
   padding: 0.6rem;
 }
 
@@ -65,7 +65,7 @@
 
 @media (min-width: 1024px) {
   .stats {
-    padding: 0rem 4rem;
+    padding: 0rem 2rem 2rem;
   }
 
   .stat-number {
