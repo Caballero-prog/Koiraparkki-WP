@@ -1,13 +1,11 @@
 .intro-quote {
-  padding: 3rem 4rem;
+  padding: 1rem;
 }
 
 .intro-quote-bg {
   position: relative;
-  border-radius: 16px;
   overflow: hidden;
   background: #000000;
-  min-height: 320px;
 }
 
 
@@ -26,18 +24,15 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.250);
+  background: rgba(0, 0, 0, 0.25);
   pointer-events: none;
 }
 
 
 .intro-quote-inner {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3.5rem 1.5rem;
+  position: relative;
+  inset: auto;
+  padding: 1rem;
   text-align: center;
   z-index: 1;
 }
@@ -58,4 +53,14 @@
   font-size: 8rem;
   line-height: 1;
   margin-bottom: -4rem;
+}
+
+
+@media (min-width: 768px) {
+  .intro-quote {
+    padding: 1rem;
+  }
+  .intro-quote-bg {
+    border-radius: 12px;
+  }
 }
