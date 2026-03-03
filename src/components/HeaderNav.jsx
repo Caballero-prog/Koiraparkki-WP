@@ -45,10 +45,18 @@ const HeaderNav = () => {
         <h1 className="site-title">Koiraparkki</h1>
 
         <ul className="desktop-nav">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li>
+            <a href="#home">Home</a>
+          </li>
+          <li>
+            <a href="#services">Services</a>
+          </li>
+          <li>
+            <a href="#pricing">Pricing</a>
+          </li>
+          <li>
+            <a href="#contact">Contact</a>
+          </li>
         </ul>
 
         <div className="nav-spacer" aria-hidden="true" />
@@ -61,10 +69,26 @@ const HeaderNav = () => {
         inert={!open ? "" : undefined}
       >
         <ul>
-          <li><a href="#home" onClick={() => setOpen(false)}>Home</a></li>
-          <li><a href="#services" onClick={() => setOpen(false)}>Services</a></li>
-          <li><a href="#pricing" onClick={() => setOpen(false)}>Pricing</a></li>
-          <li><a href="#contact" onClick={() => setOpen(false)}>Contact</a></li>
+          <li>
+            <a href="#home" onClick={() => setOpen(false)}>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="#services" onClick={() => setOpen(false)}>
+              Services
+            </a>
+          </li>
+          <li>
+            <a href="#pricing" onClick={() => setOpen(false)}>
+              Pricing
+            </a>
+          </li>
+          <li>
+            <a href="#contact" onClick={() => setOpen(false)}>
+              Contact
+            </a>
+          </li>
         </ul>
       </nav>
     </header>
