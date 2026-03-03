@@ -109,8 +109,8 @@
 
 @media (min-width: 1024px) {
   .site-header {
-    padding-left: 8rem;
-    padding-right: 8rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
   }
   .navigation-bar {
     padding-top: 2rem;
