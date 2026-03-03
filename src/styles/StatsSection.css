@@ -6,7 +6,14 @@
 .stats-inner {
   margin: 0 auto;
 }
-
+.stats-heading {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  padding: 2rem;
+  color: #262626;
+  background-color: #f7f7f7;
+}
 .stats-grid {
   list-style: none;
   margin: 0;
@@ -25,9 +32,8 @@
 }
 
 .stat-icon {
-  background-color: #6a7282;
   font-size: 1.4rem;
-  color: #f7f7f7;
+  color: #101828;
   padding: 0.6rem;
 }
 
@@ -46,6 +52,9 @@
 @media (min-width: 768px) {
   .stats {
     padding: 1rem;
+  }
+  .stats-heading{
+    font-size: 2.4rem;
   }
   .stat-card {
     position: relative;

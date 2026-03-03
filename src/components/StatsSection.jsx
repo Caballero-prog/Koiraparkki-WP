@@ -1,11 +1,18 @@
 import "../styles/StatsSection.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock, faLocationDot, faDog } from "@fortawesome/free-solid-svg-icons";
+import {
+  faClock,
+  faLocationDot,
+  faDog,
+} from "@fortawesome/free-solid-svg-icons";
 
 const StatsSection = () => {
   return (
     <section className="stats" aria-label="Koiraparkin tilastot">
       <div className="stats-inner">
+        <h2 id="stats-heading" className="stats-heading">
+          Vahva kokemus koirien hoidosta
+        </h2>
         <ul className="stats-grid">
           <li className="stat-card">
             <FontAwesomeIcon icon={faClock} className="stat-icon" />
