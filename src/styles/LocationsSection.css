@@ -1,0 +1,314 @@
+.locations {
+  padding: 3.5rem 1.25rem;
+  background: #ffffff;
+}
+
+.locations-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.locations-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.locations-title {
+  margin: 0 0 0.6rem;
+  font-size: 1.9rem;
+  font-weight: 650;
+  line-height: 1.15;
+  color: #1f2933;
+}
+
+.locations-lead {
+  margin: 0 auto;
+  max-width: 60ch;
+  line-height: 1.7;
+  font-weight: 500;
+  color: rgba(31, 41, 55, 0.72);
+}
+
+/* Tabs */
+.locations-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.locations-tab {
+  border: 1px solid rgba(31, 41, 55, 0.12);
+  background: rgba(244, 246, 248, 0.7);
+  color: rgba(17, 24, 39, 0.85);
+  font-weight: 650;
+  border-radius: 999px;
+  padding: 0.6rem 0.9rem;
+  cursor: pointer;
+  transition: background 0.12s ease, transform 0.12s ease, border-color 0.12s ease;
+}
+
+.locations-tab:hover {
+  transform: translateY(-1px);
+}
+
+.locations-tab:focus-visible {
+  outline: 2px solid rgba(18, 28, 40, 0.55);
+  outline-offset: 3px;
+}
+
+.locations-tab.is-active {
+  background: rgba(18, 28, 40, 0.10);
+  border-color: rgba(18, 28, 40, 0.20);
+  color: rgba(17, 24, 39, 0.95);
+}
+
+/* Panel */
+.locations-panel {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(244, 246, 248, 0.8);
+  box-shadow: 0 10px 30px rgba(16, 24, 40, 0.06);
+}
+
+/* Bento grid */
+.locations-bento {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 140px;
+}
+
+.bento-tile {
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(17, 24, 39, 0.06);
+  position: relative;
+}
+
+.bento-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* default mobile layout */
+.bento-big {
+  grid-column: 1 / -1;
+  grid-row: span 2;
+}
+
+.bento-small {
+  grid-row: span 1;
+}
+
+.bento-wide {
+  grid-column: 1 / -1;
+}
+
+/* Info */
+.locations-info {
+  display: grid;
+  gap: 1rem;
+}
+
+.locations-info-head {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.locations-name-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.locations-name {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 750;
+  color: rgba(17, 24, 39, 0.95);
+  letter-spacing: -0.01em;
+}
+
+.locations-city {
+  color: rgba(31, 41, 55, 0.70);
+  font-weight: 650;
+  font-size: 0.95rem;
+}
+
+.locations-summary {
+  margin: 0;
+  color: rgba(31, 41, 55, 0.74);
+  line-height: 1.65;
+  font-weight: 500;
+}
+
+.locations-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.locations-badge {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  color: rgba(31, 41, 55, 0.85);
+  border: 1px solid rgba(31, 41, 55, 0.10);
+}
+
+/* Info blocks */
+.locations-info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.info-block {
+  padding: 0.9rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.info-block-full {
+  grid-column: 1 / -1;
+}
+
+.info-title {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgba(17, 24, 39, 0.9);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.hours-list,
+.contact-list,
+.highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.hours-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 12px;
+  background: rgba(244, 246, 248, 0.7);
+}
+
+.hours-label {
+  color: rgba(31, 41, 55, 0.75);
+  font-weight: 650;
+}
+
+.hours-value {
+  color: rgba(17, 24, 39, 0.92);
+  font-weight: 750;
+}
+
+.contact-muted {
+  color: rgba(31, 41, 55, 0.75);
+  line-height: 1.55;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: rgba(17, 24, 39, 0.92);
+  font-weight: 700;
+}
+
+.contact-link:hover {
+  text-decoration: underline;
+}
+
+.map-button {
+  margin-top: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 750;
+  color: rgba(17, 24, 39, 0.92);
+  border: 1px solid rgba(17, 24, 39, 0.14);
+  background: rgba(244, 246, 248, 0.7);
+}
+
+.map-button:hover {
+  background: rgba(244, 246, 248, 0.9);
+}
+
+/* Highlights */
+.highlight {
+  padding: 0.6rem 0.75rem;
+  border-radius: 12px;
+  background: rgba(244, 246, 248, 0.7);
+  color: rgba(31, 41, 55, 0.78);
+  font-weight: 650;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .locations {
+    padding: 4.5rem 1.5rem;
+  }
+
+  .locations-title {
+    font-size: 2.4rem;
+  }
+
+  .locations-panel {
+    padding: 1.25rem;
+    gap: 1.25rem;
+  }
+
+  .locations-bento {
+    grid-auto-rows: 155px;
+  }
+
+  .locations-info-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .locations {
+    padding: 5rem 2rem;
+  }
+
+  .locations-panel {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: start;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  /* Give it more “real estate” */
+  .locations-bento {
+    grid-auto-rows: 170px;
+  }
+
+  .locations-name {
+    font-size: 1.55rem;
+  }
+}
