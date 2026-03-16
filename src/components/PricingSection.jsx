@@ -1,20 +1,137 @@
-import DailyParkingPricing from "./DailyParkingPricing";
-import HourlyParkingPricing from "./HourlyParkingPricing";
 import "../styles/PricingSection.css";
+import { useMemo, useState } from "react";
+import { pricingOptions, seasonalNotice } from "../data/pricingData";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faClock,
+  faCalendarCheck,
+  faCircleInfo,
+  faEuroSign,
+} from "@fortawesome/free-solid-svg-icons";
 
 const PricingSection = () => {
-  return (
-    <section className="pricing-section" id="prices">
-      <div className="pricing-container">
-        <h2 className="pricing-title">Hinnasto</h2>
-        <p className="pricing-text">
-          Samat hinnat kaikissa toimipisteissä. Valitse kokopäiväinen hoito tai
-          tuntipysäköinti tarpeesi mukaan.
-        </p>
+  const [activeId, setActiveId] = useState(pricingOptions[0]?.id);
 
-        <div className="pricing-grid">
-          <DailyParkingPricing />
-          <HourlyParkingPricing />
+  const active = useMemo(() => {
+    return (
+      pricingOptions.find((item) => item.id === activeId) || pricingOptions[0]
+    );
+  }, [activeId]);
+
+  return (
+    <section className="pricing" id="pricing" aria-label="Hinnasto">
+      <div className="pricing-inner">
+        <header className="pricing-header">
+          <h2 className="pricing-title">Hinnasto</h2>
+          <p className="pricing-lead">
+            Valitse palvelu ja katso sisältö, ajat sekä varaus- ja
+            peruutusehdot.
+          </p>
+        </header>
+
+        <div
+          className="pricing-tabs"
+          role="tablist"
+          aria-label="Valitse palvelu"
+        >
+          {pricingOptions.map((option) => {
+            const isActive = option.id === activeId;
+
+            return (
+              <button
+                key={option.id}
+                type="button"
+                className={`pricing-tab ${isActive ? "is-active" : ""}`}
+                onClick={() => setActiveId(option.id)}
+                role="tab"
+                aria-selected={isActive}
+                aria-controls={`pricing-panel-${option.id}`}
+              >
+                {option.name}
+              </button>
+            );
+          })}
+        </div>
+
+        {active ? (
+          <div
+            id={`pricing-panel-${active.id}`}
+            className="pricing-panel"
+            role="tabpanel"
+            aria-label={`${active.name} tiedot`}
+          >
+            <div className="pricing-panel-main">
+              <div className="pricing-hero">
+                <p className="pricing-service">{active.name}</p>
+
+                <div className="pricing-price-wrap">
+                  <span className="pricing-price">{active.price}</span>
+                  <span className="pricing-unit">{active.unit}</span>
+                </div>
+
+                <p className="pricing-hours">
+                  <FontAwesomeIcon icon={faClock} />
+                  <span>{active.hours}</span>
+                </p>
+
+                <p className="pricing-summary">{active.summary}</p>
+              </div>
+
+              <div className="pricing-details-grid">
+                <div className="pricing-block">
+                  <h3 className="pricing-block-title">
+                    <FontAwesomeIcon icon={faEuroSign} />
+                    <span>Hinta sisältää</span>
+                  </h3>
+
+                  <ul className="pricing-list">
+                    {active.includes.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="pricing-block">
+                  <h3 className="pricing-block-title">
+                    <FontAwesomeIcon icon={faCalendarCheck} />
+                    <span>Varaus ja peruutus</span>
+                  </h3>
+
+                  <ul className="pricing-list">
+                    <li>{active.booking}</li>
+                    <li>{active.cancellation}</li>
+                    <li>{active.noShow}</li>
+                  </ul>
+                </div>
+
+                <div className="pricing-block pricing-block-full">
+                  <h3 className="pricing-block-title">
+                    <FontAwesomeIcon icon={faCircleInfo} />
+                    <span>Sopii erityisesti</span>
+                  </h3>
+
+                  <ul className="pricing-tags">
+                    {active.suitableFor.map((item) => (
+                      <li key={item} className="pricing-tag">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        <div className="season-note" aria-label="Sesonkihinnoittelu">
+          <h3 className="season-note-title">{seasonalNotice.title}</h3>
+          <p className="season-note-intro">{seasonalNotice.intro}</p>
+
+          <ul className="season-note-list">
+            {seasonalNotice.periods.map((period) => (
+              <li key={period}>{period}</li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

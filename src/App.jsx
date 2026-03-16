@@ -4,17 +4,19 @@ import StatsSection from "./components/StatsSection";
 import AboutUsSection from "./components/AboutUs";
 import QuoteSection from "./components/QuoteSection";
 import LocationsSection from "./components/LocationsSection";
-import './App.css';
+import PricingSection from "./components/PricingSection";
+import "./App.css";
 
 function App() {
   return (
     <>
-      <HeaderNav/>
+      <HeaderNav />
       <HeroSection />
       <StatsSection />
-      <AboutUsSection/>
-      <QuoteSection/>
+      <AboutUsSection />
+      <QuoteSection />
       <LocationsSection />
+      <PricingSection />
     </>
   );
 }

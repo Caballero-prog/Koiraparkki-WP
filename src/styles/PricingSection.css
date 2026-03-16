@@ -1,0 +1,277 @@
+.pricing {
+  padding: 3.5rem 1.25rem;
+  background-color: #f4f6f8;
+}
+
+.pricing-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.pricing-title {
+  margin: 0 0 0.6rem;
+  font-size: 1.9rem;
+  font-weight: 650;
+  line-height: 1.15;
+  color: #1f2933;
+}
+
+.pricing-lead {
+  margin: 0 auto;
+  max-width: 60ch;
+  line-height: 1.7;
+  font-weight: 500;
+  color: rgba(31, 41, 55, 0.72);
+}
+
+/* Tabs */
+
+.pricing-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.pricing-tab {
+  border: 1px solid rgba(31, 41, 55, 0.12);
+  background: rgba(255, 255, 255, 0.8);
+  color: rgba(17, 24, 39, 0.85);
+  font-weight: 650;
+  border-radius: 999px;
+  padding: 0.6rem 0.95rem;
+  cursor: pointer;
+  transition:
+    background 0.12s ease,
+    transform 0.12s ease,
+    border-color 0.12s ease;
+}
+
+.pricing-tab:hover {
+  transform: translateY(-1px);
+}
+
+.pricing-tab:focus-visible {
+  outline: 2px solid rgba(18, 28, 40, 0.55);
+  outline-offset: 3px;
+}
+
+.pricing-tab.is-active {
+  background: rgba(18, 28, 40, 0.1);
+  border-color: rgba(18, 28, 40, 0.2);
+  color: rgba(17, 24, 39, 0.95);
+}
+
+/* Panel */
+
+.pricing-panel {
+  margin-bottom: 1.25rem;
+}
+
+.pricing-panel-main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 10px 30px rgba(16, 24, 40, 0.06);
+}
+
+.pricing-hero {
+  padding: 1rem;
+  border-radius: 16px;
+  background: rgba(244, 246, 248, 0.85);
+}
+
+.pricing-service {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 650;
+  color: rgba(31, 41, 55, 0.72);
+}
+
+.pricing-price-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pricing-price {
+  font-size: 2.7rem;
+  font-weight: 750;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #111827;
+}
+
+.pricing-unit {
+  font-size: 1rem;
+  font-weight: 650;
+  color: rgba(31, 41, 55, 0.75);
+}
+
+.pricing-hours {
+  margin: 1rem 0 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 650;
+  color: rgba(17, 24, 39, 0.88);
+}
+
+.pricing-summary {
+  margin: 1rem 0 0;
+  line-height: 1.7;
+  color: rgba(31, 41, 55, 0.74);
+}
+
+/* Detail blocks */
+
+.pricing-details-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.pricing-block {
+  padding: 1rem;
+  border-radius: 16px;
+  background: rgba(244, 246, 248, 0.85);
+}
+
+.pricing-block-full {
+  grid-column: 1 / -1;
+}
+
+.pricing-block-title {
+  margin: 0 0 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgba(17, 24, 39, 0.9);
+}
+
+.pricing-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.pricing-list li {
+  line-height: 1.6;
+  color: rgba(31, 41, 55, 0.76);
+}
+
+.pricing-tags {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pricing-tag {
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(31, 41, 55, 0.1);
+  color: rgba(31, 41, 55, 0.82);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Seasonal note */
+
+.season-note {
+  padding: 1rem 1rem;
+  border-radius: 16px;
+  background: rgba(18, 28, 40, 0.06);
+  border: 1px solid rgba(18, 28, 40, 0.08);
+}
+
+.season-note-title {
+  margin: 0 0 0.45rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: rgba(17, 24, 39, 0.92);
+}
+
+.season-note-intro {
+  margin: 0 0 0.75rem;
+  line-height: 1.6;
+  color: rgba(31, 41, 55, 0.78);
+  font-weight: 600;
+}
+
+.season-note-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.season-note-list li {
+  color: rgba(31, 41, 55, 0.74);
+  line-height: 1.55;
+}
+
+/* Tablet */
+
+@media (min-width: 768px) {
+  .pricing {
+    padding: 4.5rem 1.5rem;
+  }
+
+  .pricing-title {
+    font-size: 2.4rem;
+  }
+
+  .pricing-panel-main {
+    padding: 1.25rem;
+  }
+
+  .pricing-price {
+    font-size: 3.2rem;
+  }
+
+  .pricing-details-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Desktop */
+
+@media (min-width: 1024px) {
+  .pricing {
+    padding: 5rem 2rem;
+  }
+
+  .pricing-panel-main {
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    align-items: start;
+  }
+
+  .pricing-hero {
+    padding: 1.25rem;
+  }
+
+  .pricing-price {
+    font-size: 3.6rem;
+  }
+}
