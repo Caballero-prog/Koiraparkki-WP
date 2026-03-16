@@ -68,7 +68,7 @@
   color: rgba(17, 24, 39, 0.95);
 }
 
-/* Main panel */
+/* Panel */
 
 .pricing-panel {
   margin-bottom: 1.25rem;
@@ -84,146 +84,7 @@
   box-shadow: 0 10px 30px rgba(16, 24, 40, 0.06);
 }
 
-/* Left unified offer block */
-
-.pricing-offer {
-  padding: 1rem;
-  border-radius: 16px;
-  background: rgba(244, 246, 248, 0.85);
-  display: flex;
-  flex-direction: column;
-}
-
-.pricing-service {
-  margin: 0 0 0.5rem;
-  font-size: 1rem;
-  font-weight: 650;
-  color: rgba(31, 41, 55, 0.72);
-}
-
-.pricing-price-wrap {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.pricing-price {
-  font-size: 2.7rem;
-  font-weight: 750;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  color: #111827;
-}
-
-.pricing-unit {
-  font-size: 1rem;
-  font-weight: 650;
-  color: rgba(31, 41, 55, 0.75);
-}
-
-.pricing-hours {
-  margin: 1rem 0 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-weight: 650;
-  color: rgba(17, 24, 39, 0.88);
-}
-
-.pricing-summary {
-  margin: 1rem 0 0;
-  line-height: 1.7;
-  color: rgba(31, 41, 55, 0.74);
-}
-
-.pricing {
-  padding: 3.5rem 1.25rem;
-  background-color: #f4f6f8;
-}
-
-.pricing-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.pricing-header {
-  text-align: center;
-  margin-bottom: 1.75rem;
-}
-
-.pricing-title {
-  margin: 0 0 0.6rem;
-  font-size: 1.9rem;
-  font-weight: 650;
-  line-height: 1.15;
-  color: #1f2933;
-}
-
-.pricing-lead {
-  margin: 0 auto;
-  max-width: 60ch;
-  line-height: 1.7;
-  font-weight: 500;
-  color: rgba(31, 41, 55, 0.72);
-}
-
-/* Tabs */
-
-.pricing-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  justify-content: center;
-  margin-bottom: 1.25rem;
-}
-
-.pricing-tab {
-  border: 1px solid rgba(31, 41, 55, 0.12);
-  background: rgba(255, 255, 255, 0.8);
-  color: rgba(17, 24, 39, 0.85);
-  font-weight: 650;
-  border-radius: 999px;
-  padding: 0.6rem 0.95rem;
-  cursor: pointer;
-  transition:
-    background 0.12s ease,
-    transform 0.12s ease,
-    border-color 0.12s ease;
-}
-
-.pricing-tab:hover {
-  transform: translateY(-1px);
-}
-
-.pricing-tab:focus-visible {
-  outline: 2px solid rgba(18, 28, 40, 0.55);
-  outline-offset: 3px;
-}
-
-.pricing-tab.is-active {
-  background: rgba(18, 28, 40, 0.1);
-  border-color: rgba(18, 28, 40, 0.2);
-  color: rgba(17, 24, 39, 0.95);
-}
-
-/* Main panel */
-
-.pricing-panel {
-  margin-bottom: 1.25rem;
-}
-
-.pricing-panel-main {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  padding: 1rem;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.75);
-  box-shadow: 0 10px 30px rgba(16, 24, 40, 0.06);
-}
-
-/* Left unified offer block */
+/* Left column */
 
 .pricing-offer {
   padding: 1rem;
@@ -281,17 +142,17 @@
   display: grid;
   gap: 0.55rem;
 }
+
 .pricing-includes .pricing-block-title {
   margin-bottom: 0.65rem;
 }
-/* Right side wrapper */
+
+/* Right column */
 
 .pricing-side {
   display: grid;
   gap: 1rem;
 }
-
-/* Supporting blocks */
 
 .pricing-block {
   padding: 1rem;
@@ -322,25 +183,6 @@
   color: rgba(31, 41, 55, 0.76);
 }
 
-.pricing-tags {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.pricing-tag {
-  padding: 0.45rem 0.7rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(31, 41, 55, 0.1);
-  color: rgba(31, 41, 55, 0.82);
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
 /* Seasonal card */
 
 .season-card {
@@ -354,7 +196,8 @@
 
 .season-card-header {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.75rem;
   align-items: flex-start;
   margin-bottom: 1rem;
 }
@@ -425,175 +268,9 @@
   .pricing-price {
     font-size: 3.2rem;
   }
-}
-
-/* Desktop */
-
-@media (min-width: 1024px) {
-  .pricing {
-    padding: 5rem 2rem;
-  }
-
-  .pricing-panel-main {
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-    align-items: stretch;
-  }
-
-  .pricing-offer {
-    height: 100%;
-  }
-
-  .pricing-side {
-    grid-template-rows: 1fr 1fr;
-    gap: 1.25rem;
-  }
-
-  .pricing-block {
-    height: 100%;
-  }
-}
-
-/* Right side wrapper */
-
-.pricing-side {
-  display: grid;
-  gap: 1rem;
-}
-
-/* Supporting blocks */
-
-.pricing-block {
-  padding: 1rem;
-  border-radius: 16px;
-  background: rgba(244, 246, 248, 0.85);
-}
-
-.pricing-block-title {
-  margin: 0 0 0.75rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 1rem;
-  font-weight: 700;
-  color: rgba(17, 24, 39, 0.9);
-}
-
-.pricing-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 0.55rem;
-}
-
-.pricing-list li {
-  line-height: 1.6;
-  color: rgba(31, 41, 55, 0.76);
-}
-
-.pricing-tags {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.pricing-tag {
-  padding: 0.45rem 0.7rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(31, 41, 55, 0.1);
-  color: rgba(31, 41, 55, 0.82);
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-/* Seasonal card */
-
-.season-card {
-  margin-top: 2rem;
-  padding: 1.4rem;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(31, 41, 55, 0.08);
-  box-shadow: 0 10px 30px rgba(16, 24, 40, 0.05);
-}
-
-.season-card-header {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-}
-
-.season-badge {
-  font-size: 1.4rem;
-  font-weight: 750;
-  letter-spacing: -0.02em;
-  padding: 0.45rem 0.7rem;
-  border-radius: 10px;
-  background: rgba(18, 28, 40, 0.08);
-  color: #111827;
-}
-
-.season-header-text {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.season-title {
-  margin: 0;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #111827;
-}
-
-.season-description {
-  margin: 0;
-  line-height: 1.6;
-  color: rgba(31, 41, 55, 0.72);
-}
-
-.season-tags {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-}
-
-.season-tag {
-  padding: 0.4rem 0.65rem;
-  border-radius: 999px;
-  background: rgba(244, 246, 248, 0.85);
-  border: 1px solid rgba(31, 41, 55, 0.08);
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: rgba(31, 41, 55, 0.82);
-}
-
-/* Tablet */
-
-@media (min-width: 768px) {
-  .pricing {
-    padding: 4.5rem 1.5rem;
-  }
-
-  .pricing-title {
-    font-size: 2.4rem;
-  }
-
-  .pricing-panel-main {
-    padding: 1.25rem;
-  }
-
-  .pricing-price {
-    font-size: 3.2rem;
+  .season-card-header {
+    flex-direction: row;
+    gap: 1rem;
   }
 }
 

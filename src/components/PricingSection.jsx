@@ -112,11 +112,9 @@ const PricingSection = () => {
                     <span>Sopii erityisesti</span>
                   </h3>
 
-                  <ul className="pricing-tags">
+                  <ul className="pricing-list">
                     {active.suitableFor.map((item) => (
-                      <li key={item} className="pricing-tag">
-                        {item}
-                      </li>
+                      <li key={item}>{item}</li>
                     ))}
                   </ul>
                 </div>
