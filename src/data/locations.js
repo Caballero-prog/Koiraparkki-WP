@@ -37,7 +37,7 @@ export const locations = [
       "/assets/locations/kamppi-4.webp",
     ],
 
-    mapUrl: "https://www.google.com/maps?q=Kalevankatu+17+Helsinki",
+    mapUrl: "https://www.google.com/maps/place/Koiraparkki.com/@60.1667626,24.9334417,17z/data=!3m1!4b1!4m6!3m5!1s0x46920bcd5ced80f7:0xf9b3cbc74474d937!8m2!3d60.16676!4d24.936022!16s%2Fg%2F11b7qbr85v?hl=en&entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D",
     coords: { lat: 60.167, lng: 24.934 }, // placeholder
   },
 
@@ -75,7 +75,7 @@ export const locations = [
       `${import.meta.env.BASE_URL}assets/locations/herttoniemi-4.webp`,
     ],
 
-    mapUrl: "https://www.google.com/maps?q=Latokaski+Espoo",
+    mapUrl: "https://www.google.com/maps/place/Koiraparkki.com+-+Espoo+Koirap%C3%A4iv%C3%A4koti+ja+koirahotelli/@60.1802594,24.6701515,18z/data=!4m7!3m6!1s0x468df51d4738eddf:0x9c36d1c72d24f137!4b1!8m2!3d60.1803966!4d24.6700617!16s%2Fg%2F11gmdqvf_w?hl=en&entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D",
     coords: { lat: 60.2, lng: 24.7 }, // placeholder
   },
 
@@ -114,7 +114,7 @@ export const locations = [
       "/assets/locations/herttoniemi-4.webp",
     ],
 
-    mapUrl: "https://www.google.com/maps?q=Sahaajankatu+35+Helsinki",
+    mapUrl: "https://www.google.com/maps/place/Koiraparkki+Herttoniemi+Koirap%C3%A4iv%C3%A4koti+ja+koirahotelli/@60.2049034,25.0483621,17z/data=!3m1!4b1!4m6!3m5!1s0x46920f9195c74e93:0xdeaedd12d83e168e!8m2!3d60.2049008!4d25.0509424!16s%2Fg%2F11k8szktrb?hl=en&entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D",
     coords: { lat: 60.19, lng: 25.04 }, // placeholder
   },
 
@@ -153,7 +153,7 @@ export const locations = [
       "/assets/locations/lahti-mukkula-4.webp",
     ],
 
-    mapUrl: "https://www.google.com/maps?q=Mukkula+Lahti",
+    mapUrl: "https://www.google.com/maps/place/Koiraparkki+Lahti+koirap%C3%A4iv%C3%A4koti/@61.0248646,25.669673,17z/data=!3m1!4b1!4m6!3m5!1s0x468e29094b7e1de7:0x288bd9c3d030fd87!8m2!3d61.024862!4d25.6722533!16s%2Fg%2F11lw0cnc1s?hl=en&entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D",
     coords: { lat: 60.98, lng: 25.66 }, // placeholder
   },
 ];
