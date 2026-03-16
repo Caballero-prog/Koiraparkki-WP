@@ -47,6 +47,7 @@ const PricingSection = () => {
                 role="tab"
                 aria-selected={isActive}
                 aria-controls={`pricing-panel-${option.id}`}
+                tabIndex={isActive ? 0 : -1}
               >
                 {option.name}
               </button>
@@ -91,32 +92,34 @@ const PricingSection = () => {
                 </div>
               </div>
 
-              <div className="pricing-block pricing-block-booking">
-                <h3 className="pricing-block-title">
-                  <FontAwesomeIcon icon={faCalendarCheck} />
-                  <span>Varaus ja peruutus</span>
-                </h3>
+              <div className="pricing-side">
+                <div className="pricing-block pricing-block-booking">
+                  <h3 className="pricing-block-title">
+                    <FontAwesomeIcon icon={faCalendarCheck} />
+                    <span>Varaus ja peruutus</span>
+                  </h3>
 
-                <ul className="pricing-list">
-                  <li>{active.booking}</li>
-                  <li>{active.cancellation}</li>
-                  <li>{active.noShow}</li>
-                </ul>
-              </div>
+                  <ul className="pricing-list">
+                    <li>{active.booking}</li>
+                    <li>{active.cancellation}</li>
+                    <li>{active.noShow}</li>
+                  </ul>
+                </div>
 
-              <div className="pricing-block pricing-block-suitable">
-                <h3 className="pricing-block-title">
-                  <FontAwesomeIcon icon={faCircleInfo} />
-                  <span>Sopii erityisesti</span>
-                </h3>
+                <div className="pricing-block pricing-block-suitable">
+                  <h3 className="pricing-block-title">
+                    <FontAwesomeIcon icon={faCircleInfo} />
+                    <span>Sopii erityisesti</span>
+                  </h3>
 
-                <ul className="pricing-tags">
-                  {active.suitableFor.map((item) => (
-                    <li key={item} className="pricing-tag">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                  <ul className="pricing-tags">
+                    {active.suitableFor.map((item) => (
+                      <li key={item} className="pricing-tag">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
