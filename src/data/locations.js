@@ -5,13 +5,13 @@ export const locations = [
     id: "kamppi",
     name: "Kamppi",
     city: "Helsinki",
-    address: "Kalevankatu 17, Helsinki",
-    hours: [{ label: "Ma–Pe", value: "07–18" }],
+    address: "Kalevankatu 17",
+    hours: [{ label: "Ma-Pe", value: "07-18" }],
     email: "info@koiraparkki.com",
     phone: "+358 456 133 212",
 
     // Show as badges in UI
-    services: ["Päivähoito"],
+    services: ["Päivähoito", "Tuntiparkki"],
 
     // Used in the feature panel
     summary:
@@ -42,15 +42,15 @@ export const locations = [
   },
 
   {
-    id: "rinnekaski",
-    name: "Rinnekaski",
-    city: "Espoo (Latokaski)",
-    address: "Latokaski, Espoo",
-    hours: [{ label: "Ma–Pe", value: "07–18" }],
+    id: "latokaski",
+    name: "Latokaski",
+    city: "Espoo",
+    address: "Rinnekaski",
+    hours: [{ label: "Ma-Pe", value: "07-18" }],
     email: "info@koiraparkki.com",
     phone: "+358 456 133 212",
 
-    services: ["Päivähoito", "Hotelli"],
+    services: ["Päivähoito", "Hotelli", "Tuntiparkki"],
 
     summary:
       "Rauhallinen omakotialue metsien ja peltojen laidalla. Aidattu piha ja pienempi koiramäärä.",
@@ -76,25 +76,25 @@ export const locations = [
     ],
 
     mapUrl: "https://www.google.com/maps?q=Latokaski+Espoo",
-    coords: { lat: 60.20, lng: 24.70 }, // placeholder
+    coords: { lat: 60.2, lng: 24.7 }, // placeholder
   },
 
   {
     id: "herttoniemi",
     name: "Herttoniemi",
     city: "Helsinki",
-    address: "Sahaajankatu 35, Herttoniemi, Helsinki",
-    hours: [{ label: "Ma–Pe", value: "07–18" }],
+    address: "Sahaajankatu 35",
+    hours: [{ label: "Ma-Pe", value: "07-18" }],
     email: "herttoniemi@koiraparkki.fi",
     phone: "+358 44 244 2655",
 
-    services: ["Päivähoito", "Hotelli", "Trimmaus", "Koulutus"],
+    services: ["Päivähoito", "Tuntiparkki", "Hotelli", "Trimmaus", "Koulutus"],
 
     summary:
       "Meitä varten suunnitellut isot tilat, sisäleikkipuisto ja loistavat yhteydet (metro + Itäväylä).",
 
     highlights: [
-      "15–18 koiraa / päivä",
+      "15-18 koiraa / päivä",
       "100 m² sisäleikkipuisto",
       "5 min Siilitien metrosta",
       "Sopii myös aroille koirille",
@@ -119,15 +119,15 @@ export const locations = [
   },
 
   {
-    id: "lahti-mukkula",
+    id: "mukkula",
     name: "Mukkula",
     city: "Lahti",
-    address: "Mukkula, Lahti",
+    address: "Mukkula",
     hours: [{ label: "Ma–Pe", value: "07–18" }], // adjust later if needed
     email: "lahti@koiraparkki.fi",
     phone: "+358 4003 92211",
 
-    services: ["Päivähoito", "Hotelli", "Rescue-osaaminen"],
+    services: ["Päivähoito","Tuntiparkki", "Hotelli", "Rescue-osaaminen"],
 
     summary:
       "Pienimuotoinen kodinomainen hoitola, erikoistunut rescue-koiriin ja yksilöllisempää tukea tarvitseville.",
