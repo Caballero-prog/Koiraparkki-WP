@@ -68,7 +68,7 @@
   color: rgba(17, 24, 39, 0.95);
 }
 
-/* Panel */
+/* Main panel */
 
 .pricing-panel {
   margin-bottom: 1.25rem;
@@ -84,10 +84,14 @@
   box-shadow: 0 10px 30px rgba(16, 24, 40, 0.06);
 }
 
-.pricing-hero {
+/* Left unified offer block */
+
+.pricing-offer {
   padding: 1rem;
   border-radius: 16px;
   background: rgba(244, 246, 248, 0.85);
+  display: flex;
+  flex-direction: column;
 }
 
 .pricing-service {
@@ -133,22 +137,18 @@
   color: rgba(31, 41, 55, 0.74);
 }
 
-/* Detail blocks */
-
-.pricing-details-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
+.pricing-includes {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(31, 41, 55, 0.08);
 }
+
+/* Right-side supporting blocks */
 
 .pricing-block {
   padding: 1rem;
   border-radius: 16px;
   background: rgba(244, 246, 248, 0.85);
-}
-
-.pricing-block-full {
-  grid-column: 1 / -1;
 }
 
 .pricing-block-title {
@@ -193,15 +193,14 @@
   font-size: 0.95rem;
 }
 
-/* Seasonal note */
+/* Seasonal card */
+
 .season-card {
   margin-top: 2rem;
   padding: 1.4rem;
   border-radius: 18px;
-
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(31, 41, 55, 0.08);
-
   box-shadow: 0 10px 30px rgba(16, 24, 40, 0.05);
 }
 
@@ -216,10 +215,8 @@
   font-size: 1.4rem;
   font-weight: 750;
   letter-spacing: -0.02em;
-
   padding: 0.45rem 0.7rem;
   border-radius: 10px;
-
   background: rgba(18, 28, 40, 0.08);
   color: #111827;
 }
@@ -247,7 +244,6 @@
   list-style: none;
   padding: 0;
   margin: 0;
-
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
@@ -256,10 +252,8 @@
 .season-tag {
   padding: 0.4rem 0.65rem;
   border-radius: 999px;
-
   background: rgba(244, 246, 248, 0.85);
   border: 1px solid rgba(31, 41, 55, 0.08);
-
   font-size: 0.9rem;
   font-weight: 600;
   color: rgba(31, 41, 55, 0.82);
@@ -283,10 +277,6 @@
   .pricing-price {
     font-size: 3.2rem;
   }
-
-  .pricing-details-grid {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 
 /* Desktop */
@@ -297,17 +287,23 @@
   }
 
   .pricing-panel-main {
-    grid-template-columns: 0.9fr 1.1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "offer booking"
+      "offer suitable";
     gap: 1.25rem;
-    padding: 1.5rem;
     align-items: start;
   }
 
-  .pricing-hero {
-    padding: 1.25rem;
+  .pricing-offer {
+    grid-area: offer;
   }
 
-  .pricing-price {
-    font-size: 3.6rem;
+  .pricing-block-booking {
+    grid-area: booking;
+  }
+
+  .pricing-block-suitable {
+    grid-area: suitable;
   }
 }

@@ -39,6 +39,7 @@ const PricingSection = () => {
 
             return (
               <button
+                id={`pricing-tab-${option.id}`}
                 key={option.id}
                 type="button"
                 className={`pricing-tab ${isActive ? "is-active" : ""}`}
@@ -58,10 +59,10 @@ const PricingSection = () => {
             id={`pricing-panel-${active.id}`}
             className="pricing-panel"
             role="tabpanel"
-            aria-label={`${active.name} tiedot`}
+            aria-labelledby={`pricing-tab-${active.id}`}
           >
             <div className="pricing-panel-main">
-              <div className="pricing-hero">
+              <div className="pricing-offer">
                 <p className="pricing-service">{active.name}</p>
 
                 <div className="pricing-price-wrap">
@@ -75,10 +76,8 @@ const PricingSection = () => {
                 </p>
 
                 <p className="pricing-summary">{active.summary}</p>
-              </div>
 
-              <div className="pricing-details-grid">
-                <div className="pricing-block">
+                <div className="pricing-includes">
                   <h3 className="pricing-block-title">
                     <FontAwesomeIcon icon={faEuroSign} />
                     <span>Hinta sisältää</span>
@@ -90,34 +89,34 @@ const PricingSection = () => {
                     ))}
                   </ul>
                 </div>
+              </div>
 
-                <div className="pricing-block">
-                  <h3 className="pricing-block-title">
-                    <FontAwesomeIcon icon={faCalendarCheck} />
-                    <span>Varaus ja peruutus</span>
-                  </h3>
+              <div className="pricing-block pricing-block-booking">
+                <h3 className="pricing-block-title">
+                  <FontAwesomeIcon icon={faCalendarCheck} />
+                  <span>Varaus ja peruutus</span>
+                </h3>
 
-                  <ul className="pricing-list">
-                    <li>{active.booking}</li>
-                    <li>{active.cancellation}</li>
-                    <li>{active.noShow}</li>
-                  </ul>
-                </div>
+                <ul className="pricing-list">
+                  <li>{active.booking}</li>
+                  <li>{active.cancellation}</li>
+                  <li>{active.noShow}</li>
+                </ul>
+              </div>
 
-                <div className="pricing-block pricing-block-full">
-                  <h3 className="pricing-block-title">
-                    <FontAwesomeIcon icon={faCircleInfo} />
-                    <span>Sopii erityisesti</span>
-                  </h3>
+              <div className="pricing-block pricing-block-suitable">
+                <h3 className="pricing-block-title">
+                  <FontAwesomeIcon icon={faCircleInfo} />
+                  <span>Sopii erityisesti</span>
+                </h3>
 
-                  <ul className="pricing-tags">
-                    {active.suitableFor.map((item) => (
-                      <li key={item} className="pricing-tag">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <ul className="pricing-tags">
+                  {active.suitableFor.map((item) => (
+                    <li key={item} className="pricing-tag">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
