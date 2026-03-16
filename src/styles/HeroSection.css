@@ -1,7 +1,7 @@
 .hero {
   display: flex;
   min-height: calc(100svh - var(--nav-h, 60px));
-  background-color: #ffffff;
+  background-color: #f7f7f7;
 }
 
 .hero-bg {

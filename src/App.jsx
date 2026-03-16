@@ -5,6 +5,7 @@ import AboutUsSection from "./components/AboutUs";
 import QuoteSection from "./components/QuoteSection";
 import LocationsSection from "./components/LocationsSection";
 import PricingSection from "./components/PricingSection";
+import ProcessSection from "./components/ProcessSection";
 import "./App.css";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <QuoteSection />
       <LocationsSection />
       <PricingSection />
+      <ProcessSection />
     </>
   );
 }
