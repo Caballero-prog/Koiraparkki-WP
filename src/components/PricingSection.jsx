@@ -123,13 +123,21 @@ const PricingSection = () => {
           </div>
         ) : null}
 
-        <div className="season-note" aria-label="Sesonkihinnoittelu">
-          <h3 className="season-note-title">{seasonalNotice.title}</h3>
-          <p className="season-note-intro">{seasonalNotice.intro}</p>
+        <div className="season-card" aria-label="Sesonkihinnoittelu">
+          <div className="season-card-header">
+            <span className="season-badge">{seasonalNotice.modifier}</span>
 
-          <ul className="season-note-list">
+            <div className="season-header-text">
+              <h3 className="season-title">{seasonalNotice.title}</h3>
+              <p className="season-description">{seasonalNotice.description}</p>
+            </div>
+          </div>
+
+          <ul className="season-tags">
             {seasonalNotice.periods.map((period) => (
-              <li key={period}>{period}</li>
+              <li key={period} className="season-tag">
+                {period}
+              </li>
             ))}
           </ul>
         </div>

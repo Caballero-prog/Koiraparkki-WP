@@ -113,14 +113,16 @@ export const pricingOptions = [
 ];
 
 export const seasonalNotice = {
-  title: "Korkeasesonki ja pyhäpäivät",
-  intro: "+20 % viikonloppuisin, pyhäpäivinä ja korkeasesongin aikana.",
+  title: "Sesonkihinnoittelu",
+  modifier: "+20 %",
+  description:
+    "Joissakin ajankohdissa hinnat ovat korkeamman kysynnän vuoksi 20 % korkeammat.",
   periods: [
-    "Talvilomat vkot 7–9",
-    "Pääsiäisviikko ja pääsiäisviikonloppu",
-    "Juhannuspyhät – 30.7.",
-    "Syyslomat vkot 41–42",
-    "Jouluviikko, joulupyhät ja välipäivät",
-    "Uusivuosi 2.1.–6.1.",
+    "Talvilomat 7–9",
+    "Pääsiäinen",
+    "Juhannus – 30.7",
+    "Syyslomat 41–42",
+    "Jouluviikko",
+    "Uusivuosi 2.1–6.1",
   ],
 };

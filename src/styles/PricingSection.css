@@ -194,39 +194,75 @@
 }
 
 /* Seasonal note */
+.season-card {
+  margin-top: 2rem;
+  padding: 1.4rem;
+  border-radius: 18px;
 
-.season-note {
-  padding: 1rem 1rem;
-  border-radius: 16px;
-  background: rgba(18, 28, 40, 0.06);
-  border: 1px solid rgba(18, 28, 40, 0.08);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(31, 41, 55, 0.08);
+
+  box-shadow: 0 10px 30px rgba(16, 24, 40, 0.05);
 }
 
-.season-note-title {
-  margin: 0 0 0.45rem;
+.season-card-header {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.season-badge {
+  font-size: 1.4rem;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+
+  padding: 0.45rem 0.7rem;
+  border-radius: 10px;
+
+  background: rgba(18, 28, 40, 0.08);
+  color: #111827;
+}
+
+.season-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.season-title {
+  margin: 0;
   font-size: 1.05rem;
   font-weight: 700;
-  color: rgba(17, 24, 39, 0.92);
+  color: #111827;
 }
 
-.season-note-intro {
-  margin: 0 0 0.75rem;
+.season-description {
+  margin: 0;
   line-height: 1.6;
-  color: rgba(31, 41, 55, 0.78);
-  font-weight: 600;
+  color: rgba(31, 41, 55, 0.72);
 }
 
-.season-note-list {
+.season-tags {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: grid;
+
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.45rem;
 }
 
-.season-note-list li {
-  color: rgba(31, 41, 55, 0.74);
-  line-height: 1.55;
+.season-tag {
+  padding: 0.4rem 0.65rem;
+  border-radius: 999px;
+
+  background: rgba(244, 246, 248, 0.85);
+  border: 1px solid rgba(31, 41, 55, 0.08);
+
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(31, 41, 55, 0.82);
 }
 
 /* Tablet */
