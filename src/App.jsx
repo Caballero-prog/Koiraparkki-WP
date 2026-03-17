@@ -6,6 +6,7 @@ import QuoteSection from "./components/QuoteSection";
 import LocationsSection from "./components/LocationsSection";
 import PricingSection from "./components/PricingSection";
 import ProcessSection from "./components/ProcessSection";
+import MonthlyPlansSection from "./components/MonthlyPlans";
 import "./App.css";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <QuoteSection />
       <LocationsSection />
       <PricingSection />
+      <MonthlyPlansSection />
       <ProcessSection />
     </>
   );
