@@ -1,6 +1,13 @@
 import "../styles/GallerySection.css";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { galleryData } from "../data/galleryData";
+
+const MEDIA_API_URL = "/wp-json/wp/v2/media?per_page=100";
+
+const getImageNumberFromSlug = (slug) => {
+  const match = slug.match(/-(\d+)$/);
+  return match ? Number(match[1]) : 999;
+};
 
 const getTileType = (width, height) => {
   if (!width || !height) return "square";
@@ -15,10 +22,57 @@ const getTileType = (width, height) => {
 const GallerySection = () => {
   const [activeId, setActiveId] = useState(galleryData[0]?.id);
   const [imageMeta, setImageMeta] = useState({});
+  const [galleryImages, setGalleryImages] = useState({});
+
+  useEffect(() => {
+    const fetchGalleryImages = async () => {
+      try {
+        const response = await fetch(MEDIA_API_URL);
+
+        if (!response.ok) {
+          return;
+        }
+
+        const mediaItems = await response.json();
+
+        const groupedImages = {};
+
+        galleryData.forEach((location) => {
+          const prefix = `gallery-${location.id}-`;
+
+          groupedImages[location.id] = mediaItems
+            .filter((item) => item.media_type === "image")
+            .filter((item) => item.slug?.startsWith(prefix))
+            .sort((a, b) => {
+              return getImageNumberFromSlug(a.slug) - getImageNumberFromSlug(b.slug);
+            })
+            .map((item) => ({
+              id: item.id,
+              src: item.source_url,
+              alt: item.alt_text || item.slug || "",
+            }));
+        });
+
+        setGalleryImages(groupedImages);
+      } catch {
+        return;
+      }
+    };
+
+    fetchGalleryImages();
+  }, []);
 
   const activeGallery = useMemo(() => {
-    return galleryData.find((location) => location.id === activeId) || galleryData[0];
-  }, [activeId]);
+    const baseGallery =
+      galleryData.find((location) => location.id === activeId) || galleryData[0];
+
+    if (!baseGallery) return null;
+
+    return {
+      ...baseGallery,
+      images: galleryImages[baseGallery.id] || [],
+    };
+  }, [activeId, galleryImages]);
 
   const handleImageLoad = (imageId, event) => {
     const { naturalWidth, naturalHeight } = event.currentTarget;

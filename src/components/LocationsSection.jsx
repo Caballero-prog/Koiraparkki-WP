@@ -1,5 +1,5 @@
 import "../styles/LocationsSection.css";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { locations } from "../data/locations";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,12 +10,72 @@ import {
   faArrowUpRightFromSquare,
 } from "@fortawesome/free-solid-svg-icons";
 
+const MEDIA_API_URL = "/wp-json/wp/v2/media?per_page=100";
+
+const getImageNumberFromSlug = (slug) => {
+  const match = slug.match(/-(\d+)$/);
+  return match ? Number(match[1]) : 999;
+};
+
 const LocationsSection = () => {
   const [activeId, setActiveId] = useState(locations[0]?.id);
+  const [locationImages, setLocationImages] = useState({});
+
+  useEffect(() => {
+    const fetchLocationImages = async () => {
+      try {
+        const response = await fetch(MEDIA_API_URL);
+
+        if (!response.ok) {
+          return;
+        }
+
+        const mediaItems = await response.json();
+
+        const groupedImages = {};
+
+        locations.forEach((location) => {
+          const prefix = `locations-${location.id}-`;
+
+          groupedImages[location.id] = mediaItems
+            .filter((item) => item.media_type === "image")
+            .filter((item) => item.slug?.startsWith(prefix))
+            .sort((a, b) => {
+              return getImageNumberFromSlug(a.slug) - getImageNumberFromSlug(b.slug);
+            })
+            .slice(0, 4)
+            .map((item) => {
+              return (
+                item.media_details?.sizes?.large?.source_url ||
+                item.media_details?.sizes?.medium_large?.source_url ||
+                item.source_url
+              );
+            });
+        });
+
+        console.log("groupedImages", groupedImages);
+        setLocationImages(groupedImages);
+      } catch {
+        return;
+      }
+    };
+
+    fetchLocationImages();
+  }, []);
 
   const active = useMemo(() => {
-    return locations.find((l) => l.id === activeId) || locations[0];
-  }, [activeId]);
+    const baseLocation =
+      locations.find((l) => l.id === activeId) || locations[0];
+
+    if (!baseLocation) return null;
+
+    return {
+      ...baseLocation,
+      images: locationImages[baseLocation.id] || [],
+    };
+  }, [activeId, locationImages]);
+
+  console.log("active location", active);
 
   return (
     <section className="locations" id="locations" aria-label="Toimipisteet">
@@ -27,7 +87,6 @@ const LocationsSection = () => {
           </p>
         </header>
 
-        {/* Selector tabs */}
         <div className="locations-tabs" role="tablist" aria-label="Valitse toimipiste">
           {locations.map((loc) => {
             const isActive = loc.id === activeId;
@@ -48,7 +107,6 @@ const LocationsSection = () => {
           })}
         </div>
 
-        {/* Feature panel */}
         {active ? (
           <div
             id={`panel-${active.id}`}
@@ -56,9 +114,7 @@ const LocationsSection = () => {
             role="tabpanel"
             aria-label={`${active.name} tiedot`}
           >
-            {/* Left: Bento images */}
             <div className="locations-bento" aria-label="Toimipisteen kuvat">
-              {/* Big image */}
               <div className="bento-tile bento-big">
                 <img
                   src={active.images?.[0]}
@@ -68,7 +124,6 @@ const LocationsSection = () => {
                 />
               </div>
 
-              {/* Small images (optional) */}
               <div className="bento-tile bento-small">
                 <img
                   src={active.images?.[1] || active.images?.[0]}
@@ -77,6 +132,7 @@ const LocationsSection = () => {
                   loading="lazy"
                 />
               </div>
+
               <div className="bento-tile bento-small">
                 <img
                   src={active.images?.[2] || active.images?.[0]}
@@ -86,7 +142,6 @@ const LocationsSection = () => {
                 />
               </div>
 
-              {/* Optional 4th tile (only show if provided) */}
               {active.images?.[3] ? (
                 <div className="bento-tile bento-wide">
                   <img
@@ -99,7 +154,6 @@ const LocationsSection = () => {
               ) : null}
             </div>
 
-            {/* Right: Info */}
             <div className="locations-info">
               <div className="locations-info-head">
                 <div className="locations-name-row">
@@ -125,7 +179,6 @@ const LocationsSection = () => {
               </div>
 
               <div className="locations-info-grid">
-                {/* Hours */}
                 <div className="info-block">
                   <h4 className="info-title">
                     <FontAwesomeIcon icon={faClock} /> Aukioloajat
@@ -140,7 +193,6 @@ const LocationsSection = () => {
                   </ul>
                 </div>
 
-                {/* Contact */}
                 <div className="info-block">
                   <h4 className="info-title">
                     <FontAwesomeIcon icon={faLocationDot} /> Yhteystiedot
@@ -185,7 +237,6 @@ const LocationsSection = () => {
                 </div>
               </div>
 
-              {/* Highlights */}
               {active.highlights?.length ? (
                 <div className="info-block info-block-full">
                   <h4 className="info-title">Tärkeimmät erot</h4>
