@@ -31,10 +31,10 @@ export const locations = [
     ],
 
     images: [
-      "/assets/locations/kamppi-1.webp",
-      "/assets/locations/kamppi-2.webp",
-      "/assets/locations/kamppi-3.webp",
-      "/assets/locations/kamppi-4.webp",
+      img("kamppi-1.webp"),
+      img("kamppi-2.webp"),
+      img("kamppi-3.webp"),
+      img("kamppi-4.webp"),
     ],
 
     mapUrl:
@@ -70,10 +70,10 @@ export const locations = [
     ],
 
     images: [
-      "/assets/locations/herttoniemi-1.webp",
-      "/assets/locations/herttoniemi-2.webp",
-      "/assets/locations/herttoniemi-3.webp",
-      "/assets/locations/herttoniemi-4.webp",
+      img("herttoniemi-1.webp"),
+      img("herttoniemi-2.webp"),
+      img("herttoniemi-3.webp"),
+      img("herttoniemi-4.webp"),
     ],
 
     mapUrl:
@@ -108,10 +108,10 @@ export const locations = [
     ],
 
     images: [
-      `${import.meta.env.BASE_URL}assets/locations/herttoniemi-1.webp`,
-      `${import.meta.env.BASE_URL}assets/locations/herttoniemi-2.webp`,
-      `${import.meta.env.BASE_URL}assets/locations/herttoniemi-3.webp`,
-      `${import.meta.env.BASE_URL}assets/locations/herttoniemi-4.webp`,
+      img("latokaski-1.webp"),
+      img("latokaski-2.webp"),
+      img("latokaski-3.webp"),
+      img("latokaski-4.webp"),
     ],
 
     mapUrl:
@@ -147,10 +147,10 @@ export const locations = [
     ],
 
     images: [
-      "/assets/locations/lahti-mukkula-1.webp",
-      "/assets/locations/lahti-mukkula-2.webp",
-      "/assets/locations/lahti-mukkula-3.webp",
-      "/assets/locations/lahti-mukkula-4.webp",
+      img("mukkula-1.webp"),
+      img("mukkula-2.webp"),
+      img("mukkula-3.webp"),
+      img("mukkula-4.webp"),
     ],
 
     mapUrl:
