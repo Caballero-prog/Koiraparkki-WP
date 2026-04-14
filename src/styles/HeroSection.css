@@ -8,18 +8,56 @@
   position: relative;
   width: 100%;
   min-height: 100%;
-  background-image: url("../assets/herodog.webp");
-  background-size: cover;
-  background-position: 60% center;
-  background-repeat: no-repeat;
   display: flex;
   flex: 1;
   align-items: flex-end;
   overflow: hidden;
+  background: rgba(244, 246, 248, 0.85);
 }
 
-.hero-bg::before {
-  content: "";
+.hero-image,
+.hero-skeleton {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-image {
+  display: block;
+  object-fit: cover;
+  object-position: 60% center;
+}
+
+.hero-skeleton {
+  background: rgba(17, 24, 39, 0.08);
+}
+
+.hero-skeleton-shimmer {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: linear-gradient(
+    90deg,
+    rgba(17, 24, 39, 0.04) 0%,
+    rgba(255, 255, 255, 0.42) 50%,
+    rgba(17, 24, 39, 0.04) 100%
+  );
+  background-size: 200% 100%;
+  animation: heroShimmer 1.4s linear infinite;
+}
+
+@keyframes heroShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.hero-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -28,11 +66,12 @@
     rgba(18, 28, 40, 0.1)
   );
   pointer-events: none;
+  z-index: 1;
 }
 
 .hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -54,6 +93,7 @@
   line-height: 1.4;
   font-weight: 500;
 }
+
 .hero-contact {
   width: fit-content;
   margin-top: 1.2rem;
@@ -73,22 +113,26 @@
   .hero {
     padding: 1rem;
   }
-  .hero-bg {
-    background-position: 40% center;
-    
+
+  .hero-image {
+    object-position: 40% center;
   }
+
   .hero-content {
     padding-left: 2rem;
     text-align: left;
     align-items: flex-start;
     padding-bottom: 10rem;
   }
+
   .hero-content h2 {
     font-size: 4.6rem;
   }
+
   .hero-content p {
     font-size: 1.25rem;
   }
+
   .hero-contact {
     align-self: flex-start;
   }
@@ -102,8 +146,8 @@
     padding-bottom: 2rem;
   }
 
-  .hero-bg {
-    background-position: center;
+  .hero-image {
+    object-position: center;
   }
 
   .hero-content {
@@ -112,7 +156,7 @@
     justify-content: center;
     min-height: 100%;
     padding-left: 4rem;
-    padding-bottom: 0rem;
+    padding-bottom: 0;
   }
 
   .hero-content h2 {
@@ -124,8 +168,9 @@
     font-size: 1.35rem;
   }
 }
+
 @media (min-width: 1440px) {
- .hero-content h2 {
-  font-size: 6.4rem;
- }
+  .hero-content h2 {
+    font-size: 6.4rem;
+  }
 }
