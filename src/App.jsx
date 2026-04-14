@@ -8,6 +8,7 @@ import PricingSection from "./components/PricingSection";
 import ProcessSection from "./components/ProcessSection";
 import MonthlyPlansSection from "./components/MonthlyPlans";
 import GallerySection from "./components/GallerySection";
+import FAQSection from "./components/FAQSection";
 import "./App.css";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <MonthlyPlansSection />
       <ProcessSection />
       <GallerySection />
+      <FAQSection />
     </>
   );
 }
