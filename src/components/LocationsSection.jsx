@@ -20,6 +20,7 @@ const getImageNumberFromSlug = (slug) => {
 const LocationsSection = () => {
   const [activeId, setActiveId] = useState(locations[0]?.id);
   const [locationImages, setLocationImages] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchLocationImages = async () => {
@@ -31,7 +32,6 @@ const LocationsSection = () => {
         }
 
         const mediaItems = await response.json();
-
         const groupedImages = {};
 
         locations.forEach((location) => {
@@ -53,10 +53,9 @@ const LocationsSection = () => {
             });
         });
 
-        console.log("groupedImages", groupedImages);
         setLocationImages(groupedImages);
-      } catch {
-        return;
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -75,7 +74,8 @@ const LocationsSection = () => {
     };
   }, [activeId, locationImages]);
 
-  console.log("active location", active);
+  const hasImages = active?.images?.length > 0;
+  const showSkeleton = isLoading || !hasImages;
 
   return (
     <section className="locations" id="locations" aria-label="Toimipisteet">
@@ -115,43 +115,63 @@ const LocationsSection = () => {
             aria-label={`${active.name} tiedot`}
           >
             <div className="locations-bento" aria-label="Toimipisteen kuvat">
-              <div className="bento-tile bento-big">
-                <img
-                  src={active.images?.[0]}
-                  alt=""
-                  aria-hidden="true"
-                  loading="lazy"
-                />
-              </div>
+              {showSkeleton ? (
+                <>
+                  <div className="bento-tile bento-big bento-skeleton" aria-hidden="true">
+                    <div className="bento-skeleton-shimmer" />
+                  </div>
 
-              <div className="bento-tile bento-small">
-                <img
-                  src={active.images?.[1] || active.images?.[0]}
-                  alt=""
-                  aria-hidden="true"
-                  loading="lazy"
-                />
-              </div>
+                  <div className="bento-tile bento-small bento-skeleton" aria-hidden="true">
+                    <div className="bento-skeleton-shimmer" />
+                  </div>
 
-              <div className="bento-tile bento-small">
-                <img
-                  src={active.images?.[2] || active.images?.[0]}
-                  alt=""
-                  aria-hidden="true"
-                  loading="lazy"
-                />
-              </div>
+                  <div className="bento-tile bento-small bento-skeleton" aria-hidden="true">
+                    <div className="bento-skeleton-shimmer" />
+                  </div>
 
-              {active.images?.[3] ? (
-                <div className="bento-tile bento-wide">
-                  <img
-                    src={active.images?.[3]}
-                    alt=""
-                    aria-hidden="true"
-                    loading="lazy"
-                  />
-                </div>
-              ) : null}
+                  <div className="bento-tile bento-wide bento-skeleton" aria-hidden="true">
+                    <div className="bento-skeleton-shimmer" />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="bento-tile bento-big">
+                    <img
+                      src={active.images?.[0]}
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <div className="bento-tile bento-small">
+                    <img
+                      src={active.images?.[1] || active.images?.[0]}
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <div className="bento-tile bento-small">
+                    <img
+                      src={active.images?.[2] || active.images?.[0]}
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <div className="bento-tile bento-wide">
+                    <img
+                      src={active.images?.[3] || active.images?.[0]}
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                    />
+                  </div>
+                </>
+              )}
             </div>
 
             <div className="locations-info">

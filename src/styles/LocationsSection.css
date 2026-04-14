@@ -59,8 +59,8 @@
 }
 
 .locations-tab.is-active {
-  background: rgba(18, 28, 40, 0.10);
-  border-color: rgba(18, 28, 40, 0.20);
+  background: rgba(18, 28, 40, 0.1);
+  border-color: rgba(18, 28, 40, 0.2);
   color: rgba(17, 24, 39, 0.95);
 }
 
@@ -97,7 +97,6 @@
   display: block;
 }
 
-/* default mobile layout */
 .bento-big {
   grid-column: 1 / -1;
   aspect-ratio: 16 / 9;
@@ -110,6 +109,35 @@
 .bento-wide {
   grid-column: 1 / -1;
   aspect-ratio: 16 / 9;
+}
+
+/* Skeleton */
+.bento-skeleton {
+  background: rgba(17, 24, 39, 0.08);
+}
+
+.bento-skeleton-shimmer {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: linear-gradient(
+    90deg,
+    rgba(17, 24, 39, 0.04) 0%,
+    rgba(255, 255, 255, 0.42) 50%,
+    rgba(17, 24, 39, 0.04) 100%
+  );
+  background-size: 200% 100%;
+  animation: locationsShimmer 1.4s linear infinite;
+}
+
+@keyframes locationsShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 /* Info */
@@ -139,7 +167,7 @@
 }
 
 .locations-city {
-  color: rgba(31, 41, 55, 0.70);
+  color: rgba(31, 41, 55, 0.7);
   font-weight: 650;
   font-size: 0.95rem;
 }
@@ -163,7 +191,7 @@
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.75);
   color: rgba(31, 41, 55, 0.85);
-  border: 1px solid rgba(31, 41, 55, 0.10);
+  border: 1px solid rgba(31, 41, 55, 0.1);
 }
 
 /* Info blocks */
