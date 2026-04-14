@@ -1,5 +1,7 @@
 import "../styles/ProcessSection.css";
-import processDog from "../assets/process-dog.webp";
+import { useEffect, useState } from "react";
+
+const MEDIA_API_URL = "/wp-json/wp/v2/media?per_page=100";
 
 const steps = [
   {
@@ -20,15 +22,50 @@ const steps = [
 ];
 
 const ProcessSection = () => {
+  const [imageSrc, setImageSrc] = useState(null);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const res = await fetch(MEDIA_API_URL);
+        if (!res.ok) return;
+
+        const data = await res.json();
+
+        const image = data.find(
+          (item) => item.media_type === "image" && item.slug === "process-main"
+        );
+
+        if (image) {
+          setImageSrc(
+            image.media_details?.sizes?.large?.source_url ||
+              image.media_details?.sizes?.medium_large?.source_url ||
+              image.source_url
+          );
+        }
+      } catch {
+        return;
+      }
+    };
+
+    fetchImage();
+  }, []);
+
   return (
     <section className="process" aria-labelledby="process-title">
       <div className="process-inner">
         <div className="process-media">
-          <img
-            src={processDog}
-            alt="Koira päivähoitotilassa tutustumassa ympäristöön"
-            className="process-image"
-          />
+          {imageSrc ? (
+            <img
+              src={imageSrc}
+              alt="Koira päivähoitotilassa tutustumassa ympäristöön"
+              className="process-image"
+            />
+          ) : (
+            <div className="process-skeleton" aria-hidden="true">
+              <div className="process-skeleton-shimmer" />
+            </div>
+          )}
         </div>
 
         <div className="process-content">
