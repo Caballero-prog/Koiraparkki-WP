@@ -27,9 +27,7 @@ const LocationsSection = () => {
       try {
         const response = await fetch(MEDIA_API_URL);
 
-        if (!response.ok) {
-          return;
-        }
+        if (!response.ok) return;
 
         const mediaItems = await response.json();
         const groupedImages = {};
@@ -40,17 +38,14 @@ const LocationsSection = () => {
           groupedImages[location.id] = mediaItems
             .filter((item) => item.media_type === "image")
             .filter((item) => item.slug?.startsWith(prefix))
-            .sort((a, b) => {
-              return getImageNumberFromSlug(a.slug) - getImageNumberFromSlug(b.slug);
-            })
-            .slice(0, 4)
-            .map((item) => {
-              return (
+            .sort((a, b) => getImageNumberFromSlug(a.slug) - getImageNumberFromSlug(b.slug))
+            .slice(0, 3)
+            .map(
+              (item) =>
                 item.media_details?.sizes?.large?.source_url ||
                 item.media_details?.sizes?.medium_large?.source_url ||
                 item.source_url
-              );
-            });
+            );
         });
 
         setLocationImages(groupedImages);
@@ -64,7 +59,7 @@ const LocationsSection = () => {
 
   const active = useMemo(() => {
     const baseLocation =
-      locations.find((l) => l.id === activeId) || locations[0];
+      locations.find((location) => location.id === activeId) || locations[0];
 
     if (!baseLocation) return null;
 
@@ -88,20 +83,20 @@ const LocationsSection = () => {
         </header>
 
         <div className="locations-tabs" role="tablist" aria-label="Valitse toimipiste">
-          {locations.map((loc) => {
-            const isActive = loc.id === activeId;
+          {locations.map((location) => {
+            const isActive = location.id === activeId;
 
             return (
               <button
-                key={loc.id}
+                key={location.id}
                 type="button"
                 className={`locations-tab ${isActive ? "is-active" : ""}`}
-                onClick={() => setActiveId(loc.id)}
+                onClick={() => setActiveId(location.id)}
                 role="tab"
                 aria-selected={isActive}
-                aria-controls={`panel-${loc.id}`}
+                aria-controls={`panel-${location.id}`}
               >
-                {loc.name}
+                {location.name}
               </button>
             );
           })}
@@ -128,16 +123,12 @@ const LocationsSection = () => {
                   <div className="bento-tile bento-small bento-skeleton" aria-hidden="true">
                     <div className="bento-skeleton-shimmer" />
                   </div>
-
-                  <div className="bento-tile bento-wide bento-skeleton" aria-hidden="true">
-                    <div className="bento-skeleton-shimmer" />
-                  </div>
                 </>
               ) : (
                 <>
                   <div className="bento-tile bento-big">
                     <img
-                      src={active.images?.[0]}
+                      src={active.images[0]}
                       alt=""
                       aria-hidden="true"
                       loading="lazy"
@@ -146,7 +137,7 @@ const LocationsSection = () => {
 
                   <div className="bento-tile bento-small">
                     <img
-                      src={active.images?.[1] || active.images?.[0]}
+                      src={active.images[1] || active.images[0]}
                       alt=""
                       aria-hidden="true"
                       loading="lazy"
@@ -155,16 +146,7 @@ const LocationsSection = () => {
 
                   <div className="bento-tile bento-small">
                     <img
-                      src={active.images?.[2] || active.images?.[0]}
-                      alt=""
-                      aria-hidden="true"
-                      loading="lazy"
-                    />
-                  </div>
-
-                  <div className="bento-tile bento-wide">
-                    <img
-                      src={active.images?.[3] || active.images?.[0]}
+                      src={active.images[2] || active.images[0]}
                       alt=""
                       aria-hidden="true"
                       loading="lazy"
@@ -185,9 +167,9 @@ const LocationsSection = () => {
 
                 {active.services?.length ? (
                   <div className="locations-badges" aria-label="Palvelut">
-                    {active.services.map((s) => (
-                      <span key={s} className="locations-badge">
-                        {s}
+                    {active.services.map((service) => (
+                      <span key={service} className="locations-badge">
+                        {service}
                       </span>
                     ))}
                   </div>
@@ -203,11 +185,12 @@ const LocationsSection = () => {
                   <h4 className="info-title">
                     <FontAwesomeIcon icon={faClock} /> Aukioloajat
                   </h4>
+
                   <ul className="hours-list">
-                    {(active.hours || []).map((h) => (
-                      <li key={`${h.label}-${h.value}`} className="hours-row">
-                        <span className="hours-label">{h.label}</span>
-                        <span className="hours-value">{h.value}</span>
+                    {(active.hours || []).map((hour) => (
+                      <li key={`${hour.label}-${hour.value}`} className="hours-row">
+                        <span className="hours-label">{hour.label}</span>
+                        <span className="hours-value">{hour.value}</span>
                       </li>
                     ))}
                   </ul>
@@ -217,6 +200,7 @@ const LocationsSection = () => {
                   <h4 className="info-title">
                     <FontAwesomeIcon icon={faLocationDot} /> Yhteystiedot
                   </h4>
+
                   <ul className="contact-list">
                     {active.address ? (
                       <li className="contact-muted">{active.address}</li>
@@ -260,6 +244,7 @@ const LocationsSection = () => {
               {active.highlights?.length ? (
                 <div className="info-block info-block-full">
                   <h4 className="info-title">Tärkeimmät erot</h4>
+
                   <ul className="highlights">
                     {active.highlights.map((item) => (
                       <li key={item} className="highlight">
