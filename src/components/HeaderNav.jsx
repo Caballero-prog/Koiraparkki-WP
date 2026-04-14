@@ -2,6 +2,7 @@ import "../styles/HeaderNav.css";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import dogLogo from "../assets/doglogo.svg";
 
 const HeaderNav = () => {
   const [open, setOpen] = useState(false);
@@ -34,7 +35,7 @@ const HeaderNav = () => {
         <button
           className={`burger-menu ${open ? "open" : ""}`}
           type="button"
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => setOpen((prev) => !prev)}
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -42,7 +43,27 @@ const HeaderNav = () => {
           <FontAwesomeIcon icon={open ? faTimes : faBars} />
         </button>
 
-        <h1 className="site-title">Koiraparkki</h1>
+        {/* Mobile / tablet centered title */}
+        <h1 className="site-title site-title-mobile">Koiraparkki</h1>
+
+        {/* Mobile / tablet right-side logo */}
+        <img
+          src={dogLogo}
+          alt=""
+          aria-hidden="true"
+          className="site-logo site-logo-mobile"
+        />
+
+        {/* Desktop left brand */}
+        <div className="brand-desktop">
+          <img
+            src={dogLogo}
+            alt=""
+            aria-hidden="true"
+            className="site-logo site-logo-desktop"
+          />
+          <h1 className="site-title site-title-desktop">Koiraparkki</h1>
+        </div>
 
         <ul className="desktop-nav">
           <li>
@@ -58,8 +79,6 @@ const HeaderNav = () => {
             <a href="#contact">Contact</a>
           </li>
         </ul>
-
-        <div className="nav-spacer" aria-hidden="true" />
       </nav>
 
       <nav

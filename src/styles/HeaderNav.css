@@ -7,29 +7,65 @@
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  padding: 1rem 1rem 1rem 1rem;
+  padding: 1rem;
   position: relative;
   z-index: 60;
 }
+
+/* Burger */
 
 .burger-menu {
   background: none;
   border: none;
   font-size: 1.6rem;
   cursor: pointer;
-}
-
-.site-title {
-  justify-self: center;
-  font-size: 1.8rem;
-  font-weight: 500;
-  font-family: "Bitter", serif;
   color: #262626;
 }
 
-.nav-spacer {
-  width: 1.6rem;
+/* Mobile / tablet title */
+
+.site-title {
+  margin: 0;
+  font-family: "Bitter", serif;
+  color: #262626;
+  line-height: 1;
 }
+
+.site-title-mobile {
+  justify-self: center;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+/* Logo */
+
+.site-logo {
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+}
+
+.site-logo-mobile {
+  justify-self: end;
+  height: 2.55rem;
+}
+
+/* Desktop brand hidden by default */
+
+.brand-desktop {
+  display: none;
+}
+
+.site-logo-desktop {
+  height: 4rem;
+}
+
+.site-title-desktop {
+  font-size: 2.2rem;
+  font-weight: 500;
+}
+
+/* Mobile menu */
 
 .mobile-menu {
   position: fixed;
@@ -70,6 +106,8 @@
   color: #f7f7f7;
 }
 
+/* Desktop nav hidden by default */
+
 .desktop-nav {
   display: none;
   list-style: none;
@@ -86,20 +124,25 @@
   color: #262626;
 }
 
+/* Tablet */
+
 @media (min-width: 768px) and (max-width: 1023px) {
   .navigation-bar {
-    padding: 1rem 1rem 0rem 1rem;
+    padding: 1rem 1rem 0 1rem;
   }
+
+  .site-logo-mobile {
+    height: 3rem;
+  }
+
   .mobile-menu {
     right: auto;
     width: min(320px, 100%);
-    background: rgba(74, 74, 74, 0.15);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     top: calc(var(--nav-h, 60px) + 1rem);
     margin-top: 0;
     transform: translateX(-100%);
   }
+
   .mobile-menu.open {
     transform: translateX(0);
     left: 1rem;
@@ -107,29 +150,41 @@
   }
 }
 
+/* Desktop */
+
 @media (min-width: 1024px) {
   .site-header {
     padding-left: 4rem;
     padding-right: 4rem;
   }
+
   .navigation-bar {
+    grid-template-columns: auto 1fr auto;
     padding-top: 2rem;
-    padding-bottom: 0rem;
+    padding-bottom: 0;
   }
+
   .burger-menu {
     display: none;
   }
+
+  .site-title-mobile,
+  .site-logo-mobile {
+    display: none;
+  }
+
+  .brand-desktop {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    justify-self: start;
+  }
+
   .mobile-menu {
     display: none;
   }
+
   .desktop-nav {
     display: flex;
-  }
-  .site-title {
-    justify-self: start;
-    font-size: 2.2rem;
-  }
-  .nav-spacer {
-    display: none;
   }
 }
