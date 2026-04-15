@@ -1,5 +1,5 @@
 import "../styles/FAQSection.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { faqData } from "../data/faqData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
@@ -8,15 +8,18 @@ const DESKTOP_BREAKPOINT = 768;
 
 const FAQSection = () => {
   const [openIndex, setOpenIndex] = useState(0);
-  const [isDesktopLayout, setIsDesktopLayout] = useState(
+  const [isDesktop, setIsDesktop] = useState(
     typeof window !== "undefined"
       ? window.innerWidth >= DESKTOP_BREAKPOINT
-      : false,
+      : false
   );
 
+  const gridRef = useRef(null);
+
+  // Handle resize (mobile vs desktop)
   useEffect(() => {
     const handleResize = () => {
-      setIsDesktopLayout(window.innerWidth >= DESKTOP_BREAKPOINT);
+      setIsDesktop(window.innerWidth >= DESKTOP_BREAKPOINT);
     };
 
     handleResize();
@@ -25,8 +28,45 @@ const FAQSection = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Equal height cards (desktop only)
+  useEffect(() => {
+    const setEqualHeights = () => {
+      if (!gridRef.current) return;
+
+      const cards = gridRef.current.querySelectorAll(".faq-card");
+
+      // reset first
+      cards.forEach((card) => {
+        card.style.minHeight = "auto";
+      });
+
+      if (!isDesktop) return;
+
+      let tallest = 0;
+
+      cards.forEach((card) => {
+        const height = card.offsetHeight;
+        if (height > tallest) tallest = height;
+      });
+
+      cards.forEach((card) => {
+        card.style.minHeight = `${tallest}px`;
+      });
+    };
+
+    // run after layout
+    const timeout = setTimeout(setEqualHeights, 50);
+
+    window.addEventListener("resize", setEqualHeights);
+
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener("resize", setEqualHeights);
+    };
+  }, [isDesktop]);
+
   const handleToggle = (index) => {
-    if (isDesktopLayout) return;
+    if (isDesktop) return;
 
     setOpenIndex((prev) => (prev === index ? -1 : index));
   };
@@ -44,9 +84,10 @@ const FAQSection = () => {
           </p>
         </header>
 
-        <div className="faq-grid">
+        <div className="faq-grid" ref={gridRef}>
           {faqData.map((item, index) => {
-            const isOpen = isDesktopLayout || openIndex === index;
+            const isOpen = isDesktop || openIndex === index;
+
             const panelId = `faq-panel-${index}`;
             const buttonId = `faq-button-${index}`;
 
@@ -65,11 +106,11 @@ const FAQSection = () => {
                 >
                   <span>{item.question}</span>
 
-                  {!isDesktopLayout ? (
+                  {!isDesktop && (
                     <span className="faq-icon" aria-hidden="true">
                       <FontAwesomeIcon icon={isOpen ? faMinus : faPlus} />
                     </span>
-                  ) : null}
+                  )}
                 </button>
 
                 <div
