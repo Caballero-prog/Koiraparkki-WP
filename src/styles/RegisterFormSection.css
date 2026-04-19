@@ -232,6 +232,31 @@
   padding-top: 0.35rem;
 }
 
+.form-message {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.form-message.success {
+  background: #e7f7ed;
+  border: 1px solid #b7e4c7;
+  color: #1f7a4d;
+}
+
+.form-message.error {
+  background: #fdecea;
+  border: 1px solid #f5c2c0;
+  color: #b42318;
+}
+
+.agreement-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
 .agreement-submit {
   width: 100%;
   max-width: 260px;

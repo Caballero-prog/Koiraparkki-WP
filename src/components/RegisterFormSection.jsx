@@ -1,6 +1,41 @@
 import "../styles/RegisterFormSection.css";
+import { useState } from "react";
 
 const RegisterFormSection = () => {
+  const [status, setStatus] = useState("idle");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setStatus("loading");
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch("/wp-json/custom/v1/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Request failed");
+      }
+
+      setStatus("success");
+      form.reset();
+    } catch (error) {
+      console.error("Error:", error);
+      setStatus("error");
+    }
+  };
+
   return (
     <section className="agreement" aria-labelledby="agreement-title">
       <div className="agreement-inner">
@@ -14,7 +49,7 @@ const RegisterFormSection = () => {
           </p>
         </header>
 
-        <form className="agreement-form">
+        <form className="agreement-form" onSubmit={handleSubmit}>
           <section className="agreement-card" aria-labelledby="owner-title">
             <h2 id="owner-title" className="agreement-card-title">
               Omistajan tiedot
@@ -263,9 +298,7 @@ const RegisterFormSection = () => {
 
               <label className="checkbox-row">
                 <input type="checkbox" name="allowPhotos" />
-                <span>
-                  Koirastani saa julkaista kuvia sosiaalisessa mediassa
-                </span>
+                <span>Koirastani saa julkaista kuvia sosiaalisessa mediassa</span>
               </label>
 
               <label className="checkbox-row">
@@ -303,9 +336,25 @@ const RegisterFormSection = () => {
             </div>
           </section>
 
+          {status === "success" && (
+            <p className="form-message success">
+              Lomake lähetetty onnistuneesti.
+            </p>
+          )}
+
+          {status === "error" && (
+            <p className="form-message error">
+              Lähetys epäonnistui. Yritä uudelleen.
+            </p>
+          )}
+
           <div className="agreement-actions">
-            <button type="submit" className="agreement-submit">
-              Lähetä
+            <button
+              type="submit"
+              className="agreement-submit"
+              disabled={status === "loading"}
+            >
+              {status === "loading" ? "Lähetetään..." : "Lähetä"}
             </button>
           </div>
         </form>
