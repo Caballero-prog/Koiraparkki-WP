@@ -17,14 +17,14 @@ const HeroSection = () => {
         const data = await res.json();
 
         const image = data.find(
-          (item) => item.media_type === "image" && item.slug === "hero-main"
+          (item) => item.media_type === "image" && item.slug === "hero-main",
         );
 
         if (image) {
           setImageSrc(
             image.media_details?.sizes?.large?.source_url ||
               image.media_details?.sizes?.medium_large?.source_url ||
-              image.source_url
+              image.source_url,
           );
         }
       } catch {
@@ -58,11 +58,23 @@ const HeroSection = () => {
             Häkitön <br />
             koirahoitola
           </h2>
+
           <p>Turvallinen päivähoito koirille</p>
-          <a href="tel:+358456133212" className="hero-contact">
-            <FontAwesomeIcon icon={faPhone} />
-            <span>+358 456 133 212</span>
-          </a>
+
+          <div className="hero-actions">
+            <a href="tel:+358456133212" className="hero-contact">
+              <FontAwesomeIcon icon={faPhone} />
+              <span>+358 456 133 212</span>
+            </a>
+
+            <a
+              href="#/hoitosopimus"
+              className="hero-cta"
+              aria-label="Täytä koiran hoitosopimuslomake"
+            >
+              Täytä hoitosopimus
+            </a>
+          </div>
         </div>
       </div>
     </section>
