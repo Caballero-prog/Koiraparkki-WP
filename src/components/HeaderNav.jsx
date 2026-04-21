@@ -4,6 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import dogLogo from "../assets/doglogo.svg";
 
+const sectionLinks = [
+  { label: "Toimipisteet", targetId: "locations" },
+  { label: "Hinnat", targetId: "pricing" },
+  { label: "Kortit", targetId: "monthly-plans" },
+  { label: "UKK", targetId: "faq" },
+];
+
 const HeaderNav = () => {
   const [open, setOpen] = useState(false);
   const navRef = useRef(null);
@@ -29,54 +36,98 @@ const HeaderNav = () => {
     return () => window.removeEventListener("resize", setVar);
   }, []);
 
+  const closeMenu = () => setOpen(false);
+
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const navHeight =
+      navRef.current?.getBoundingClientRect().height || 0;
+
+    const top =
+      el.getBoundingClientRect().top + window.scrollY - navHeight - 12;
+
+    window.scrollTo({
+      top,
+      behavior: "smooth",
+    });
+
+    closeMenu();
+  };
+
+  const goToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    closeMenu();
+  };
+
   return (
     <header className="site-header">
-      <nav ref={navRef} className="navigation-bar" aria-label="Main">
+      <nav ref={navRef} className="navigation-bar" aria-label="Päänavigaatio">
         <button
           className={`burger-menu ${open ? "open" : ""}`}
           type="button"
           onClick={() => setOpen((prev) => !prev)}
           aria-expanded={open}
           aria-controls="mobile-menu"
-          aria-label={open ? "Close menu" : "Open menu"}
+          aria-label={open ? "Sulje valikko" : "Avaa valikko"}
         >
           <FontAwesomeIcon icon={open ? faTimes : faBars} />
         </button>
 
-        {/* Mobile / tablet centered title */}
-        <h1 className="site-title site-title-mobile">Koiraparkki</h1>
+        <button
+          type="button"
+          className="site-title site-title-mobile nav-brand-button"
+          onClick={goToTop}
+        >
+          Koiraparkki
+        </button>
 
-        {/* Mobile / tablet right-side logo */}
-        <img
-          src={dogLogo}
-          alt=""
-          aria-hidden="true"
-          className="site-logo site-logo-mobile"
-        />
+        <button
+          type="button"
+          className="site-logo-link site-logo-link-mobile nav-brand-button"
+          onClick={goToTop}
+        >
+          <img
+            src={dogLogo}
+            alt=""
+            aria-hidden="true"
+            className="site-logo site-logo-mobile"
+          />
+        </button>
 
-        {/* Desktop left brand */}
-        <div className="brand-desktop">
+        <button
+          type="button"
+          className="brand-desktop nav-brand-button"
+          onClick={goToTop}
+        >
           <img
             src={dogLogo}
             alt=""
             aria-hidden="true"
             className="site-logo site-logo-desktop"
           />
-          <h1 className="site-title site-title-desktop">Koiraparkki</h1>
-        </div>
+          <span className="site-title site-title-desktop">Koiraparkki</span>
+        </button>
 
         <ul className="desktop-nav">
+          {sectionLinks.map((link) => (
+            <li key={link.label}>
+              <button
+                type="button"
+                className="nav-link-button"
+                onClick={() => scrollToSection(link.targetId)}
+              >
+                {link.label}
+              </button>
+            </li>
+          ))}
+
           <li>
-            <a href="#home">Home</a>
-          </li>
-          <li>
-            <a href="#services">Services</a>
-          </li>
-          <li>
-            <a href="#pricing">Pricing</a>
-          </li>
-          <li>
-            <a href="#contact">Contact</a>
+            <a href="#/hoitosopimus">Hoitosopimus</a>
           </li>
         </ul>
       </nav>
@@ -88,24 +139,21 @@ const HeaderNav = () => {
         inert={!open ? "" : undefined}
       >
         <ul>
+          {sectionLinks.map((link) => (
+            <li key={link.label}>
+              <button
+                type="button"
+                className="nav-link-button"
+                onClick={() => scrollToSection(link.targetId)}
+              >
+                {link.label}
+              </button>
+            </li>
+          ))}
+
           <li>
-            <a href="#home" onClick={() => setOpen(false)}>
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#services" onClick={() => setOpen(false)}>
-              Services
-            </a>
-          </li>
-          <li>
-            <a href="#pricing" onClick={() => setOpen(false)}>
-              Pricing
-            </a>
-          </li>
-          <li>
-            <a href="#contact" onClick={() => setOpen(false)}>
-              Contact
+            <a href="#/hoitosopimus" onClick={closeMenu}>
+              Hoitosopimus
             </a>
           </li>
         </ul>

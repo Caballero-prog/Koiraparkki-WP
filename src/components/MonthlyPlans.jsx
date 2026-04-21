@@ -3,7 +3,7 @@ import { monthlyPlans, monthlyPlansInfo } from "../data/monthlyPlansData";
 
 const MonthlyPlansSection = () => {
   return (
-    <section className="monthly-plans" aria-labelledby="monthly-plans-title">
+    <section className="monthly-plans" id="monthly-plans" aria-labelledby="monthly-plans-title">
         
       <div className="monthly-plans-inner">
         <header className="monthly-plans-header">
