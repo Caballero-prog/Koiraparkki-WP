@@ -6,18 +6,18 @@ const MEDIA_API_URL = "/wp-json/wp/v2/media?per_page=100";
 const steps = [
   {
     number: "01",
-    title: "Täytä lomake",
-    text: "Täytä varauslomake ja kerro koirastasi lyhyesti.",
+    title: "Ota yhteyttä",
+    text: "Soita tai lähetä viesti, niin käymme läpi koirasi tilanteen ja sopivan hoitomuodon.",
   },
   {
     number: "02",
-    title: "Soita tai lähetä viesti",
-    text: "Vahvistamme ajan ja käymme läpi tärkeimmät tiedot.",
+    title: "Tuo koirasi tutustumaan",
+    text: "Tutustumiskäynnillä koirasi pääsee rauhassa näkemään tilan, ihmiset ja arjen ennen hoidon aloitusta.",
   },
   {
     number: "03",
-    title: "Tuo koirasi tutustumiskäynnille",
-    text: "Koirasi pääsee rauhassa tutustumaan tilaan, ihmisiin ja arkeen.",
+    title: "Täytä hoitosopimus",
+    text: "Ennen ensimmäistä hoitokertaa pyydämme täyttämään hoitosopimuksen ja koiran perustiedot.",
   },
 ];
 
@@ -71,11 +71,12 @@ const ProcessSection = () => {
         <div className="process-content">
           <header className="process-header">
             <h2 id="process-title" className="process-title">
-              Näin varaus etenee
+              Näin aloitus etenee
             </h2>
             <p className="process-lead">
-              Varaaminen on helppoa. Aloitamme lyhyellä yhteydenotolla ja
-              sovimme tutustumiskäynnin koirasi tarpeiden mukaan.
+              Aloittaminen on helppoa. Sovimme ensin yhteydenoton ja
+              tutustumiskäynnin, jonka jälkeen voit täyttää hoitosopimuksen
+              ennen ensimmäistä hoitokertaa.
             </p>
           </header>
 
@@ -87,6 +88,12 @@ const ProcessSection = () => {
                 <div className="process-step-text">
                   <h3 className="process-step-title">{step.title}</h3>
                   <p className="process-step-description">{step.text}</p>
+
+                  {step.number === "03" && (
+                    <a href="#/hoitosopimus" className="process-cta">
+                      Täytä hoitosopimus
+                    </a>
+                  )}
                 </div>
               </li>
             ))}
