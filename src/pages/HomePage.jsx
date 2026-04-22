@@ -8,6 +8,8 @@ import ProcessSection from "../components/ProcessSection";
 import MonthlyPlansSection from "../components/MonthlyPlans";
 import GallerySection from "../components/GallerySection";
 import FAQSection from "../components/FAQSection";
+import ContactSection from "../components/ContactSection";
+
 
 const HomePage = () => {
   return (
@@ -22,6 +24,7 @@ const HomePage = () => {
       <ProcessSection />
       <GallerySection />
       <FAQSection />
+      <ContactSection />
     </>
   );
 };
