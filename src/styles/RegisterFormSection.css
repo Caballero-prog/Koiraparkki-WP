@@ -2,7 +2,53 @@
   padding: 3.5rem 1.25rem;
   background: #ffffff;
 }
+.agreement-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 
+  margin-bottom: 1.15rem;
+  padding: 0.7rem 1rem;
+
+  background: rgba(244, 246, 248, 0.9);
+  border: 1px solid rgba(31, 41, 55, 0.12);
+  border-radius: 12px;
+
+  font: inherit;
+  font-weight: 650;
+  font-size: 0.95rem;
+  line-height: 1;
+
+  color: rgba(31, 41, 55, 0.82);
+  cursor: pointer;
+
+  transition:
+    background 0.12s ease,
+    border-color 0.12s ease,
+    color 0.12s ease,
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.agreement-back svg {
+  font-size: 0.9rem;
+}
+
+.agreement-back:hover {
+  background: rgba(244, 246, 248, 1);
+  border-color: rgba(31, 41, 55, 0.2);
+  color: #111827;
+  transform: translateY(-1px);
+}
+
+.agreement-back:active {
+  transform: translateY(0);
+}
+
+.agreement-back:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.1);
+}
 .agreement-inner {
   max-width: 1100px;
   margin: 0 auto;

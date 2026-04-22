@@ -1,4 +1,6 @@
 import "../styles/RegisterFormSection.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
 const RegisterFormSection = () => {
@@ -39,6 +41,20 @@ const RegisterFormSection = () => {
   return (
     <section className="agreement" aria-labelledby="agreement-title">
       <div className="agreement-inner">
+        <button
+          type="button"
+          className="agreement-back"
+          onClick={() => {
+            if (window.history.length > 1) {
+              window.history.back();
+            } else {
+              window.location.href = "/#/";
+            }
+          }}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+          <span>Takaisin</span>
+        </button>
         <header className="agreement-header">
           <h1 id="agreement-title" className="agreement-title">
             Rekisteröi koirasi asiakkaaksi
@@ -298,7 +314,9 @@ const RegisterFormSection = () => {
 
               <label className="checkbox-row">
                 <input type="checkbox" name="allowPhotos" />
-                <span>Koirastani saa julkaista kuvia sosiaalisessa mediassa</span>
+                <span>
+                  Koirastani saa julkaista kuvia sosiaalisessa mediassa
+                </span>
               </label>
 
               <label className="checkbox-row">
@@ -314,8 +332,8 @@ const RegisterFormSection = () => {
             </h2>
 
             <p className="agreement-note">
-              Täyttämällä lomakkeen vahvistan antamani tiedot oikeiksi ja hyväksyn
-              hoitoon liittyvät ehdot sekä tietojen käsittelyn.
+              Täyttämällä lomakkeen vahvistan antamani tiedot oikeiksi ja
+              hyväksyn hoitoon liittyvät ehdot sekä tietojen käsittelyn.
             </p>
 
             <div className="checkbox-group">
