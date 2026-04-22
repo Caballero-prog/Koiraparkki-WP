@@ -1,13 +1,24 @@
 import "../styles/ContactSection.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPhone,
   faEnvelope,
+  faCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
 const ContactSection = () => {
   const [status, setStatus] = useState("idle");
+
+  useEffect(() => {
+    if (status !== "success") return;
+
+    const timer = window.setTimeout(() => {
+      setStatus("idle");
+    }, 4000);
+
+    return () => window.clearTimeout(timer);
+  }, [status]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,8 +43,8 @@ const ContactSection = () => {
         throw new Error(result.message || "Request failed");
       }
 
-      setStatus("success");
       form.reset();
+      setStatus("success");
     } catch (error) {
       console.error("Error:", error);
       setStatus("error");
@@ -65,86 +76,105 @@ const ContactSection = () => {
           </a>
         </div>
 
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <div className="contact-fields">
-            <div className="contact-field contact-field--half">
-              <label htmlFor="contactFirstName">Etunimi *</label>
-              <input
-                id="contactFirstName"
-                name="firstName"
-                type="text"
-                placeholder="Etunimi"
-                required
-              />
-            </div>
-
-            <div className="contact-field contact-field--half">
-              <label htmlFor="contactLastName">Sukunimi *</label>
-              <input
-                id="contactLastName"
-                name="lastName"
-                type="text"
-                placeholder="Sukunimi"
-                required
-              />
-            </div>
-
-            <div className="contact-field contact-field--full">
-              <label htmlFor="contactEmail">Sähköposti *</label>
-              <input
-                id="contactEmail"
-                name="email"
-                type="email"
-                placeholder="nimi@email.com"
-                required
-              />
-            </div>
-
-            <div className="contact-field contact-field--full">
-              <label htmlFor="contactSubject">Aihe *</label>
-              <input
-                id="contactSubject"
-                name="subject"
-                type="text"
-                placeholder="Viestin aihe"
-                required
-              />
-            </div>
-
-            <div className="contact-field contact-field--full">
-              <label htmlFor="contactMessage">Viesti *</label>
-              <textarea
-                id="contactMessage"
-                name="message"
-                rows="6"
-                placeholder="Kirjoita viestisi tähän"
-                required
-              />
-            </div>
-          </div>
-
+        <div className="contact-form-wrap">
           {status === "success" && (
-            <p className="contact-message contact-message--success">
-              Viesti lähetetty onnistuneesti.
-            </p>
-          )}
-
-          {status === "error" && (
-            <p className="contact-message contact-message--error">
-              Viestin lähetys epäonnistui. Yritä uudelleen.
-            </p>
-          )}
-
-          <div className="contact-actions">
-            <button
-              type="submit"
-              className="contact-submit"
-              disabled={status === "loading"}
+            <div
+              className="contact-success-overlay"
+              aria-live="polite"
+              aria-label="Viesti lähetetty onnistuneesti"
             >
-              {status === "loading" ? "Lähetetään..." : "Lähetä viesti"}
-            </button>
-          </div>
-        </form>
+              <div className="contact-success-card">
+                <div className="contact-success-icon" aria-hidden="true">
+                  <FontAwesomeIcon icon={faCircleCheck} />
+                </div>
+
+                <div className="contact-success-content">
+                  <h3 className="contact-success-title">
+                    Viesti lähetetty onnistuneesti
+                  </h3>
+                  <p className="contact-success-text">
+                    Kiitos viestistäsi. Palaamme asiaan mahdollisimman pian.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <form className="contact-form" onSubmit={handleSubmit}>
+            <div className="contact-fields">
+              <div className="contact-field contact-field--half">
+                <label htmlFor="contactFirstName">Etunimi *</label>
+                <input
+                  id="contactFirstName"
+                  name="firstName"
+                  type="text"
+                  placeholder="Etunimi"
+                  required
+                />
+              </div>
+
+              <div className="contact-field contact-field--half">
+                <label htmlFor="contactLastName">Sukunimi *</label>
+                <input
+                  id="contactLastName"
+                  name="lastName"
+                  type="text"
+                  placeholder="Sukunimi"
+                  required
+                />
+              </div>
+
+              <div className="contact-field contact-field--full">
+                <label htmlFor="contactEmail">Sähköposti *</label>
+                <input
+                  id="contactEmail"
+                  name="email"
+                  type="email"
+                  placeholder="nimi@email.com"
+                  required
+                />
+              </div>
+
+              <div className="contact-field contact-field--full">
+                <label htmlFor="contactSubject">Aihe *</label>
+                <input
+                  id="contactSubject"
+                  name="subject"
+                  type="text"
+                  placeholder="Viestin aihe"
+                  required
+                />
+              </div>
+
+              <div className="contact-field contact-field--full">
+                <label htmlFor="contactMessage">Viesti *</label>
+                <textarea
+                  id="contactMessage"
+                  name="message"
+                  rows="6"
+                  placeholder="Kirjoita viestisi tähän"
+                  required
+                />
+              </div>
+            </div>
+
+            {status === "error" && (
+              <p className="contact-message contact-message--error">
+                Viestin lähetys epäonnistui. Yritä uudelleen.
+              </p>
+            )}
+
+            <div className="contact-actions">
+              <button
+                type="submit"
+                className="contact-submit"
+                disabled={status === "loading" || status === "success"}
+              >
+                {status === "loading" ? "Lähetetään..." : "Lähetä viesti"}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
   );
