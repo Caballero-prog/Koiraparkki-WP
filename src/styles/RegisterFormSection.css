@@ -2,26 +2,35 @@
   padding: 3.5rem 1.25rem;
   background: #ffffff;
 }
+
+.agreement--success {
+  min-height: calc(100svh - var(--nav-h, 60px));
+  display: flex;
+  align-items: flex-start;
+}
+
+.agreement-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Back button */
+
 .agreement-back {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-
   margin-bottom: 1.15rem;
   padding: 0.7rem 1rem;
-
   background: rgba(244, 246, 248, 0.9);
   border: 1px solid rgba(31, 41, 55, 0.12);
   border-radius: 12px;
-
   font: inherit;
-  font-weight: 650;
   font-size: 0.95rem;
+  font-weight: 650;
   line-height: 1;
-
   color: rgba(31, 41, 55, 0.82);
   cursor: pointer;
-
   transition:
     background 0.12s ease,
     border-color 0.12s ease,
@@ -49,10 +58,8 @@
   outline: none;
   box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.1);
 }
-.agreement-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-}
+
+/* Header */
 
 .agreement-header {
   text-align: center;
@@ -74,6 +81,8 @@
   font-weight: 500;
   color: rgba(31, 41, 55, 0.72);
 }
+
+/* Form */
 
 .agreement-form {
   display: grid;
@@ -169,6 +178,7 @@
 }
 
 /* Select */
+
 .select-wrap {
   position: relative;
 }
@@ -200,6 +210,7 @@
 }
 
 /* Checkboxes */
+
 .checkbox-group {
   display: grid;
   gap: 0.95rem;
@@ -272,11 +283,7 @@
   box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.14);
 }
 
-.agreement-actions {
-  display: flex;
-  justify-content: center;
-  padding-top: 0.35rem;
-}
+/* Messages */
 
 .form-message {
   margin: 0;
@@ -286,23 +293,20 @@
   line-height: 1.5;
 }
 
-.form-message.success {
-  background: #e7f7ed;
-  border: 1px solid #b7e4c7;
-  color: #1f7a4d;
-}
-
 .form-message.error {
   background: #fdecea;
   border: 1px solid #f5c2c0;
   color: #b42318;
 }
 
-.agreement-submit:disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
-  transform: none;
+/* Actions */
+
+.agreement-actions {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.35rem;
 }
+
 .agreement-submit {
   width: 100%;
   max-width: 260px;
@@ -330,6 +334,89 @@
   outline: none;
   box-shadow: 0 0 0 3px rgba(18, 28, 40, 0.1);
 }
+
+.agreement-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Success state */
+
+.agreement-success-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1.25rem;
+  border-radius: 20px;
+  background: rgba(244, 246, 248, 0.85);
+  box-shadow: 0 10px 30px rgba(16, 24, 40, 0.06);
+}
+
+.agreement-success-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.25rem;
+  height: 4.25rem;
+  margin-bottom: 1rem;
+  border-radius: 999px;
+  background: #e7f7ed;
+  color: #1f7a4d;
+  font-size: 2rem;
+}
+
+.agreement-success-title {
+  margin: 0 0 0.75rem;
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #1f2933;
+}
+
+.agreement-success-text {
+  margin: 0;
+  max-width: 52ch;
+  line-height: 1.7;
+  font-weight: 500;
+  color: rgba(31, 41, 55, 0.72);
+}
+
+.agreement-success-actions {
+  margin-top: 1.5rem;
+}
+
+.agreement-success-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 220px;
+  padding: 0.95rem 1.2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(17, 24, 39, 0.14);
+  background: rgba(244, 246, 248, 0.85);
+  color: rgba(17, 24, 39, 0.95);
+  text-decoration: none;
+  font-weight: 750;
+  transition:
+    transform 0.12s ease,
+    background 0.12s ease,
+    border-color 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.agreement-success-button:hover {
+  transform: translateY(-1px);
+  background: rgba(244, 246, 248, 1);
+}
+
+.agreement-success-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(18, 28, 40, 0.1);
+}
+
+/* Tablet */
 
 @media (min-width: 768px) {
   .agreement {
@@ -378,7 +465,17 @@
     width: auto;
     min-width: 220px;
   }
+
+  .agreement-success-card {
+    padding: 2.5rem 2rem;
+  }
+
+  .agreement-success-title {
+    font-size: 2.3rem;
+  }
 }
+
+/* Desktop */
 
 @media (min-width: 1024px) {
   .agreement {
@@ -391,5 +488,13 @@
 
   .agreement-card {
     padding: 1.5rem;
+  }
+
+  .agreement-success-card {
+    padding: 3rem 2.5rem;
+  }
+
+  .agreement-success-title {
+    font-size: 2.5rem;
   }
 }

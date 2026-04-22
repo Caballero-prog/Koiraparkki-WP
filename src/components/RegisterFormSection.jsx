@@ -1,14 +1,16 @@
 import "../styles/RegisterFormSection.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowLeft,
+  faCircleCheck,
+} from "@fortawesome/free-solid-svg-icons";
 
 const RegisterFormSection = () => {
   const [status, setStatus] = useState("idle");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setStatus("loading");
 
     const form = e.target;
@@ -38,23 +40,70 @@ const RegisterFormSection = () => {
     }
   };
 
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      window.location.href = "#/";
+    }
+  };
+
+  if (status === "success") {
+    return (
+      <section
+        className="agreement agreement--success"
+        aria-labelledby="agreement-success-title"
+      >
+        <div className="agreement-inner">
+          <button
+            type="button"
+            className="agreement-back"
+            onClick={handleBack}
+          >
+            <FontAwesomeIcon icon={faArrowLeft} />
+            <span>Takaisin</span>
+          </button>
+
+          <div className="agreement-success-card">
+            <div className="agreement-success-icon" aria-hidden="true">
+              <FontAwesomeIcon icon={faCircleCheck} />
+            </div>
+
+            <h1
+              id="agreement-success-title"
+              className="agreement-success-title"
+            >
+              Lomake lähetetty onnistuneesti
+            </h1>
+
+            <p className="agreement-success-text">
+              Kiitos rekisteröinnistä. Olemme vastaanottaneet tiedot ja palaamme
+              asiaan mahdollisimman pian.
+            </p>
+
+            <div className="agreement-success-actions">
+              <a href="#/" className="agreement-success-button">
+                Palaa etusivulle
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="agreement" aria-labelledby="agreement-title">
       <div className="agreement-inner">
         <button
           type="button"
           className="agreement-back"
-          onClick={() => {
-            if (window.history.length > 1) {
-              window.history.back();
-            } else {
-              window.location.href = "/#/";
-            }
-          }}
+          onClick={handleBack}
         >
           <FontAwesomeIcon icon={faArrowLeft} />
           <span>Takaisin</span>
         </button>
+
         <header className="agreement-header">
           <h1 id="agreement-title" className="agreement-title">
             Rekisteröi koirasi asiakkaaksi
@@ -353,12 +402,6 @@ const RegisterFormSection = () => {
               </label>
             </div>
           </section>
-
-          {status === "success" && (
-            <p className="form-message success">
-              Lomake lähetetty onnistuneesti.
-            </p>
-          )}
 
           {status === "error" && (
             <p className="form-message error">
