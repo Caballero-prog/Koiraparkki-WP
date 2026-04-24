@@ -6,22 +6,24 @@ import doglogo from "../assets/doglogo.svg";
 
 const FooterSection = () => {
   const scrollToSection = (id) => {
-    // ensure we're on homepage route
-    window.location.hash = "#/";
+  window.location.hash = "#/";
 
-    setTimeout(() => {
-      document.getElementById(id)?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }, 0);
-  };
+  setTimeout(() => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const top = el.getBoundingClientRect().top + window.scrollY;
+
+    window.scrollTo({
+      top,
+      behavior: "smooth",
+    });
+  }, 0);
+};
 
   return (
     <footer className="footer">
       <div className="footer-inner">
-
-        {/* Brand */}
         <div className="footer-brand">
           <img src={doglogo} alt="Koiraparkki logo" className="footer-logo" />
 
@@ -52,29 +54,27 @@ const FooterSection = () => {
           </div>
         </div>
 
-        {/* Links */}
         <div className="footer-columns">
-
           <div className="footer-column">
             <h4>Sivut</h4>
 
-            <button onClick={() => scrollToSection("site-header")}>
+            <button type="button" onClick={() => scrollToSection("site-header")}>
               Etusivu
             </button>
 
-            <button onClick={() => scrollToSection("locations")}>
+            <button type="button" onClick={() => scrollToSection("locations")}>
               Toimipisteet
             </button>
 
-            <button onClick={() => scrollToSection("pricing")}>
+            <button type="button" onClick={() => scrollToSection("pricing")}>
               Hinnasto
             </button>
 
-            <button onClick={() => scrollToSection("gallery")}>
+            <button type="button" onClick={() => scrollToSection("gallery")}>
               Galleria
             </button>
 
-            <button onClick={() => scrollToSection("faq")}>
+            <button type="button" onClick={() => scrollToSection("faq")}>
               UKK
             </button>
           </div>
@@ -82,38 +82,25 @@ const FooterSection = () => {
           <div className="footer-column">
             <h4>Yhteys</h4>
 
-            <a href="tel:+358456133212">
-              +358 456 133 212
-            </a>
-
-            <a href="mailto:info@koiraparkki.fi">
-              info@koiraparkki.fi
-            </a>
+            <a href="tel:+358456133212">+358 456 133 212</a>
+            <a href="mailto:info@koiraparkki.fi">info@koiraparkki.fi</a>
           </div>
 
           <div className="footer-column">
             <h4>Lomakkeet</h4>
 
-            <a href="#/hoitosopimus">
-              Hoitosopimus
-            </a>
+            <a href="#/hoitosopimus">Hoitosopimus</a>
           </div>
 
           <div className="footer-column">
             <h4>Lakiasiat</h4>
 
-            <a href="#/privacy">
-              Tietosuojaseloste
-            </a>
-
-            <a href="#/terms">
-              Hoitoehdot
-            </a>
+            <a href="#/privacy">Tietosuojaseloste</a>
+            <a href="#/terms">Hoitoehdot</a>
           </div>
         </div>
       </div>
 
-      {/* Bottom */}
       <div className="footer-bottom">
         © {new Date().getFullYear()} Koiraparkki
       </div>
