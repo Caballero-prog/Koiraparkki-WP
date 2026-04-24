@@ -498,3 +498,48 @@
     font-size: 2.5rem;
   }
 }
+
+@supports (appearance: base-select) {
+  .select-wrap::after {
+    display: block;
+    z-index: 2;
+  }
+
+  .select-wrap select,
+  .select-wrap select::picker(select) {
+    appearance: base-select;
+  }
+
+  .select-wrap select {
+    cursor: pointer;
+    padding-right: 3rem;
+  }
+
+  .select-wrap select::picker-icon {
+    display: none;
+  }
+
+  .select-wrap select::picker(select) {
+    margin-top: 0.4rem;
+    border: 1px solid rgba(31, 41, 55, 0.12);
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 14px 34px rgba(16, 24, 40, 0.14);
+  }
+
+  .select-wrap option {
+    padding: 0.85rem 1rem;
+    background: #ffffff;
+    color: #111827;
+  }
+
+  .select-wrap option:hover,
+  .select-wrap option:focus {
+    background: rgba(244, 246, 248, 1);
+  }
+
+  .select-wrap option:checked {
+    background: #1f2933;
+    color: #ffffff;
+  }
+}
