@@ -8,6 +8,7 @@ const sectionLinks = [
   { label: "Toimipisteet", targetId: "locations" },
   { label: "Hinnat", targetId: "pricing" },
   { label: "Kortit", targetId: "monthly-plans" },
+  { label: "Galleria", targetId: "gallery" },
   { label: "UKK", targetId: "faq" },
 ];
 
@@ -42,11 +43,7 @@ const HeaderNav = () => {
     const el = document.getElementById(id);
     if (!el) return;
 
-    const navHeight =
-      navRef.current?.getBoundingClientRect().height || 0;
-
-    const top =
-      el.getBoundingClientRect().top + window.scrollY - navHeight - 12;
+    const top = el.getBoundingClientRect().top + window.scrollY;
 
     window.scrollTo({
       top,
