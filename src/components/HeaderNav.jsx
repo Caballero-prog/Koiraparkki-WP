@@ -65,7 +65,7 @@ const HeaderNav = () => {
   };
 
   return (
-    <header className="site-header">
+    <header className="site-header" id="site-header">
       <nav ref={navRef} className="navigation-bar" aria-label="Päänavigaatio">
         <button
           className={`burger-menu ${open ? "open" : ""}`}

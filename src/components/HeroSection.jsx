@@ -36,7 +36,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="hero">
+    <section className="hero" id="top">
       <div className="hero-bg">
         {imageSrc ? (
           <img

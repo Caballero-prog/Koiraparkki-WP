@@ -9,6 +9,7 @@ import MonthlyPlansSection from "../components/MonthlyPlans";
 import GallerySection from "../components/GallerySection";
 import FAQSection from "../components/FAQSection";
 import ContactSection from "../components/ContactSection";
+import FooterSection from "../components/FooterSection";
 
 
 const HomePage = () => {
@@ -25,6 +26,7 @@ const HomePage = () => {
       <GallerySection />
       <FAQSection />
       <ContactSection />
+      <FooterSection />
     </>
   );
 };
