@@ -1,25 +1,29 @@
 import "../styles/FooterSection.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faXTwitter } from "@fortawesome/free-brands-svg-icons";
+import {
+  faFacebook,
+  faXTwitter,
+  faInstagram,
+} from "@fortawesome/free-brands-svg-icons";
 
 import doglogo from "../assets/doglogo.svg";
 
 const FooterSection = () => {
   const scrollToSection = (id) => {
-  window.location.hash = "#/";
+    window.location.hash = "#/";
 
-  setTimeout(() => {
-    const el = document.getElementById(id);
-    if (!el) return;
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (!el) return;
 
-    const top = el.getBoundingClientRect().top + window.scrollY;
+      const top = el.getBoundingClientRect().top + window.scrollY;
 
-    window.scrollTo({
-      top,
-      behavior: "smooth",
-    });
-  }, 0);
-};
+      window.scrollTo({
+        top,
+        behavior: "smooth",
+      });
+    }, 0);
+  };
 
   return (
     <footer className="footer">
@@ -33,7 +37,7 @@ const FooterSection = () => {
 
           <div className="footer-socials">
             <a
-              href="https://facebook.com"
+              href="https://www.facebook.com/koiraparkki/"
               target="_blank"
               rel="noopener noreferrer"
               className="footer-social"
@@ -43,7 +47,17 @@ const FooterSection = () => {
             </a>
 
             <a
-              href="https://x.com"
+              href="https://www.instagram.com/koiraparkki/?hl=fi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-social"
+              aria-label="Instagram"
+            >
+              <FontAwesomeIcon icon={faInstagram} />
+            </a>
+
+            <a
+              href="https://x.com/koiraparkki?lang=fi"
               target="_blank"
               rel="noopener noreferrer"
               className="footer-social"
@@ -58,7 +72,10 @@ const FooterSection = () => {
           <div className="footer-column">
             <h4>Sivut</h4>
 
-            <button type="button" onClick={() => scrollToSection("site-header")}>
+            <button
+              type="button"
+              onClick={() => scrollToSection("site-header")}
+            >
               Etusivu
             </button>
 
