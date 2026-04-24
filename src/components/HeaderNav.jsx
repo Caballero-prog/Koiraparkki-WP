@@ -10,6 +10,7 @@ const sectionLinks = [
   { label: "Kortit", targetId: "monthly-plans" },
   { label: "Galleria", targetId: "gallery" },
   { label: "UKK", targetId: "faq" },
+  { label: "Yhteys", targetId: "contact" },
 ];
 
 const HeaderNav = () => {
@@ -122,10 +123,6 @@ const HeaderNav = () => {
               </button>
             </li>
           ))}
-
-          <li>
-            <a href="#/hoitosopimus">Hoitosopimus</a>
-          </li>
         </ul>
       </nav>
 
@@ -147,12 +144,6 @@ const HeaderNav = () => {
               </button>
             </li>
           ))}
-
-          <li>
-            <a href="#/hoitosopimus" onClick={closeMenu}>
-              Hoitosopimus
-            </a>
-          </li>
         </ul>
       </nav>
     </header>
