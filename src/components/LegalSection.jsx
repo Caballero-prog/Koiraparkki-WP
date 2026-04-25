@@ -8,6 +8,14 @@ const MEDIA_API_URL = "/wp-json/wp/v2/media?per_page=100";
 const LegalSection = () => {
   const [imageSrc, setImageSrc] = useState(null);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
+  }, []);
+
   const handleBack = () => {
     if (window.history.length > 1) {
       window.history.back();
@@ -120,13 +128,13 @@ const LegalSection = () => {
                 Koiraparkki) palveluita soittamalla tai sähköpostitse, Asiakas
                 täyttänyt hoitosopimus-lomakkeen Koiraparkin nettisivuilla
                 www.koiraparkki.com ja siten on rekisteröitynyt Koiraparkin
-                asiakkaaksi ja voi käyttää Koiraparkin palveluita. Asiakkaalle on
-                lähetetty antamaansa osoitteeseen lasku palveluista.
+                asiakkaaksi ja voi käyttää Koiraparkin palveluita. Asiakkaalle
+                on lähetetty antamaansa osoitteeseen lasku palveluista.
               </p>
 
               <p>
-                Koiraparkki&nbsp; tarvitsee henkilötiedot, jotta asiakas voi
-                käyttää palveluita ja asiakasta voidaan laskuttaa käyttämistään
+                Koiraparkki tarvitsee henkilötiedot, jotta asiakas voi käyttää
+                palveluita ja asiakasta voidaan laskuttaa käyttämistään
                 palveluista.
               </p>
 
@@ -139,7 +147,7 @@ const LegalSection = () => {
                 <li>Asiakassuhteen ylläpitäminen ja viestintä</li>
                 <li>Palveluiden kehittäminen</li>
                 <li>
-                  Markkinointi&nbsp; ja asiakasviestintä (mikäli asiakas antaa
+                  Markkinointi ja asiakasviestintä (mikäli asiakas antaa
                   suostumuksensa)
                 </li>
               </ul>
@@ -217,10 +225,10 @@ const LegalSection = () => {
             <section className="legal-block">
               <h2>Rekisterin suojaus</h2>
               <p>
-                Rekisteri&nbsp; sijaitsee IT-palveluntarjoajan palvelimella&nbsp;
-                ja se on suojattu teknisin- ja hallinnollisin keinoin&nbsp;
+                Rekisteri sijaitsee IT-palveluntarjoajan palvelimella ja se on
+                suojattu teknisin- ja hallinnollisin keinoin
                 IT-palveluntarjoajan toimesta . Henkilötietoja käsittelee
-                pelkästään&nbsp; Koiraparkin henkilökunta, laskutus sekä johto.
+                pelkästään Koiraparkin henkilökunta, laskutus sekä johto.
                 Järjestelmään pääsy on rajattu.
               </p>
             </section>
