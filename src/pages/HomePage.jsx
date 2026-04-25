@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import HeaderNav from "../components/HeaderNav";
 import HeroSection from "../components/HeroSection";
 import StatsSection from "../components/StatsSection";
@@ -11,8 +12,26 @@ import FAQSection from "../components/FAQSection";
 import ContactSection from "../components/ContactSection";
 import FooterSection from "../components/FooterSection";
 
-
 const HomePage = () => {
+  useEffect(() => {
+    const target = sessionStorage.getItem("scrollTarget");
+    if (!target) return;
+
+    sessionStorage.removeItem("scrollTarget");
+
+    window.setTimeout(() => {
+      const el = document.getElementById(target);
+      if (!el) return;
+
+      const top = el.getBoundingClientRect().top + window.scrollY;
+
+      window.scrollTo({
+        top,
+        behavior: "smooth",
+      });
+    }, 0);
+  }, []);
+
   return (
     <>
       <HeaderNav />

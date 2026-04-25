@@ -1,3 +1,4 @@
+import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/FooterSection.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -5,24 +6,39 @@ import {
   faXTwitter,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
-
 import doglogo from "../assets/doglogo.svg";
 
 const FooterSection = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const goHomeTop = () => {
+    sessionStorage.removeItem("scrollTarget");
+
+    if (location.pathname !== "/") {
+      navigate("/");
+      return;
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const scrollToSection = (id) => {
-    window.location.hash = "#/";
+    if (location.pathname !== "/") {
+      sessionStorage.setItem("scrollTarget", id);
+      navigate("/");
+      return;
+    }
 
-    setTimeout(() => {
-      const el = document.getElementById(id);
-      if (!el) return;
+    const el = document.getElementById(id);
+    if (!el) return;
 
-      const top = el.getBoundingClientRect().top + window.scrollY;
+    const top = el.getBoundingClientRect().top + window.scrollY;
 
-      window.scrollTo({
-        top,
-        behavior: "smooth",
-      });
-    }, 0);
+    window.scrollTo({
+      top,
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -72,15 +88,7 @@ const FooterSection = () => {
           <div className="footer-column">
             <h4>Sivut</h4>
 
-            <button
-              type="button"
-              onClick={() => {
-                window.location.hash = "#/";
-                setTimeout(() => {
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }, 0);
-              }}
-            >
+            <button type="button" onClick={goHomeTop}>
               Etusivu
             </button>
 
@@ -92,12 +100,23 @@ const FooterSection = () => {
               Hinnasto
             </button>
 
+            <button
+              type="button"
+              onClick={() => scrollToSection("monthly-plans")}
+            >
+              Kortit
+            </button>
+
             <button type="button" onClick={() => scrollToSection("gallery")}>
               Galleria
             </button>
 
             <button type="button" onClick={() => scrollToSection("faq")}>
               UKK
+            </button>
+
+            <button type="button" onClick={() => scrollToSection("contact")}>
+              Yhteys
             </button>
           </div>
 
@@ -111,14 +130,25 @@ const FooterSection = () => {
           <div className="footer-column">
             <h4>Lomakkeet</h4>
 
-            <a href="#/hoitosopimus">Hoitosopimus</a>
+            <button type="button" onClick={() => navigate("/hoitosopimus")}>
+              Hoitosopimus
+            </button>
+
+            <button type="button" onClick={() => navigate("/kortti")}>
+              Korttitilaus
+            </button>
           </div>
 
           <div className="footer-column">
             <h4>Lakiasiat</h4>
 
-            <a href="#/privacy">Tietosuojaseloste</a>
-            <a href="#/terms">Hoitoehdot</a>
+            <button type="button" onClick={() => navigate("/privacy")}>
+              Tietosuojaseloste
+            </button>
+
+            <button type="button" onClick={() => navigate("/terms")}>
+              Hoitoehdot
+            </button>
           </div>
         </div>
       </div>
