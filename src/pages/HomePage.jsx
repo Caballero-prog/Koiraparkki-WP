@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import HeaderNav from "../components/HeaderNav";
 import HeroSection from "../components/HeroSection";
 import StatsSection from "../components/StatsSection";
@@ -13,24 +14,25 @@ import ContactSection from "../components/ContactSection";
 import FooterSection from "../components/FooterSection";
 
 const HomePage = () => {
-  useEffect(() => {
-    const target = sessionStorage.getItem("scrollTarget");
-    if (!target) return;
+  const location = useLocation();
 
-    sessionStorage.removeItem("scrollTarget");
+useEffect(() => {
+  if (!location.hash) return;
 
-    window.setTimeout(() => {
-      const el = document.getElementById(target);
-      if (!el) return;
+  window.setTimeout(() => {
+    const id = location.hash.replace("#", "");
+    const el = document.getElementById(id);
+    if (!el) return;
 
-      const top = el.getBoundingClientRect().top + window.scrollY;
+    const offset = 0;
+    const top = el.getBoundingClientRect().top + window.scrollY - offset;
 
-      window.scrollTo({
-        top,
-        behavior: "smooth",
-      });
-    }, 0);
-  }, []);
+    window.scrollTo({
+      top,
+      behavior: "smooth",
+    });
+  }, 50);
+}, [location.hash]);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../styles/FooterSection.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,35 +10,13 @@ import doglogo from "../assets/doglogo.svg";
 
 const FooterSection = () => {
   const navigate = useNavigate();
-  const location = useLocation();
 
   const goHomeTop = () => {
-    sessionStorage.removeItem("scrollTarget");
-
-    if (location.pathname !== "/") {
-      navigate("/");
-      return;
-    }
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    navigate("/");
   };
 
   const scrollToSection = (id) => {
-    if (location.pathname !== "/") {
-      sessionStorage.setItem("scrollTarget", id);
-      navigate("/");
-      return;
-    }
-
-    const el = document.getElementById(id);
-    if (!el) return;
-
-    const top = el.getBoundingClientRect().top + window.scrollY;
-
-    window.scrollTo({
-      top,
-      behavior: "smooth",
-    });
+    navigate(`/#${id}`);
   };
 
   return (
