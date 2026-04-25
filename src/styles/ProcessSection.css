@@ -193,7 +193,7 @@
   .process-inner {
     grid-template-columns: minmax(280px, 320px) 1fr;
     gap: 1.25rem;
-    align-items: center;
+    align-items: flex-start;
   }
 
   .process-media {

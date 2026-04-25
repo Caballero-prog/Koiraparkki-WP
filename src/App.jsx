@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import RegisterFormPage from "./pages/RegisterFormPage";
 import LegalPage from "./pages/LegalPage";
 import ScrollToTop from "./components/ScrollToTop";
+import CardFormPage from "./pages/CardFormPage";
 import "./App.css";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/hoitosopimus" element={<RegisterFormPage />} />
         <Route path="/privacy" element={<LegalPage />} />
+        <Route path="/kortti" element={<CardFormPage />} />
       </Routes>
     </>
   );

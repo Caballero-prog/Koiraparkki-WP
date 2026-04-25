@@ -1,0 +1,370 @@
+.card-order {
+  padding: 3.5rem 1.25rem;
+  background: #ffffff;
+}
+
+.card-order-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Back button */
+
+.card-order-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.15rem;
+  padding: 0.7rem 1rem;
+  background: rgba(244, 246, 248, 0.9);
+  border: 1px solid rgba(31, 41, 55, 0.12);
+  border-radius: 12px;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 650;
+  line-height: 1;
+  color: rgba(31, 41, 55, 0.82);
+  cursor: pointer;
+  transition:
+    background 0.12s ease,
+    border-color 0.12s ease,
+    color 0.12s ease,
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.card-order-back:hover {
+  background: rgba(244, 246, 248, 1);
+  border-color: rgba(31, 41, 55, 0.2);
+  color: #111827;
+  transform: translateY(-1px);
+}
+
+.card-order-back:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.1);
+}
+
+/* Header */
+
+.card-order-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.card-order-title {
+  margin: 0 0 0.85rem;
+  font-size: 1.95rem;
+  font-weight: 650;
+  line-height: 1.15;
+  color: #1f2933;
+}
+
+.card-order-lead {
+  margin: 0 auto;
+  max-width: 62ch;
+  line-height: 1.7;
+  font-weight: 500;
+  color: rgba(31, 41, 55, 0.72);
+}
+
+/* Form */
+
+.card-order-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.card-order-card {
+  padding: 1.15rem;
+  border-radius: 18px;
+  background: rgba(244, 246, 248, 0.8);
+  box-shadow: 0 10px 30px rgba(16, 24, 40, 0.06);
+}
+
+.card-order-card-title {
+  margin: 0 0 1.35rem;
+  font-size: 1.14rem;
+  font-weight: 750;
+  line-height: 1.35;
+  color: rgba(17, 24, 39, 0.95);
+}
+
+/* Fields */
+
+.card-order-fields {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.card-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.card-field label {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 650;
+  line-height: 1.45;
+  color: rgba(31, 41, 55, 0.84);
+}
+
+.card-field input,
+.card-field textarea {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  margin: 0;
+  border: 1px solid rgba(31, 41, 55, 0.12);
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 0.9rem 1rem;
+  font: inherit;
+  line-height: 1.5;
+  color: #111827;
+  transition:
+    border-color 0.12s ease,
+    box-shadow 0.12s ease,
+    background-color 0.12s ease;
+}
+
+.card-field textarea {
+  min-height: 150px;
+  resize: none;
+}
+
+.card-field input::placeholder,
+.card-field textarea::placeholder {
+  color: rgba(31, 41, 55, 0.45);
+}
+
+.card-field input:focus,
+.card-field textarea:focus {
+  outline: none;
+  border-color: rgba(18, 28, 40, 0.24);
+  box-shadow: 0 0 0 3px rgba(18, 28, 40, 0.08);
+}
+
+/* Choices */
+
+.card-choice-group {
+  display: grid;
+  gap: 0.95rem;
+}
+
+.card-choice-row {
+  display: grid;
+  grid-template-columns: 1.35rem 1fr;
+  align-items: start;
+  gap: 0.85rem;
+  cursor: pointer;
+  color: rgba(31, 41, 55, 0.84);
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+.card-choice-row input {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 0.18rem 0 0;
+  accent-color: #1f2933;
+  cursor: pointer;
+}
+
+.card-choice-row span {
+  display: block;
+}
+
+/* Messages */
+
+.card-order-message {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.card-order-message--error {
+  background: #fdecea;
+  border: 1px solid #f5c2c0;
+  color: #b42318;
+}
+
+/* Actions */
+
+.card-order-actions {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.35rem;
+}
+
+.card-order-submit {
+  width: 100%;
+  max-width: 260px;
+  border: 1px solid rgba(17, 24, 39, 0.14);
+  background: rgba(244, 246, 248, 0.85);
+  color: rgba(17, 24, 39, 0.95);
+  font: inherit;
+  font-weight: 750;
+  border-radius: 12px;
+  padding: 0.95rem 1.2rem;
+  cursor: pointer;
+  transition:
+    transform 0.12s ease,
+    background 0.12s ease,
+    border-color 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.card-order-submit:hover {
+  transform: translateY(-1px);
+  background: rgba(244, 246, 248, 1);
+}
+
+.card-order-submit:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(18, 28, 40, 0.1);
+}
+
+.card-order-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Success */
+
+.card-order--success {
+  min-height: calc(100svh - var(--nav-h, 60px));
+  display: flex;
+  align-items: flex-start;
+}
+
+.card-order-success-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1.25rem;
+  border-radius: 20px;
+  background: rgba(244, 246, 248, 0.85);
+  box-shadow: 0 10px 30px rgba(16, 24, 40, 0.06);
+}
+
+.card-order-success-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.25rem;
+  height: 4.25rem;
+  margin-bottom: 1rem;
+  border-radius: 999px;
+  background: #e7f7ed;
+  color: #1f7a4d;
+  font-size: 2rem;
+}
+
+.card-order-success-title {
+  margin: 0 0 0.75rem;
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #1f2933;
+}
+
+.card-order-success-text,
+.card-order-success-note {
+  margin: 0;
+  max-width: 52ch;
+  line-height: 1.7;
+  font-weight: 500;
+  color: rgba(31, 41, 55, 0.72);
+}
+
+.card-order-success-note {
+  margin-top: 0.75rem;
+}
+
+/* Tablet */
+
+@media (min-width: 768px) {
+  .card-order {
+    padding: 4.5rem 1.5rem;
+  }
+
+  .card-order-header {
+    margin-bottom: 2.2rem;
+  }
+
+  .card-order-title {
+    font-size: 2.35rem;
+  }
+
+  .card-order-form {
+    gap: 1.15rem;
+  }
+
+  .card-order-card {
+    padding: 1.35rem;
+  }
+
+  .card-order-card-title {
+    margin-bottom: 1.45rem;
+    font-size: 1.2rem;
+  }
+
+  .card-order-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card-field--half {
+    grid-column: span 1;
+  }
+
+  .card-field--full {
+    grid-column: 1 / -1;
+  }
+
+  .card-order-submit {
+    width: auto;
+    min-width: 220px;
+  }
+
+  .card-order-success-card {
+    padding: 2.5rem 2rem;
+  }
+
+  .card-order-success-title {
+    font-size: 2.3rem;
+  }
+}
+
+/* Desktop */
+
+@media (min-width: 1024px) {
+  .card-order {
+    padding: 5rem 2rem;
+  }
+
+  .card-order-title {
+    font-size: 2.55rem;
+  }
+
+  .card-order-card {
+    padding: 1.5rem;
+  }
+
+  .card-order-success-card {
+    padding: 3rem 2.5rem;
+  }
+
+  .card-order-success-title {
+    font-size: 2.5rem;
+  }
+}

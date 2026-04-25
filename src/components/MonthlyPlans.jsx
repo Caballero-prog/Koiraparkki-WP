@@ -3,13 +3,17 @@ import { monthlyPlans, monthlyPlansInfo } from "../data/monthlyPlansData";
 
 const MonthlyPlansSection = () => {
   return (
-    <section className="monthly-plans" id="monthly-plans" aria-labelledby="monthly-plans-title">
-        
+    <section
+      className="monthly-plans"
+      id="monthly-plans"
+      aria-labelledby="monthly-plans-title"
+    >
       <div className="monthly-plans-inner">
         <header className="monthly-plans-header">
           <h2 id="monthly-plans-title" className="monthly-plans-title">
             Sarja- ja kuukausikortit
           </h2>
+
           <p className="monthly-plans-lead">
             Sarja- ja kuukausikorteilla saat edullisemman päiväkohtaisen hinnan
             säännölliseen hoitoon arkipäivisin.
@@ -20,7 +24,9 @@ const MonthlyPlansSection = () => {
           {monthlyPlans.map((plan) => (
             <article
               key={plan.id}
-              className={`monthly-plan-card ${plan.featured ? "is-featured" : ""}`}
+              className={`monthly-plan-card ${
+                plan.featured ? "is-featured" : ""
+              }`}
             >
               <h3 className="monthly-plan-name">{plan.name}</h3>
 
@@ -35,6 +41,13 @@ const MonthlyPlansSection = () => {
                   <li key={detail}>{detail}</li>
                 ))}
               </ul>
+
+              <a
+                href={`#/kortti?card=${plan.id}`}
+                className="monthly-plan-button"
+              >
+                Tilaa tämä kortti
+              </a>
             </article>
           ))}
         </div>
