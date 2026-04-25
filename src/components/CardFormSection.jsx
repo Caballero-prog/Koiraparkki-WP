@@ -1,5 +1,5 @@
 import "../styles/CardFormSection.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,6 +11,16 @@ const CardFormSection = () => {
   const [status, setStatus] = useState("idle");
   const [searchParams] = useSearchParams();
   const selectedCard = searchParams.get("card");
+
+  useEffect(() => {
+    if (status !== "success") return;
+
+    const timer = setTimeout(() => {
+      setStatus("idle");
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [status]);
 
   const handleBack = () => {
     if (window.history.length > 1) {
