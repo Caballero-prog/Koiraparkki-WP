@@ -1,5 +1,5 @@
 import "../styles/RegisterFormSection.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
@@ -8,6 +8,16 @@ import {
 
 const RegisterFormSection = () => {
   const [status, setStatus] = useState("idle");
+
+  useEffect(() => {
+    if (status !== "success") return;
+
+    const timer = setTimeout(() => {
+      setStatus("idle");
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [status]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,11 +65,7 @@ const RegisterFormSection = () => {
         aria-labelledby="agreement-success-title"
       >
         <div className="agreement-inner">
-          <button
-            type="button"
-            className="agreement-back"
-            onClick={handleBack}
-          >
+          <button type="button" className="agreement-back" onClick={handleBack}>
             <FontAwesomeIcon icon={faArrowLeft} />
             <span>Takaisin</span>
           </button>
@@ -69,10 +75,7 @@ const RegisterFormSection = () => {
               <FontAwesomeIcon icon={faCircleCheck} />
             </div>
 
-            <h1
-              id="agreement-success-title"
-              className="agreement-success-title"
-            >
+            <h1 id="agreement-success-title" className="agreement-success-title">
               Lomake lähetetty onnistuneesti
             </h1>
 
@@ -80,12 +83,6 @@ const RegisterFormSection = () => {
               Kiitos rekisteröinnistä. Olemme vastaanottaneet tiedot ja palaamme
               asiaan mahdollisimman pian.
             </p>
-
-            <div className="agreement-success-actions">
-              <a href="#/" className="agreement-success-button">
-                Palaa etusivulle
-              </a>
-            </div>
           </div>
         </div>
       </section>
