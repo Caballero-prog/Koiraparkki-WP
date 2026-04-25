@@ -1,5 +1,6 @@
 import "../styles/CardFormSection.css";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
@@ -8,6 +9,8 @@ import {
 
 const CardFormSection = () => {
   const [status, setStatus] = useState("idle");
+  const [searchParams] = useSearchParams();
+  const selectedCard = searchParams.get("card");
 
   const handleBack = () => {
     if (window.history.length > 1) {
@@ -204,6 +207,7 @@ const CardFormSection = () => {
                   type="radio"
                   name="selectedCard"
                   value="10 käyntiä sarjakortti — 360 €"
+                  defaultChecked={selectedCard === "sarjakortti-10"}
                   required
                 />
                 <span>10 käyntiä sarjakortti — 360 €</span>
@@ -214,6 +218,7 @@ const CardFormSection = () => {
                   type="radio"
                   name="selectedCard"
                   value="20 käyntiä sarjakortti — 610 €"
+                  defaultChecked={selectedCard === "sarjakortti-20"}
                 />
                 <span>20 käyntiä sarjakortti — 610 €</span>
               </label>
@@ -223,6 +228,7 @@ const CardFormSection = () => {
                   type="radio"
                   name="selectedCard"
                   value="Kuukausikortti Ma–Pe — 550 €"
+                  defaultChecked={selectedCard === "kuukausikortti"}
                 />
                 <span>Kuukausikortti Ma–Pe — 550 €</span>
               </label>
