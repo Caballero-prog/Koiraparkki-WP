@@ -4,6 +4,7 @@ import RegisterFormPage from "./pages/RegisterFormPage";
 import LegalPage from "./pages/LegalPage";
 import ScrollToTop from "./components/ScrollToTop";
 import CardFormPage from "./pages/CardFormPage";
+import BookingFormPage from "./pages/BookingFormPage";
 import "./App.css";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/hoitosopimus" element={<RegisterFormPage />} />
         <Route path="/privacy" element={<LegalPage />} />
         <Route path="/kortti" element={<CardFormPage />} />
+        <Route path="/varaus" element={<BookingFormPage />} />
       </Routes>
     </>
   );

@@ -1,5 +1,6 @@
 import "../styles/PricingSection.css";
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { pricingOptions, seasonalNotice } from "../data/pricingData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const PricingSection = () => {
+  const navigate = useNavigate();
   const [activeId, setActiveId] = useState(pricingOptions[0]?.id);
 
   const active = useMemo(() => {
@@ -104,6 +106,14 @@ const PricingSection = () => {
                     <li>{active.cancellation}</li>
                     <li>{active.noShow}</li>
                   </ul>
+
+                  <button
+                    type="button"
+                    className="pricing-booking-button"
+                    onClick={() => navigate("/varaus")}
+                  >
+                    Tee varaus
+                  </button>
                 </div>
 
                 <div className="pricing-block pricing-block-suitable">
