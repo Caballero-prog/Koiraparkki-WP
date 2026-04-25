@@ -74,7 +74,12 @@ const FooterSection = () => {
 
             <button
               type="button"
-              onClick={() => scrollToSection("site-header")}
+              onClick={() => {
+                window.location.hash = "#/";
+                setTimeout(() => {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }, 0);
+              }}
             >
               Etusivu
             </button>
