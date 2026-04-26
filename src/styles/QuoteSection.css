@@ -1,6 +1,6 @@
 .intro-quote {
   padding: 3.5rem 1.25rem;
-  background-color: #f4f6f8; /* soft neutral */
+  background: var(--color-bg-soft);
 }
 
 .intro-quote-inner {
@@ -9,23 +9,29 @@
   text-align: center;
 }
 
+/* Quote text */
+
 .intro-quote-text {
   position: relative;
   margin: 0;
   font-size: 1.25rem;
-  line-height: 1.8;
-  font-weight: 500;
-  color: #1f2933;
+  line-height: 1.85;
+  font-weight: 550;
+  color: var(--color-text);
+  max-width: 52ch;
+  margin-inline: auto;
 }
+
+/* Decorative quotes */
 
 .intro-quote-text::before,
 .intro-quote-text::after {
   content: "“";
   position: absolute;
   font-size: 4.5rem;
-  color: rgba(31, 41, 55, 0.12);
   line-height: 1;
   pointer-events: none;
+  color: var(--color-accent-soft);
 }
 
 .intro-quote-text::before {
@@ -39,6 +45,20 @@
   top: 100%;
   transform: translateY(-45%) rotate(180deg);
 }
+
+.intro-quote-inner::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  margin: 1.75rem auto 0;
+  border-radius: 999px;
+  background: var(--color-accent);
+  opacity: 0.9;
+}
+
+/* Tablet */
+
 @media (min-width: 768px) {
   .intro-quote {
     padding: 4.5rem 2rem;

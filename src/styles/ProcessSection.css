@@ -1,6 +1,6 @@
 .process {
   padding: 3rem 1.25rem;
-  background-color: #ffffff;
+  background: var(--color-bg);
 }
 
 .process-inner {
@@ -18,9 +18,10 @@
   max-width: 425px;
   min-height: 380px;
   margin: 0 auto;
-  border-radius: 18px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  background: rgba(244, 246, 248, 0.85);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 10px 30px var(--color-shadow);
 }
 
 .process-image {
@@ -49,7 +50,7 @@
   font-size: 1.9rem;
   font-weight: 650;
   line-height: 1.15;
-  color: #1f2933;
+  color: var(--color-text);
 }
 
 .process-lead {
@@ -57,7 +58,7 @@
   max-width: 56ch;
   line-height: 1.65;
   font-weight: 500;
-  color: rgba(31, 41, 55, 0.72);
+  color: var(--color-text-muted);
 }
 
 /* Steps */
@@ -76,7 +77,7 @@
   gap: 0.95rem;
   align-items: start;
   padding-top: 0.85rem;
-  border-top: 1px solid rgba(31, 41, 55, 0.08);
+  border-top: 1px solid var(--color-border);
 }
 
 .process-step:first-child {
@@ -89,14 +90,13 @@
   line-height: 1;
   font-weight: 750;
   letter-spacing: -0.03em;
-  color: rgba(17, 24, 39, 0.22);
+  color: var(--color-accent-soft);
   min-width: 2.2rem;
 }
 
 .process-step-text {
   display: grid;
   gap: 0.25rem;
-  justify-items: start;
 }
 
 .process-step-title {
@@ -104,27 +104,68 @@
   font-size: 1.05rem;
   font-weight: 700;
   line-height: 1.3;
-  color: #111827;
+  color: var(--color-text-strong);
 }
 
 .process-step-description {
   margin: 0;
   line-height: 1.6;
-  color: rgba(31, 41, 55, 0.74);
+  color: var(--color-text-muted);
+}
+
+/* CTA */
+
+.process-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: start;
+
+  width: 100%;
+  margin-top: 0.9rem;
+  padding: 0.9rem 1.15rem;
+
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: 750;
+  line-height: 1;
+
+  color: var(--color-white);
+  background: var(--color-accent);
+  border: 1px solid var(--color-accent);
+
+  transition:
+    transform 0.12s ease,
+    background 0.12s ease,
+    border-color 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.process-cta:hover {
+  transform: translateY(-1px);
+  background: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+  box-shadow: 0 10px 24px rgba(0, 102, 255, 0.18);
+}
+
+.process-cta:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
 }
 
 /* Skeleton */
 
 .process-skeleton {
   width: 100%;
-  min-height: 380px;
+  height: 100%;
+  min-height: inherit;
   background: rgba(17, 24, 39, 0.08);
 }
 
 .process-skeleton-shimmer {
   width: 100%;
   height: 100%;
-  min-height: 380px;
+  min-height: inherit;
   display: block;
   background: linear-gradient(
     90deg,
@@ -140,56 +181,18 @@
   0% {
     background-position: 200% 0;
   }
-
   100% {
     background-position: -200% 0;
   }
 }
-.process-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  justify-self: start;
-  width: 100%;
-  margin-top: 0.9rem;
-  padding: 0.85rem 1.1rem;
 
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: 700;
-  line-height: 1;
-
-  color: #f7f7f7;
-  background: #1f2933;
-  border: 1px solid #1f2933;
-
-  transition:
-    transform 0.12s ease,
-    background 0.12s ease,
-    border-color 0.12s ease,
-    box-shadow 0.12s ease;
-}
-
-.process-cta:hover {
-  transform: translateY(-1px);
-  background: #111827;
-  border-color: #111827;
-}
-
-.process-cta:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.14);
-}
-/* Tablet and up */
+/* Tablet */
 
 @media (min-width: 768px) {
   .process {
     padding: 3.5rem 1.5rem;
   }
-.process-cta {
-    width: auto;           /* shrink to content */
-    min-width: 220px;      /* keeps it from being tiny */
-  }
+
   .process-inner {
     grid-template-columns: minmax(280px, 320px) 1fr;
     gap: 1.25rem;
@@ -197,31 +200,21 @@
   }
 
   .process-media {
-    width: 100%;
     max-width: 320px;
-    min-height: 380px;
     margin: 0;
-  }
-
-  .process-image {
-    min-height: 380px;
-  }
-
-  .process-skeleton,
-  .process-skeleton-shimmer {
-    min-height: 380px;
   }
 
   .process-title {
     font-size: 2.25rem;
   }
 
-  .process-content {
-    gap: 1.1rem;
-  }
-
   .process-number {
     font-size: 2.15rem;
+  }
+
+  .process-cta {
+    width: auto;
+    min-width: 220px;
   }
 }
 
@@ -239,15 +232,6 @@
 
   .process-media {
     max-width: 360px;
-    min-height: 420px;
-  }
-
-  .process-image {
-    min-height: 420px;
-  }
-
-  .process-skeleton,
-  .process-skeleton-shimmer {
     min-height: 420px;
   }
 

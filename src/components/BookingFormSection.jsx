@@ -5,6 +5,9 @@ import { faArrowLeft, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
 const BookingFormSection = () => {
   const [status, setStatus] = useState("idle");
+  const [formMessage, setFormMessage] = useState("");
+
+  const today = new Date().toISOString().split("T")[0];
 
   useEffect(() => {
     if (status !== "success") return;
@@ -15,6 +18,17 @@ const BookingFormSection = () => {
 
     return () => clearTimeout(timer);
   }, [status]);
+
+  useEffect(() => {
+    if (!formMessage) return;
+
+    const timer = setTimeout(() => {
+      setStatus("idle");
+      setFormMessage("");
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [formMessage]);
 
   const handleBack = () => {
     if (window.history.length > 1) {
@@ -27,10 +41,17 @@ const BookingFormSection = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("loading");
+    setFormMessage("");
 
     const form = e.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
+
+    if (data.startDate && data.endDate && data.endDate < data.startDate) {
+      setFormMessage("Päättymispäivä ei voi olla ennen alkamispäivää.");
+      setStatus("error");
+      return;
+    }
 
     try {
       const response = await fetch("/wp-json/custom/v1/booking", {
@@ -44,13 +65,14 @@ const BookingFormSection = () => {
       const result = await response.json();
 
       if (!response.ok || !result.success) {
-        throw new Error(result.message || "Request failed");
+        throw new Error("Lähetys epäonnistui. Yritä uudelleen.");
       }
 
       form.reset();
       setStatus("success");
     } catch (error) {
       console.error("Error:", error);
+      setFormMessage("Lähetys epäonnistui. Yritä uudelleen.");
       setStatus("error");
     }
   };
@@ -95,6 +117,7 @@ const BookingFormSection = () => {
           <h1 id="booking-title" className="booking-title">
             Tee varaus
           </h1>
+
           <p className="booking-lead">
             Täytä alla oleva lomake ja otamme sinuun yhteyttä mahdollisimman
             nopeasti.
@@ -102,7 +125,6 @@ const BookingFormSection = () => {
         </header>
 
         <form className="booking-form" onSubmit={handleSubmit}>
-          {/* Asiakkuus */}
           <section className="booking-card">
             <h2 className="booking-card-title">Asiakkuus</h2>
 
@@ -113,13 +135,12 @@ const BookingFormSection = () => {
               </label>
 
               <label>
-                <input type="radio" name="isCustomer" value="En" />
+                <input type="radio" name="isCustomer" value="En" required />
                 <span>En ole vielä asiakas</span>
               </label>
             </div>
           </section>
 
-          {/* Perustiedot */}
           <section className="booking-card">
             <h2 className="booking-card-title">Perustiedot</h2>
 
@@ -130,7 +151,7 @@ const BookingFormSection = () => {
                   id="bookingFirstName"
                   name="firstName"
                   type="text"
-                  placeholder="Etunimi *"
+                  placeholder="Etunimi"
                   required
                 />
               </div>
@@ -141,7 +162,7 @@ const BookingFormSection = () => {
                   id="bookingLastName"
                   name="lastName"
                   type="text"
-                  placeholder="Sukunimi *"
+                  placeholder="Sukunimi"
                   required
                 />
               </div>
@@ -152,7 +173,7 @@ const BookingFormSection = () => {
                   id="bookingDogName"
                   name="dogName"
                   type="text"
-                  placeholder="Koiran nimi *"
+                  placeholder="Koiran nimi"
                   required
                 />
               </div>
@@ -173,7 +194,7 @@ const BookingFormSection = () => {
                   id="bookingPhone"
                   name="phone"
                   type="tel"
-                  placeholder="Puhelin *"
+                  placeholder="+358 40 123 4567"
                   required
                 />
               </div>
@@ -184,14 +205,13 @@ const BookingFormSection = () => {
                   id="bookingEmail"
                   name="email"
                   type="email"
-                  placeholder="Sähköposti *"
+                  placeholder="nimi@email.com"
                   required
                 />
               </div>
             </div>
           </section>
 
-          {/* Toimipiste */}
           <section className="booking-card">
             <h2 className="booking-card-title">Toimipiste</h2>
 
@@ -208,7 +228,6 @@ const BookingFormSection = () => {
             </div>
           </section>
 
-          {/* Päivämäärät */}
           <section className="booking-card">
             <h2 className="booking-card-title">Ajankohta</h2>
 
@@ -219,6 +238,7 @@ const BookingFormSection = () => {
                   id="bookingStartDate"
                   type="date"
                   name="startDate"
+                  min={today}
                   required
                 />
               </div>
@@ -229,13 +249,13 @@ const BookingFormSection = () => {
                   id="bookingEndDate"
                   type="date"
                   name="endDate"
+                  min={today}
                   required
                 />
               </div>
             </div>
           </section>
 
-          {/* Lisätiedot */}
           <section className="booking-card">
             <h2 className="booking-card-title">Lisätiedot</h2>
 
@@ -248,7 +268,7 @@ const BookingFormSection = () => {
 
           {status === "error" && (
             <p className="booking-error">
-              Lähetys epäonnistui. Yritä uudelleen.
+              {formMessage || "Lähetys epäonnistui. Yritä uudelleen."}
             </p>
           )}
 

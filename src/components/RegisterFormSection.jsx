@@ -1,10 +1,7 @@
 import "../styles/RegisterFormSection.css";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeft,
-  faCircleCheck,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
 const RegisterFormSection = () => {
   const [status, setStatus] = useState("idle");

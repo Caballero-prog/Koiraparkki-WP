@@ -1,10 +1,58 @@
+:root {
+  /* Base colors */
+  --color-white: #ffffff;
+  --color-black: #111827;
+
+  /* Backgrounds */
+  --color-bg: #ffffff;
+  --color-bg-soft: #f7f7f7;
+  --color-bg-blue: #e8efff;
+
+  /* Text */
+  --color-text: #1f2933;
+  --color-text-strong: #111827;
+  --color-text-muted: rgba(31, 41, 55, 0.72);
+
+  /* Accent */
+  --color-accent: #0066ff;
+  --color-accent-dark: #0052cc;
+  --color-accent-soft: rgba(0, 102, 255, 0.1);
+
+  /* UI */
+  --color-border: rgba(31, 41, 55, 0.12);
+  --color-shadow: rgba(16, 24, 40, 0.06);
+
+  /* Radius */
+  --radius-sm: 10px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 20px;
+}
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-    font-family: "Montserrat", sans-serif;
-    box-sizing: border-box;
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
 }
