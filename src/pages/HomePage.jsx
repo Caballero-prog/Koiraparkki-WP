@@ -16,23 +16,30 @@ import FooterSection from "../components/FooterSection";
 const HomePage = () => {
   const location = useLocation();
 
-useEffect(() => {
-  if (!location.hash) return;
+  useEffect(() => {
+    if (location.state?.scrollTop) {
+      window.scrollTo({
+        top: 0,
+        behavior: "auto",
+      });
+      return;
+    }
 
-  window.setTimeout(() => {
-    const id = location.hash.replace("#", "");
-    const el = document.getElementById(id);
-    if (!el) return;
+    if (!location.hash) return;
 
-    const offset = 0;
-    const top = el.getBoundingClientRect().top + window.scrollY - offset;
+    window.setTimeout(() => {
+      const id = location.hash.replace("#", "");
+      const el = document.getElementById(id);
+      if (!el) return;
 
-    window.scrollTo({
-      top,
-      behavior: "smooth",
-    });
-  }, 50);
-}, [location.hash]);
+      const top = el.getBoundingClientRect().top + window.scrollY;
+
+      window.scrollTo({
+        top,
+        behavior: "smooth",
+      });
+    }, 50);
+  }, [location.hash, location.state]);
 
   return (
     <>

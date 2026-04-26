@@ -1,19 +1,26 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/FooterSection.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFacebook,
-  faXTwitter,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
+import { faFacebook, faXTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import doglogo from "../assets/doglogo.svg";
 
 const FooterSection = () => {
-  const navigate = useNavigate();
+const navigate = useNavigate();
+const location = useLocation();
 
-  const goHomeTop = () => {
-    navigate("/");
-  };
+const goHomeTop = () => {
+  if (location.pathname === "/") {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    return;
+  }
+
+  navigate("/", {
+    state: { scrollTop: true },
+  });
+};
 
   const scrollToSection = (id) => {
     navigate(`/#${id}`);
@@ -114,6 +121,10 @@ const FooterSection = () => {
 
             <button type="button" onClick={() => navigate("/kortti")}>
               Korttitilaus
+            </button>
+
+            <button type="button" onClick={() => navigate("/varaus")}>
+              Varauslomake
             </button>
           </div>
 
