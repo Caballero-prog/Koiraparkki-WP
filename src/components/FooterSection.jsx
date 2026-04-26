@@ -1,29 +1,34 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/FooterSection.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faXTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
+import {
+  faFacebook,
+  faXTwitter,
+  faInstagram,
+  faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
 import doglogo from "../assets/doglogo.svg";
 
 const FooterSection = () => {
-const navigate = useNavigate();
-const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-const goHomeTop = () => {
-  if (location.pathname === "/") {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
+  const goHomeTop = () => {
+    if (location.pathname === "/") {
+      window.scrollTo({
+        top: 0,
+        behavior: "auto",
+      });
+      return;
+    }
+
+    navigate("/", {
+      state: { scrollTop: true },
     });
-    return;
-  }
-
-  navigate("/", {
-    state: { scrollTop: true },
-  });
-};
+  };
 
   const scrollToSection = (id) => {
-    navigate(`/#${id}`);
+    navigate(`/${id}`);
   };
 
   return (
@@ -65,6 +70,16 @@ const goHomeTop = () => {
               aria-label="X"
             >
               <FontAwesomeIcon icon={faXTwitter} />
+            </a>
+
+            <a
+              href="https://www.youtube.com/@Koiraparkkicom-ze8hv"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-social"
+              aria-label="YouTube"
+            >
+              <FontAwesomeIcon icon={faYoutube} />
             </a>
           </div>
         </div>

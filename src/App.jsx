@@ -14,6 +14,14 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
+
+        <Route path="/locations" element={<HomePage />} />
+        <Route path="/pricing" element={<HomePage />} />
+        <Route path="/monthly-plans" element={<HomePage />} />
+        <Route path="/gallery" element={<HomePage />} />
+        <Route path="/faq" element={<HomePage />} />
+        <Route path="/contact" element={<HomePage />} />
+
         <Route path="/hoitosopimus" element={<RegisterFormPage />} />
         <Route path="/privacy" element={<LegalPage />} />
         <Route path="/kortti" element={<CardFormPage />} />
