@@ -3,15 +3,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import dogLogo from "../assets/doglogo.svg";
-
-const sectionLinks = [
-  { label: "Toimipisteet", targetId: "locations" },
-  { label: "Hinnat", targetId: "pricing" },
-  { label: "Kortit", targetId: "monthly-plans" },
-  { label: "Galleria", targetId: "gallery" },
-  { label: "UKK", targetId: "faq" },
-  { label: "Yhteys", targetId: "contact" },
-];
+import { navData } from "../data/navData";
 
 const HeaderNav = () => {
   const [open, setOpen] = useState(false);
@@ -76,14 +68,16 @@ const HeaderNav = () => {
           <FontAwesomeIcon icon={open ? faTimes : faBars} />
         </button>
 
+        {/* Mobile text logo */}
         <button
           type="button"
           className="site-title site-title-mobile nav-brand-button"
           onClick={goToTop}
         >
-          Koiraparkki
+          {navData.brandName}
         </button>
 
+        {/* Mobile icon logo */}
         <button
           type="button"
           className="site-logo-link site-logo-link-mobile nav-brand-button"
@@ -97,6 +91,7 @@ const HeaderNav = () => {
           />
         </button>
 
+        {/* Desktop logo */}
         <button
           type="button"
           className="brand-desktop nav-brand-button"
@@ -108,12 +103,15 @@ const HeaderNav = () => {
             aria-hidden="true"
             className="site-logo site-logo-desktop"
           />
-          <span className="site-title site-title-desktop">Koiraparkki</span>
+          <span className="site-title site-title-desktop">
+            {navData.brandName}
+          </span>
         </button>
 
+        {/* Desktop nav */}
         <ul className="desktop-nav">
-          {sectionLinks.map((link) => (
-            <li key={link.label}>
+          {navData.sectionLinks.map((link) => (
+            <li key={link.targetId}>
               <button
                 type="button"
                 className="nav-link-button"
@@ -126,6 +124,7 @@ const HeaderNav = () => {
         </ul>
       </nav>
 
+      {/* Mobile menu */}
       <nav
         id="mobile-menu"
         className={`mobile-menu ${open ? "open" : ""}`}
@@ -133,8 +132,8 @@ const HeaderNav = () => {
         inert={!open ? "" : undefined}
       >
         <ul>
-          {sectionLinks.map((link) => (
-            <li key={link.label}>
+          {navData.sectionLinks.map((link) => (
+            <li key={link.targetId}>
               <button
                 type="button"
                 className="nav-link-button"
