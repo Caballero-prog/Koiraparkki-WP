@@ -2,11 +2,37 @@ import "../styles/HeroSection.css";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
+import { heroData } from "../data/heroData";
 
 const MEDIA_API_URL = "/wp-json/wp/v2/media?per_page=100";
 
 const HeroSection = () => {
   const [imageSrc, setImageSrc] = useState(null);
+  const [content, setContent] = useState(heroData);
+
+  useEffect(() => {
+    const fetchHeroContent = async () => {
+      try {
+        const res = await fetch("/wp-json/custom/v1/hero-section");
+        if (!res.ok) return;
+
+        const data = await res.json();
+
+        if (data?.title && data?.subtitle && data?.phone) {
+          setContent({
+            title: data.title,
+            subtitle: data.subtitle,
+            phone: data.phone,
+            phoneHref: data.phoneHref || heroData.phoneHref,
+          });
+        }
+      } catch {
+        return;
+      }
+    };
+
+    fetchHeroContent();
+  }, []);
 
   useEffect(() => {
     const fetchHeroImage = async () => {
@@ -17,14 +43,14 @@ const HeroSection = () => {
         const data = await res.json();
 
         const image = data.find(
-          (item) => item.media_type === "image" && item.slug === "hero-main",
+          (item) => item.media_type === "image" && item.slug === "hero-main"
         );
 
         if (image) {
           setImageSrc(
             image.media_details?.sizes?.large?.source_url ||
               image.media_details?.sizes?.medium_large?.source_url ||
-              image.source_url,
+              image.source_url
           );
         }
       } catch {
@@ -39,12 +65,7 @@ const HeroSection = () => {
     <section className="hero" id="top">
       <div className="hero-bg">
         {imageSrc ? (
-          <img
-            src={imageSrc}
-            alt=""
-            aria-hidden="true"
-            className="hero-image"
-          />
+          <img src={imageSrc} alt="" aria-hidden="true" className="hero-image" />
         ) : (
           <div className="hero-skeleton" aria-hidden="true">
             <div className="hero-skeleton-shimmer" />
@@ -54,21 +75,18 @@ const HeroSection = () => {
         <div className="hero-overlay" />
 
         <div className="hero-content">
-          <h2>
-            Häkitön <br />
-            koirahoitola
-          </h2>
+          <h2>{content.title}</h2>
 
-          <p>Turvallinen päivähoito koirille</p>
+          <p>{content.subtitle}</p>
 
           <div className="hero-actions">
-            <a href="tel:+358456133212" className="hero-contact">
+            <a href={content.phoneHref} className="hero-contact">
               <FontAwesomeIcon icon={faPhone} />
-              <span>+358 456 133 212</span>
+              <span>{content.phone}</span>
             </a>
 
             <a
-              href="#/hoitosopimus"
+              href="/hoitosopimus"
               className="hero-cta"
               aria-label="Täytä koiran hoitosopimuslomake"
             >
