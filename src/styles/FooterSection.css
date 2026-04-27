@@ -1,7 +1,7 @@
 .footer {
   padding: 3rem 1.25rem 2rem;
   background: #0f172a;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .footer-inner {
@@ -51,7 +51,7 @@
   background: rgba(255, 255, 255, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.9);
 
-  color: #0f172a; /* dark icon */
+  color: #0f172a;
 
   font-size: 1rem;
   text-decoration: none;
@@ -64,16 +64,15 @@
 }
 
 .footer-social:hover {
-  background: #ffffff;
-  color: #020617; /* slightly deeper */
+  background: var(--color-accent);
+  color: #ffffff;
   transform: translateY(-2px);
-
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 18px rgba(0, 102, 255, 0.35);
 }
 
 .footer-social:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.14);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
 }
 
 /* Columns */
@@ -88,6 +87,9 @@
   align-content: start;
   gap: 0.6rem;
 }
+
+/* Buttons (React nav) */
+
 .footer-column button {
   background: none;
   border: none;
@@ -101,14 +103,19 @@
 }
 
 .footer-column button:hover {
-  color: #ffffff;
+  color: var(--color-accent);
 }
+
+/* Titles */
+
 .footer-column h4 {
   margin: 0;
   font-size: 0.9rem;
   font-weight: 700;
   color: #ffffff;
 }
+
+/* Links */
 
 .footer-column a {
   width: fit-content;
@@ -120,12 +127,12 @@
 }
 
 .footer-column a:hover {
-  color: #ffffff;
+  color: var(--color-accent);
 }
 
 .footer-column a:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.14);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
   border-radius: 6px;
 }
 

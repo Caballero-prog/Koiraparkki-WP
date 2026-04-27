@@ -1,6 +1,6 @@
 .booking {
   padding: 3.5rem 1.25rem;
-  background: #ffffff;
+  background: var(--color-bg-soft);
 }
 
 .booking--success {
@@ -22,14 +22,14 @@
   gap: 0.5rem;
   margin-bottom: 1.15rem;
   padding: 0.7rem 1rem;
-  background: rgba(244, 246, 248, 0.9);
-  border: 1px solid rgba(31, 41, 55, 0.12);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   font: inherit;
   font-size: 0.95rem;
   font-weight: 650;
   line-height: 1;
-  color: rgba(31, 41, 55, 0.82);
+  color: var(--color-text);
   cursor: pointer;
   transition:
     background 0.12s ease,
@@ -40,15 +40,15 @@
 }
 
 .booking-back:hover {
-  background: rgba(244, 246, 248, 1);
-  border-color: rgba(31, 41, 55, 0.2);
-  color: #111827;
+  background: var(--color-white);
+  border-color: rgba(0, 102, 255, 0.22);
+  color: var(--color-accent);
   transform: translateY(-1px);
 }
 
 .booking-back:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.1);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
 }
 
 /* Header */
@@ -63,7 +63,7 @@
   font-size: 1.95rem;
   font-weight: 650;
   line-height: 1.15;
-  color: #1f2933;
+  color: var(--color-text);
 }
 
 .booking-lead {
@@ -71,7 +71,7 @@
   max-width: 62ch;
   line-height: 1.7;
   font-weight: 500;
-  color: rgba(31, 41, 55, 0.72);
+  color: var(--color-text-muted);
 }
 
 /* Form */
@@ -84,8 +84,9 @@
 .booking-card {
   padding: 1.15rem;
   border-radius: 18px;
-  background: rgba(244, 246, 248, 0.8);
-  box-shadow: 0 10px 30px rgba(16, 24, 40, 0.06);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 14px 36px rgba(16, 24, 40, 0.09);
 }
 
 .booking-card-title {
@@ -93,7 +94,7 @@
   font-size: 1.14rem;
   font-weight: 750;
   line-height: 1.35;
-  color: rgba(17, 24, 39, 0.95);
+  color: var(--color-text-strong);
 }
 
 /* Fields */
@@ -119,7 +120,7 @@
   font-size: 0.95rem;
   font-weight: 650;
   line-height: 1.45;
-  color: rgba(31, 41, 55, 0.84);
+  color: var(--color-text);
 }
 
 .booking-field input,
@@ -134,13 +135,13 @@
   min-width: 0;
   box-sizing: border-box;
   margin: 0;
-  border: 1px solid rgba(31, 41, 55, 0.12);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
-  background: #ffffff;
+  background: var(--color-white);
   padding: 0.9rem 1rem;
   font: inherit;
   line-height: 1.5;
-  color: #111827;
+  color: var(--color-text-strong);
   transition:
     border-color 0.12s ease,
     box-shadow 0.12s ease,
@@ -170,9 +171,9 @@
 .booking-card textarea:focus,
 .booking-card select:focus {
   outline: none;
-  border-color: rgba(18, 28, 40, 0.24);
-  box-shadow: 0 0 0 3px rgba(18, 28, 40, 0.08);
-  background-color: #ffffff;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
+  background-color: var(--color-white);
 }
 
 /* Select */
@@ -189,8 +190,8 @@
   right: 1rem;
   width: 10px;
   height: 10px;
-  border-right: 2px solid rgba(31, 41, 55, 0.65);
-  border-bottom: 2px solid rgba(31, 41, 55, 0.65);
+  border-right: 2px solid var(--color-accent);
+  border-bottom: 2px solid var(--color-accent);
   transform: translateY(-65%) rotate(45deg);
   pointer-events: none;
 }
@@ -221,7 +222,7 @@
   align-items: start;
   gap: 0.85rem;
   cursor: pointer;
-  color: rgba(31, 41, 55, 0.84);
+  color: var(--color-text);
   line-height: 1.55;
   font-weight: 500;
 }
@@ -230,7 +231,7 @@
   width: 1.15rem;
   height: 1.15rem;
   margin: 0.18rem 0 0;
-  accent-color: #1f2933;
+  accent-color: var(--color-accent);
   cursor: pointer;
 }
 
@@ -262,9 +263,9 @@
 .booking-submit {
   width: 100%;
   max-width: 260px;
-  border: 1px solid rgba(17, 24, 39, 0.14);
-  background: rgba(244, 246, 248, 0.85);
-  color: rgba(17, 24, 39, 0.95);
+  border: 1px solid var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-white);
   font: inherit;
   font-weight: 750;
   border-radius: 12px;
@@ -279,12 +280,14 @@
 
 .booking-submit:hover {
   transform: translateY(-1px);
-  background: rgba(244, 246, 248, 1);
+  background: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+  box-shadow: 0 10px 24px rgba(0, 102, 255, 0.18);
 }
 
 .booking-submit:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(18, 28, 40, 0.1);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
 }
 
 .booking-submit:disabled {
@@ -302,8 +305,9 @@
   text-align: center;
   padding: 2rem 1.25rem;
   border-radius: 20px;
-  background: rgba(244, 246, 248, 0.85);
-  box-shadow: 0 10px 30px rgba(16, 24, 40, 0.06);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 14px 36px rgba(16, 24, 40, 0.09);
 }
 
 .booking-success-icon {
@@ -314,8 +318,8 @@
   height: 4.25rem;
   margin-bottom: 1rem;
   border-radius: 999px;
-  background: #e7f7ed;
-  color: #1f7a4d;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
   font-size: 2rem;
 }
 
@@ -324,7 +328,7 @@
   font-size: 1.9rem;
   font-weight: 700;
   line-height: 1.15;
-  color: #1f2933;
+  color: var(--color-text);
 }
 
 .booking-success-text {
@@ -332,7 +336,7 @@
   max-width: 52ch;
   line-height: 1.7;
   font-weight: 500;
-  color: rgba(31, 41, 55, 0.72);
+  color: var(--color-text-muted);
 }
 
 .booking-field input[type="date"] {
@@ -371,28 +375,29 @@
 
   .select-wrap select::picker(select) {
     margin-top: 0.4rem;
-    border: 1px solid rgba(31, 41, 55, 0.12);
+    border: 1px solid var(--color-border);
     border-radius: 12px;
-    background: #ffffff;
+    background: var(--color-white);
     box-shadow: 0 14px 34px rgba(16, 24, 40, 0.14);
   }
 
   .select-wrap option {
     padding: 0.85rem 1rem;
-    background: #ffffff;
-    color: #111827;
+    background: var(--color-white);
+    color: var(--color-text-strong);
   }
 
   .select-wrap option:hover,
   .select-wrap option:focus {
-    background: rgba(244, 246, 248, 1);
+    background: var(--color-bg-soft);
   }
 
   .select-wrap option:checked {
-    background: #1f2933;
-    color: #ffffff;
+    background: var(--color-accent);
+    color: var(--color-white);
   }
 }
+
 /* Tablet */
 
 @media (min-width: 768px) {

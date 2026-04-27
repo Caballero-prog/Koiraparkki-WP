@@ -1,5 +1,5 @@
 .legal-page {
-  background: #ffffff;
+  background: var(--color-bg-soft);
   padding: 3.5rem 1.25rem;
 }
 
@@ -16,13 +16,13 @@
   gap: 0.5rem;
   margin-bottom: 1.15rem;
   padding: 0.7rem 1rem;
-  background: rgba(244, 246, 248, 0.9);
-  border: 1px solid rgba(31, 41, 55, 0.12);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   font: inherit;
   font-size: 0.95rem;
   font-weight: 650;
-  color: rgba(31, 41, 55, 0.82);
+  color: var(--color-text);
   cursor: pointer;
   transition:
     background 0.12s ease,
@@ -32,14 +32,13 @@
 }
 
 .legal-back:hover {
-  background: rgba(244, 246, 248, 1);
-  color: #111827;
+  color: var(--color-accent);
   transform: translateY(-1px);
 }
 
 .legal-back:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.1);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
 }
 
 /* Hero */
@@ -53,7 +52,9 @@
   min-height: 280px;
   border-radius: 18px;
   overflow: hidden;
-  background: rgba(244, 246, 248, 0.85);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 14px 36px rgba(16, 24, 40, 0.09);
 }
 
 .legal-hero-image,
@@ -76,7 +77,7 @@
   z-index: 1;
   background: linear-gradient(
     to top,
-    rgba(18, 28, 40, 0.58),
+    rgba(18, 28, 40, 0.62),
     rgba(18, 28, 40, 0.12)
   );
 }
@@ -95,14 +96,14 @@
   font-size: 2.15rem;
   font-weight: 700;
   line-height: 1.1;
-  color: #ffffff;
+  color: var(--color-white);
   text-shadow: 0 2px 12px rgba(46, 46, 46, 0.35);
 }
 
 /* Skeleton */
 
 .legal-skeleton {
-  background: #e5e7eb;
+  background: rgba(17, 24, 39, 0.08);
 }
 
 .legal-skeleton-shimmer {
@@ -110,9 +111,9 @@
   height: 100%;
   background: linear-gradient(
     90deg,
-    #e5e7eb 0%,
-    #f9fafb 50%,
-    #e5e7eb 100%
+    rgba(17, 24, 39, 0.04) 0%,
+    rgba(255, 255, 255, 0.42) 50%,
+    rgba(17, 24, 39, 0.04) 100%
   );
   background-size: 200% 100%;
   animation: legalShimmer 1.4s linear infinite;
@@ -135,12 +136,13 @@
   margin: 0 auto;
   padding: 1.15rem;
   border-radius: 18px;
-  background: rgba(244, 246, 248, 0.8);
-  box-shadow: 0 10px 30px rgba(16, 24, 40, 0.06);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 14px 36px rgba(16, 24, 40, 0.09);
 }
 
 .legal-content {
-  color: rgba(31, 41, 55, 0.82);
+  color: var(--color-text);
 }
 
 .legal-content > p:first-child {
@@ -150,7 +152,7 @@
 .legal-block {
   padding-top: 1.5rem;
   margin-top: 1.5rem;
-  border-top: 1px solid rgba(31, 41, 55, 0.08);
+  border-top: 1px solid var(--color-border);
 }
 
 .legal-block:first-of-type {
@@ -164,7 +166,7 @@
   font-size: 1.25rem;
   font-weight: 750;
   line-height: 1.25;
-  color: #1f2933;
+  color: var(--color-text-strong);
 }
 
 .legal-content p {
@@ -202,16 +204,16 @@
   width: 6px;
   height: 6px;
   border-radius: 999px;
-  background: #1f2933;
+  background: var(--color-accent);
 }
 
 .legal-content strong {
-  color: #111827;
+  color: var(--color-text-strong);
   font-weight: 750;
 }
 
 .legal-content a {
-  color: #111827;
+  color: var(--color-accent);
   font-weight: 700;
 }
 
