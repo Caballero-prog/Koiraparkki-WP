@@ -1,11 +1,16 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [react()],
-  base: "/wp-content/themes/koiraparkki-react/react-app/dist/",
+
+  base:
+    command === "build"
+      ? "/wp-content/themes/koiraparkki-react/dist/"
+      : "/",
+
   build: {
     outDir: "dist",
     emptyOutDir: true,
   },
-});
+}));

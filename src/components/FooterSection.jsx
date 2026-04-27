@@ -150,9 +150,6 @@ const FooterSection = () => {
               Tietosuojaseloste
             </button>
 
-            <button type="button" onClick={() => navigate("/terms")}>
-              Hoitoehdot
-            </button>
           </div>
         </div>
       </div>
