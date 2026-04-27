@@ -1,6 +1,6 @@
 import "../styles/LocationsSection.css";
 import { useEffect, useMemo, useState } from "react";
-import { locations } from "../data/locations";
+import { locations, locationsSectionData } from "../data/locations";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLocationDot,
@@ -17,6 +17,16 @@ const getImageNumberFromSlug = (slug) => {
   return match ? Number(match[1]) : 999;
 };
 
+const getMapUrl = (location) => {
+  if (location.mapUrl) return location.mapUrl;
+
+  if (location.coords?.lat && location.coords?.lng) {
+    return `https://maps.google.com/?q=${location.coords.lat},${location.coords.lng}`;
+  }
+
+  return "";
+};
+
 const LocationsSection = () => {
   const [activeId, setActiveId] = useState(locations[0]?.id);
   const [locationImages, setLocationImages] = useState({});
@@ -26,7 +36,6 @@ const LocationsSection = () => {
     const fetchLocationImages = async () => {
       try {
         const response = await fetch(MEDIA_API_URL);
-
         if (!response.ok) return;
 
         const mediaItems = await response.json();
@@ -38,7 +47,10 @@ const LocationsSection = () => {
           groupedImages[location.id] = mediaItems
             .filter((item) => item.media_type === "image")
             .filter((item) => item.slug?.startsWith(prefix))
-            .sort((a, b) => getImageNumberFromSlug(a.slug) - getImageNumberFromSlug(b.slug))
+            .sort(
+              (a, b) =>
+                getImageNumberFromSlug(a.slug) - getImageNumberFromSlug(b.slug)
+            )
             .slice(0, 3)
             .map(
               (item) =>
@@ -71,18 +83,25 @@ const LocationsSection = () => {
 
   const hasImages = active?.images?.length > 0;
   const showSkeleton = isLoading || !hasImages;
+  const activeMapUrl = active ? getMapUrl(active) : "";
 
   return (
-    <section className="locations" id="locations" aria-label="Toimipisteet">
+    <section
+      className="locations"
+      id="locations"
+      aria-label={locationsSectionData.title}
+    >
       <div className="locations-inner">
         <header className="locations-header">
-          <h2 className="locations-title">Toimipisteet</h2>
-          <p className="locations-lead">
-            Valitse toimipiste ja katso tärkeimmät tiedot sekä tunnelma kuvien kautta.
-          </p>
+          <h2 className="locations-title">{locationsSectionData.title}</h2>
+          <p className="locations-lead">{locationsSectionData.lead}</p>
         </header>
 
-        <div className="locations-tabs" role="tablist" aria-label="Valitse toimipiste">
+        <div
+          className="locations-tabs"
+          role="tablist"
+          aria-label="Valitse toimipiste"
+        >
           {locations.map((location) => {
             const isActive = location.id === activeId;
 
@@ -112,27 +131,31 @@ const LocationsSection = () => {
             <div className="locations-bento" aria-label="Toimipisteen kuvat">
               {showSkeleton ? (
                 <>
-                  <div className="bento-tile bento-big bento-skeleton" aria-hidden="true">
+                  <div
+                    className="bento-tile bento-big bento-skeleton"
+                    aria-hidden="true"
+                  >
                     <div className="bento-skeleton-shimmer" />
                   </div>
 
-                  <div className="bento-tile bento-small bento-skeleton" aria-hidden="true">
+                  <div
+                    className="bento-tile bento-small bento-skeleton"
+                    aria-hidden="true"
+                  >
                     <div className="bento-skeleton-shimmer" />
                   </div>
 
-                  <div className="bento-tile bento-small bento-skeleton" aria-hidden="true">
+                  <div
+                    className="bento-tile bento-small bento-skeleton"
+                    aria-hidden="true"
+                  >
                     <div className="bento-skeleton-shimmer" />
                   </div>
                 </>
               ) : (
                 <>
                   <div className="bento-tile bento-big">
-                    <img
-                      src={active.images[0]}
-                      alt=""
-                      aria-hidden="true"
-                      loading="lazy"
-                    />
+                    <img src={active.images[0]} alt="" aria-hidden="true" loading="lazy" />
                   </div>
 
                   <div className="bento-tile bento-small">
@@ -188,7 +211,10 @@ const LocationsSection = () => {
 
                   <ul className="hours-list">
                     {(active.hours || []).map((hour) => (
-                      <li key={`${hour.label}-${hour.value}`} className="hours-row">
+                      <li
+                        key={`${hour.label}-${hour.value}`}
+                        className="hours-row"
+                      >
                         <span className="hours-label">{hour.label}</span>
                         <span className="hours-value">{hour.value}</span>
                       </li>
@@ -220,7 +246,10 @@ const LocationsSection = () => {
 
                     {active.email ? (
                       <li>
-                        <a className="contact-link" href={`mailto:${active.email}`}>
+                        <a
+                          className="contact-link"
+                          href={`mailto:${active.email}`}
+                        >
                           <FontAwesomeIcon icon={faEnvelope} />
                           <span>{active.email}</span>
                         </a>
@@ -228,14 +257,15 @@ const LocationsSection = () => {
                     ) : null}
                   </ul>
 
-                  {active.mapUrl ? (
+                  {activeMapUrl ? (
                     <a
                       className="map-button"
-                      href={active.mapUrl}
+                      href={activeMapUrl}
                       target="_blank"
                       rel="noreferrer"
                     >
-                      Avaa kartta <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                      Avaa kartta{" "}
+                      <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
                     </a>
                   ) : null}
                 </div>
