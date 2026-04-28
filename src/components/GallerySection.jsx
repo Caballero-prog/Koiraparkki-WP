@@ -15,7 +15,7 @@ const skeletonTiles = [
   { id: "s7", className: "gallery-slot gallery-slot-7 gallery-tile--skeleton" },
 ];
 
-const getImageNumberFromSlug = (slug) => {
+const getImageNumberFromSlug = (slug = "") => {
   const match = slug.match(/-(\d+)$/);
   return match ? Number(match[1]) : 999;
 };
@@ -24,7 +24,6 @@ const GallerySection = () => {
   const [activeId, setActiveId] = useState(null);
   const [wpGalleryData, setWpGalleryData] = useState([]);
   const [galleryImages, setGalleryImages] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
 
   const currentGalleryData = useMemo(() => {
     return wpGalleryData.length ? wpGalleryData : galleryData;
@@ -71,19 +70,20 @@ const GallerySection = () => {
                 getImageNumberFromSlug(a.slug) -
                 getImageNumberFromSlug(b.slug)
             )
-            .map((item) => ({
-              id: item.id,
-              src:
-                item.media_details?.sizes?.large?.source_url ||
-                item.media_details?.sizes?.medium_large?.source_url ||
-                item.source_url,
-              alt: item.alt_text || item.slug || "",
-            }));
+            .map((item) => {
+              const version = item.modified_gmt || item.modified || item.id;
+
+              return {
+                id: item.id,
+                src: `${item.source_url}?v=${encodeURIComponent(version)}`,
+                alt: item.alt_text || item.slug || "",
+              };
+            });
         });
 
         setGalleryImages(groupedImages);
-      } finally {
-        setIsLoading(false);
+      } catch {
+        return;
       }
     };
 
@@ -105,7 +105,6 @@ const GallerySection = () => {
 
   const featuredImages = activeGallery?.images?.slice(0, 7) || [];
   const restImages = activeGallery?.images?.slice(7) || [];
-  const shouldShowSkeletons = isLoading || featuredImages.length === 0;
 
   return (
     <section
@@ -162,8 +161,11 @@ const GallerySection = () => {
             </div>
 
             <div className="gallery-bento">
-              {shouldShowSkeletons
-                ? skeletonTiles.map((tile) => (
+              {skeletonTiles.map((tile, index) => {
+                const image = featuredImages[index];
+
+                if (!image) {
+                  return (
                     <figure
                       key={tile.id}
                       className={tile.className}
@@ -171,20 +173,23 @@ const GallerySection = () => {
                     >
                       <div className="gallery-skeleton-shimmer" />
                     </figure>
-                  ))
-                : featuredImages.map((image, index) => (
-                    <figure
-                      key={image.id}
-                      className={`gallery-slot gallery-slot-${index + 1}`}
-                    >
-                      <img
-                        src={image.src}
-                        alt={image.alt || ""}
-                        loading="lazy"
-                        className="gallery-image"
-                      />
-                    </figure>
-                  ))}
+                  );
+                }
+
+                return (
+                  <figure
+                    key={image.id}
+                    className={`gallery-slot gallery-slot-${index + 1}`}
+                  >
+                    <img
+                      src={image.src}
+                      alt={image.alt || ""}
+                      loading="lazy"
+                      className="gallery-image"
+                    />
+                  </figure>
+                );
+              })}
             </div>
 
             {restImages.length > 0 ? (
