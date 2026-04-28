@@ -20,10 +20,11 @@ const HeroSection = () => {
 
         if (data?.title && data?.subtitle && data?.phone) {
           setContent({
+            ...heroData,
             title: data.title,
             subtitle: data.subtitle,
             phone: data.phone,
-            phoneHref: data.phoneHref || heroData.phoneHref,
+            phoneHref: `tel:${data.phone.replace(/\s+/g, "")}`,
           });
         }
       } catch {
@@ -43,14 +44,14 @@ const HeroSection = () => {
         const data = await res.json();
 
         const image = data.find(
-          (item) => item.media_type === "image" && item.slug === "hero-main"
+          (item) => item.media_type === "image" && item.slug === "hero-main",
         );
 
         if (image) {
           setImageSrc(
             image.media_details?.sizes?.large?.source_url ||
               image.media_details?.sizes?.medium_large?.source_url ||
-              image.source_url
+              image.source_url,
           );
         }
       } catch {
@@ -65,7 +66,12 @@ const HeroSection = () => {
     <section className="hero" id="top">
       <div className="hero-bg">
         {imageSrc ? (
-          <img src={imageSrc} alt="" aria-hidden="true" className="hero-image" />
+          <img
+            src={imageSrc}
+            alt=""
+            aria-hidden="true"
+            className="hero-image"
+          />
         ) : (
           <div className="hero-skeleton" aria-hidden="true">
             <div className="hero-skeleton-shimmer" />

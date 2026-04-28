@@ -1,6 +1,6 @@
 export const heroData = {
-  title: "Häkitön koirahoitola",
-  subtitle: "Turvallinen päivähoito koirille",
-  phone: "+358 456 133 212",
-  phoneHref: "tel:+358456133212",
+  title: "Main headline",
+  subtitle: "Short supporting text",
+  phone: "+000 000 000",
+  phoneHref: "tel:+000000000",
 };
