@@ -1,16 +1,40 @@
 import "../styles/CardFormSection.css";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeft,
-  faCircleCheck,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { monthlyPlans } from "../data/monthlyPlansData";
+
+const PLANS_API_URL = "/wp-json/custom/v1/plans";
 
 const CardFormSection = () => {
+  const [wpPlans, setWpPlans] = useState([]);
   const [status, setStatus] = useState("idle");
   const [searchParams] = useSearchParams();
   const selectedCard = searchParams.get("card");
+
+  const currentPlans = useMemo(() => {
+    return wpPlans.length ? wpPlans : monthlyPlans;
+  }, [wpPlans]);
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        const response = await fetch(PLANS_API_URL);
+        if (!response.ok) return;
+
+        const data = await response.json();
+
+        if (Array.isArray(data)) {
+          setWpPlans(data);
+        }
+      } catch {
+        return;
+      }
+    };
+
+    fetchPlans();
+  }, []);
 
   useEffect(() => {
     if (status !== "success") return;
@@ -122,86 +146,42 @@ const CardFormSection = () => {
             <div className="card-order-fields">
               <div className="card-field card-field--half">
                 <label htmlFor="firstName">Etunimi *</label>
-                <input
-                  id="firstName"
-                  name="firstName"
-                  type="text"
-                  placeholder="Etunimi"
-                  required
-                />
+                <input id="firstName" name="firstName" type="text" placeholder="Etunimi" required />
               </div>
 
               <div className="card-field card-field--half">
                 <label htmlFor="lastName">Sukunimi *</label>
-                <input
-                  id="lastName"
-                  name="lastName"
-                  type="text"
-                  placeholder="Sukunimi"
-                  required
-                />
+                <input id="lastName" name="lastName" type="text" placeholder="Sukunimi" required />
               </div>
 
               <div className="card-field card-field--full">
                 <label htmlFor="dogName">Koiran nimi</label>
-                <input
-                  id="dogName"
-                  name="dogName"
-                  type="text"
-                  placeholder="Koiran nimi"
-                />
+                <input id="dogName" name="dogName" type="text" placeholder="Koiran nimi" />
               </div>
 
               <div className="card-field card-field--full">
                 <label htmlFor="streetAddress">Katuosoite</label>
-                <input
-                  id="streetAddress"
-                  name="streetAddress"
-                  type="text"
-                  placeholder="Katuosoite"
-                />
+                <input id="streetAddress" name="streetAddress" type="text" placeholder="Katuosoite" />
               </div>
 
               <div className="card-field card-field--half">
                 <label htmlFor="zipCode">Postinumero</label>
-                <input
-                  id="zipCode"
-                  name="zipCode"
-                  type="text"
-                  placeholder="00100"
-                />
+                <input id="zipCode" name="zipCode" type="text" placeholder="00100" />
               </div>
 
               <div className="card-field card-field--half">
                 <label htmlFor="city">Kaupunki</label>
-                <input
-                  id="city"
-                  name="city"
-                  type="text"
-                  placeholder="Helsinki"
-                />
+                <input id="city" name="city" type="text" placeholder="Helsinki" />
               </div>
 
               <div className="card-field card-field--half">
                 <label htmlFor="email">Sähköposti *</label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="nimi@email.com"
-                  required
-                />
+                <input id="email" name="email" type="email" placeholder="nimi@email.com" required />
               </div>
 
               <div className="card-field card-field--half">
                 <label htmlFor="phone">Puhelinnumero *</label>
-                <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  placeholder="+358 40 123 4567"
-                  required
-                />
+                <input id="phone" name="phone" type="tel" placeholder="+358 40 123 4567" required />
               </div>
             </div>
           </section>
@@ -212,36 +192,22 @@ const CardFormSection = () => {
             </h2>
 
             <div className="card-choice-group">
-              <label className="card-choice-row">
-                <input
-                  type="radio"
-                  name="selectedCard"
-                  value="10 käyntiä sarjakortti — 360 €"
-                  defaultChecked={selectedCard === "sarjakortti-10"}
-                  required
-                />
-                <span>10 käyntiä sarjakortti — 360 €</span>
-              </label>
+              {currentPlans.map((plan) => {
+                const label = `${plan.name} — ${plan.price}`;
 
-              <label className="card-choice-row">
-                <input
-                  type="radio"
-                  name="selectedCard"
-                  value="20 käyntiä sarjakortti — 610 €"
-                  defaultChecked={selectedCard === "sarjakortti-20"}
-                />
-                <span>20 käyntiä sarjakortti — 610 €</span>
-              </label>
-
-              <label className="card-choice-row">
-                <input
-                  type="radio"
-                  name="selectedCard"
-                  value="Kuukausikortti Ma–Pe — 550 €"
-                  defaultChecked={selectedCard === "kuukausikortti"}
-                />
-                <span>Kuukausikortti Ma–Pe — 550 €</span>
-              </label>
+                return (
+                  <label key={plan.id} className="card-choice-row">
+                    <input
+                      type="radio"
+                      name="selectedCard"
+                      value={label}
+                      defaultChecked={selectedCard === plan.id}
+                      required
+                    />
+                    <span>{label}</span>
+                  </label>
+                );
+              })}
             </div>
           </section>
 
@@ -252,30 +218,17 @@ const CardFormSection = () => {
 
             <div className="card-choice-group">
               <label className="card-choice-row">
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  value="Pankkisiirto"
-                  required
-                />
+                <input type="radio" name="paymentMethod" value="Pankkisiirto" required />
                 <span>Pankkisiirto</span>
               </label>
 
               <label className="card-choice-row">
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  value="Pankki- tai luottokortti toimipisteessä"
-                />
+                <input type="radio" name="paymentMethod" value="Pankki- tai luottokortti toimipisteessä" />
                 <span>Pankki- tai luottokortti toimipisteessä</span>
               </label>
 
               <label className="card-choice-row">
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  value="Käteinen toimipisteessä"
-                />
+                <input type="radio" name="paymentMethod" value="Käteinen toimipisteessä" />
                 <span>Käteinen toimipisteessä</span>
               </label>
             </div>

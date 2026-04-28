@@ -1,7 +1,63 @@
 import "../styles/MonthlyPlansSection.css";
+import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { monthlyPlans, monthlyPlansInfo } from "../data/monthlyPlansData";
 
+const PLANS_API_URL = "/wp-json/custom/v1/plans";
+const PLANS_INFO_API_URL = "/wp-json/custom/v1/plans-info";
+
 const MonthlyPlansSection = () => {
+  const [wpPlans, setWpPlans] = useState([]);
+  const [wpPlansInfo, setWpPlansInfo] = useState(null);
+
+  const currentPlans = useMemo(() => {
+    return wpPlans.length ? wpPlans : monthlyPlans;
+  }, [wpPlans]);
+
+  const currentPlansInfo = wpPlansInfo || monthlyPlansInfo;
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        const res = await fetch(PLANS_API_URL);
+        if (!res.ok) return;
+
+        const data = await res.json();
+
+        if (Array.isArray(data)) {
+          setWpPlans(data);
+        }
+      } catch {
+        return;
+      }
+    };
+
+    fetchPlans();
+  }, []);
+
+  useEffect(() => {
+    const fetchPlansInfo = async () => {
+      try {
+        const res = await fetch(PLANS_INFO_API_URL);
+        if (!res.ok) return;
+
+        const data = await res.json();
+
+        if (data?.title && Array.isArray(data?.items)) {
+          setWpPlansInfo({
+            ...monthlyPlansInfo,
+            noteTitle: data.title,
+            items: data.items,
+          });
+        }
+      } catch {
+        return;
+      }
+    };
+
+    fetchPlansInfo();
+  }, []);
+
   return (
     <section
       className="monthly-plans"
@@ -11,17 +67,14 @@ const MonthlyPlansSection = () => {
       <div className="monthly-plans-inner">
         <header className="monthly-plans-header">
           <h2 id="monthly-plans-title" className="monthly-plans-title">
-            Sarja- ja kuukausikortit
+            {currentPlansInfo.title}
           </h2>
 
-          <p className="monthly-plans-lead">
-            Sarja- ja kuukausikorteilla saat edullisemman päiväkohtaisen hinnan
-            säännölliseen hoitoon arkipäivisin.
-          </p>
+          <p className="monthly-plans-lead">{currentPlansInfo.lead}</p>
         </header>
 
         <div className="monthly-plans-grid">
-          {monthlyPlans.map((plan) => (
+          {currentPlans.map((plan) => (
             <article
               key={plan.id}
               className={`monthly-plan-card ${
@@ -36,30 +89,39 @@ const MonthlyPlansSection = () => {
 
               <p className="monthly-plan-rate">{plan.dailyRate}</p>
 
-              <ul className="monthly-plan-details">
-                {plan.details.map((detail) => (
-                  <li key={detail}>{detail}</li>
-                ))}
-              </ul>
+              {plan.details?.length ? (
+                <ul className="monthly-plan-details">
+                  {plan.details.map((detail) => (
+                    <li key={detail}>{detail}</li>
+                  ))}
+                </ul>
+              ) : null}
 
-              <a
-                href={`#/kortti?card=${plan.id}`}
+              <Link
+                to={`/kortti?card=${plan.id}`}
                 className="monthly-plan-button"
               >
-                Tilaa tämä kortti
-              </a>
+                {currentPlansInfo.buttonText}
+              </Link>
             </article>
           ))}
         </div>
 
-        <div className="monthly-plans-note" aria-label="Hyvä tietää">
-          <h3 className="monthly-plans-note-title">{monthlyPlansInfo.title}</h3>
+        <div
+          className="monthly-plans-note"
+          aria-label={currentPlansInfo.noteAriaLabel}
+        >
+          <h3 className="monthly-plans-note-title">
+            {currentPlansInfo.noteTitle}
+          </h3>
 
-          <ul className="monthly-plans-note-list">
-            {monthlyPlansInfo.items.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
+          {currentPlansInfo.items?.length ? (
+            <ul className="monthly-plans-note-list">
+              {currentPlansInfo.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
         </div>
       </div>
     </section>
