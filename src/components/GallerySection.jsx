@@ -1,8 +1,9 @@
 import "../styles/GallerySection.css";
 import { useEffect, useMemo, useState } from "react";
-import { galleryData } from "../data/galleryData";
+import { galleryData, gallerySectionData } from "../data/galleryData";
 
 const MEDIA_API_URL = "/wp-json/wp/v2/media?per_page=100";
+const GALLERY_LOCATIONS_API_URL = "/wp-json/custom/v1/gallery-locations";
 
 const skeletonTiles = [
   { id: "s1", className: "gallery-slot gallery-slot-1 gallery-tile--skeleton" },
@@ -20,29 +21,56 @@ const getImageNumberFromSlug = (slug) => {
 };
 
 const GallerySection = () => {
-  const [activeId, setActiveId] = useState(galleryData[0]?.id);
+  const [activeId, setActiveId] = useState(null);
+  const [wpGalleryData, setWpGalleryData] = useState([]);
   const [galleryImages, setGalleryImages] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+
+  const currentGalleryData = useMemo(() => {
+    return wpGalleryData.length ? wpGalleryData : galleryData;
+  }, [wpGalleryData]);
+
+  const currentActiveId = activeId || currentGalleryData[0]?.id;
+
+  useEffect(() => {
+    const fetchGalleryLocations = async () => {
+      try {
+        const response = await fetch(GALLERY_LOCATIONS_API_URL);
+        if (!response.ok) return;
+
+        const data = await response.json();
+
+        if (Array.isArray(data)) {
+          setWpGalleryData(data);
+        }
+      } catch {
+        return;
+      }
+    };
+
+    fetchGalleryLocations();
+  }, []);
 
   useEffect(() => {
     const fetchGalleryImages = async () => {
       try {
         const response = await fetch(MEDIA_API_URL);
-
-        if (!response.ok) {
-          return;
-        }
+        if (!response.ok) return;
 
         const mediaItems = await response.json();
         const groupedImages = {};
 
-        galleryData.forEach((location) => {
+        currentGalleryData.forEach((location) => {
           const prefix = `gallery-${location.id}-`;
 
           groupedImages[location.id] = mediaItems
             .filter((item) => item.media_type === "image")
             .filter((item) => item.slug?.startsWith(prefix))
-            .sort((a, b) => getImageNumberFromSlug(a.slug) - getImageNumberFromSlug(b.slug))
+            .sort(
+              (a, b) =>
+                getImageNumberFromSlug(a.slug) -
+                getImageNumberFromSlug(b.slug)
+            )
             .map((item) => ({
               id: item.id,
               src:
@@ -60,11 +88,12 @@ const GallerySection = () => {
     };
 
     fetchGalleryImages();
-  }, []);
+  }, [currentGalleryData]);
 
   const activeGallery = useMemo(() => {
     const baseGallery =
-      galleryData.find((location) => location.id === activeId) || galleryData[0];
+      currentGalleryData.find((location) => location.id === currentActiveId) ||
+      currentGalleryData[0];
 
     if (!baseGallery) return null;
 
@@ -72,25 +101,31 @@ const GallerySection = () => {
       ...baseGallery,
       images: galleryImages[baseGallery.id] || [],
     };
-  }, [activeId, galleryImages]);
+  }, [currentActiveId, currentGalleryData, galleryImages]);
 
   const featuredImages = activeGallery?.images?.slice(0, 7) || [];
   const restImages = activeGallery?.images?.slice(7) || [];
   const shouldShowSkeletons = isLoading || featuredImages.length === 0;
 
   return (
-    <section className="gallery" id="gallery" aria-label="Galleria">
+    <section
+      className="gallery"
+      id="gallery"
+      aria-label={gallerySectionData.sectionAriaLabel}
+    >
       <div className="gallery-inner">
         <header className="gallery-header">
-          <h2 className="gallery-title">Galleria</h2>
-          <p className="gallery-lead">
-            Valitse toimipiste ja selaa kuvia tiloista sekä tunnelmasta.
-          </p>
+          <h2 className="gallery-title">{gallerySectionData.title}</h2>
+          <p className="gallery-lead">{gallerySectionData.lead}</p>
         </header>
 
-        <div className="gallery-tabs" role="tablist" aria-label="Valitse toimipiste">
-          {galleryData.map((location) => {
-            const isActive = location.id === activeId;
+        <div
+          className="gallery-tabs"
+          role="tablist"
+          aria-label={gallerySectionData.tabsAriaLabel}
+        >
+          {currentGalleryData.map((location) => {
+            const isActive = location.id === currentActiveId;
 
             return (
               <button
@@ -118,15 +153,22 @@ const GallerySection = () => {
           >
             <div className="gallery-panel-head">
               <h3 className="gallery-location-name">{activeGallery.name}</h3>
+
               {activeGallery.description ? (
-                <p className="gallery-location-text">{activeGallery.description}</p>
+                <p className="gallery-location-text">
+                  {activeGallery.description}
+                </p>
               ) : null}
             </div>
 
             <div className="gallery-bento">
               {shouldShowSkeletons
                 ? skeletonTiles.map((tile) => (
-                    <figure key={tile.id} className={tile.className} aria-hidden="true">
+                    <figure
+                      key={tile.id}
+                      className={tile.className}
+                      aria-hidden="true"
+                    >
                       <div className="gallery-skeleton-shimmer" />
                     </figure>
                   ))
