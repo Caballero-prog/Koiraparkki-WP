@@ -29,42 +29,20 @@ const getMapUrl = (location) => {
 };
 
 const LocationsSection = () => {
-  const [activeId, setActiveId] = useState(locations[0]?.id);
+  const [activeId, setActiveId] = useState(null);
   const [wpLocations, setWpLocations] = useState([]);
   const [locationImages, setLocationImages] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   const mergedLocations = useMemo(() => {
-    const merged = locations.map((localLocation) => {
-      const wpLocation = wpLocations.find(
-        (location) => location.id === localLocation.id,
-      );
-
-      return {
-        ...localLocation,
-        ...wpLocation,
-
-        services: wpLocation?.services?.length
-          ? wpLocation.services
-          : localLocation.services,
-
-        hours: wpLocation?.hours?.length
-          ? wpLocation.hours
-          : localLocation.hours,
-
-        highlights: wpLocation?.highlights?.length
-          ? wpLocation.highlights
-          : localLocation.highlights,
-      };
-    });
-
-    const wpOnlyLocations = wpLocations.filter(
-      (wpLocation) =>
-        !locations.some((localLocation) => localLocation.id === wpLocation.id),
-    );
-
-    return [...merged, ...wpOnlyLocations];
+    return wpLocations.length ? wpLocations : locations;
   }, [wpLocations]);
+
+  useEffect(() => {
+    if (!activeId && mergedLocations.length) {
+      setActiveId(mergedLocations[0].id);
+    }
+  }, [activeId, mergedLocations]);
 
   useEffect(() => {
     const fetchLocationsContent = async () => {
