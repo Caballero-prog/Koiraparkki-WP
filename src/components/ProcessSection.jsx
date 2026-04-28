@@ -1,25 +1,8 @@
 import "../styles/ProcessSection.css";
 import { useEffect, useState } from "react";
+import { processSectionData, processSteps } from "../data/processData";
 
 const MEDIA_API_URL = "/wp-json/wp/v2/media?per_page=100";
-
-const steps = [
-  {
-    number: "01",
-    title: "Ota yhteyttä",
-    text: "Soita tai lähetä viesti, niin käymme läpi koirasi tilanteen ja sopivan hoitomuodon.",
-  },
-  {
-    number: "02",
-    title: "Tuo koirasi tutustumaan",
-    text: "Tutustumiskäynnillä koirasi pääsee rauhassa näkemään tilan, ihmiset ja arjen ennen hoidon aloitusta.",
-  },
-  {
-    number: "03",
-    title: "Täytä hoitosopimus",
-    text: "Ennen ensimmäistä hoitokertaa pyydämme täyttämään hoitosopimuksen ja koiran perustiedot.",
-  },
-];
 
 const ProcessSection = () => {
   const [imageSrc, setImageSrc] = useState(null);
@@ -58,7 +41,7 @@ const ProcessSection = () => {
           {imageSrc ? (
             <img
               src={imageSrc}
-              alt="Koira päivähoitotilassa tutustumassa ympäristöön"
+              alt={processSectionData.imageAlt}
               className="process-image"
             />
           ) : (
@@ -71,17 +54,14 @@ const ProcessSection = () => {
         <div className="process-content">
           <header className="process-header">
             <h2 id="process-title" className="process-title">
-              Näin aloitus etenee
+              {processSectionData.title}
             </h2>
-            <p className="process-lead">
-              Aloittaminen on helppoa. Sovimme ensin yhteydenoton ja
-              tutustumiskäynnin, jonka jälkeen voit täyttää hoitosopimuksen
-              ennen ensimmäistä hoitokertaa.
-            </p>
+
+            <p className="process-lead">{processSectionData.lead}</p>
           </header>
 
           <ol className="process-steps">
-            {steps.map((step) => (
+            {processSteps.map((step) => (
               <li key={step.number} className="process-step">
                 <span className="process-number">{step.number}</span>
 
@@ -89,11 +69,14 @@ const ProcessSection = () => {
                   <h3 className="process-step-title">{step.title}</h3>
                   <p className="process-step-description">{step.text}</p>
 
-                  {step.number === "03" && (
-                    <a href="#/hoitosopimus" className="process-cta">
-                      Täytä hoitosopimus
+                  {step.hasCta ? (
+                    <a
+                      href={processSectionData.ctaHref}
+                      className="process-cta"
+                    >
+                      {processSectionData.ctaText}
                     </a>
-                  )}
+                  ) : null}
                 </div>
               </li>
             ))}
