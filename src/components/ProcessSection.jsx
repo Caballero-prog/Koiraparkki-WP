@@ -1,11 +1,46 @@
 import "../styles/ProcessSection.css";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { processSectionData, processSteps } from "../data/processData";
 
 const MEDIA_API_URL = "/wp-json/wp/v2/media?per_page=100";
+const PROCESS_API_URL = "/wp-json/custom/v1/process-section";
 
 const ProcessSection = () => {
   const [imageSrc, setImageSrc] = useState(null);
+  const [wpProcessData, setWpProcessData] = useState(null);
+
+  const currentProcessData = wpProcessData
+    ? {
+        ...processSectionData,
+        title: wpProcessData.title || processSectionData.title,
+        lead: wpProcessData.lead || processSectionData.lead,
+      }
+    : processSectionData;
+
+  const currentSteps = useMemo(() => {
+    return wpProcessData?.steps?.length
+      ? wpProcessData.steps.slice(0, 3)
+      : processSteps.slice(0, 3);
+  }, [wpProcessData]);
+
+  useEffect(() => {
+    const fetchProcessContent = async () => {
+      try {
+        const res = await fetch(PROCESS_API_URL);
+        if (!res.ok) return;
+
+        const data = await res.json();
+
+        if (data?.title && Array.isArray(data?.steps)) {
+          setWpProcessData(data);
+        }
+      } catch {
+        return;
+      }
+    };
+
+    fetchProcessContent();
+  }, []);
 
   useEffect(() => {
     const fetchImage = async () => {
@@ -41,7 +76,7 @@ const ProcessSection = () => {
           {imageSrc ? (
             <img
               src={imageSrc}
-              alt={processSectionData.imageAlt}
+              alt={currentProcessData.imageAlt}
               className="process-image"
             />
           ) : (
@@ -54,14 +89,14 @@ const ProcessSection = () => {
         <div className="process-content">
           <header className="process-header">
             <h2 id="process-title" className="process-title">
-              {processSectionData.title}
+              {currentProcessData.title}
             </h2>
 
-            <p className="process-lead">{processSectionData.lead}</p>
+            <p className="process-lead">{currentProcessData.lead}</p>
           </header>
 
           <ol className="process-steps">
-            {processSteps.map((step) => (
+            {currentSteps.map((step) => (
               <li key={step.number} className="process-step">
                 <span className="process-number">{step.number}</span>
 
@@ -71,10 +106,10 @@ const ProcessSection = () => {
 
                   {step.hasCta ? (
                     <a
-                      href={processSectionData.ctaHref}
+                      href={currentProcessData.ctaHref}
                       className="process-cta"
                     >
-                      {processSectionData.ctaText}
+                      {currentProcessData.ctaText}
                     </a>
                   ) : null}
                 </div>
