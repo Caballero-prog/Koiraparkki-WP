@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const MEDIA_API_URL = "/wp-json/wp/v2/media?per_page=100";
+const LOCATIONS_API_URL = "/wp-json/custom/v1/locations";
 
 const getImageNumberFromSlug = (slug) => {
   const match = slug.match(/-(\d+)$/);
@@ -29,8 +30,60 @@ const getMapUrl = (location) => {
 
 const LocationsSection = () => {
   const [activeId, setActiveId] = useState(locations[0]?.id);
+  const [wpLocations, setWpLocations] = useState([]);
   const [locationImages, setLocationImages] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+
+  const mergedLocations = useMemo(() => {
+    const merged = locations.map((localLocation) => {
+      const wpLocation = wpLocations.find(
+        (location) => location.id === localLocation.id,
+      );
+
+      return {
+        ...localLocation,
+        ...wpLocation,
+
+        services: wpLocation?.services?.length
+          ? wpLocation.services
+          : localLocation.services,
+
+        hours: wpLocation?.hours?.length
+          ? wpLocation.hours
+          : localLocation.hours,
+
+        highlights: wpLocation?.highlights?.length
+          ? wpLocation.highlights
+          : localLocation.highlights,
+      };
+    });
+
+    const wpOnlyLocations = wpLocations.filter(
+      (wpLocation) =>
+        !locations.some((localLocation) => localLocation.id === wpLocation.id),
+    );
+
+    return [...merged, ...wpOnlyLocations];
+  }, [wpLocations]);
+
+  useEffect(() => {
+    const fetchLocationsContent = async () => {
+      try {
+        const response = await fetch(LOCATIONS_API_URL);
+        if (!response.ok) return;
+
+        const data = await response.json();
+
+        if (Array.isArray(data)) {
+          setWpLocations(data);
+        }
+      } catch {
+        return;
+      }
+    };
+
+    fetchLocationsContent();
+  }, []);
 
   useEffect(() => {
     const fetchLocationImages = async () => {
@@ -41,7 +94,7 @@ const LocationsSection = () => {
         const mediaItems = await response.json();
         const groupedImages = {};
 
-        locations.forEach((location) => {
+        mergedLocations.forEach((location) => {
           const prefix = `locations-${location.id}-`;
 
           groupedImages[location.id] = mediaItems
@@ -49,14 +102,14 @@ const LocationsSection = () => {
             .filter((item) => item.slug?.startsWith(prefix))
             .sort(
               (a, b) =>
-                getImageNumberFromSlug(a.slug) - getImageNumberFromSlug(b.slug)
+                getImageNumberFromSlug(a.slug) - getImageNumberFromSlug(b.slug),
             )
             .slice(0, 3)
             .map(
               (item) =>
                 item.media_details?.sizes?.large?.source_url ||
                 item.media_details?.sizes?.medium_large?.source_url ||
-                item.source_url
+                item.source_url,
             );
         });
 
@@ -67,11 +120,12 @@ const LocationsSection = () => {
     };
 
     fetchLocationImages();
-  }, []);
+  }, [mergedLocations]);
 
   const active = useMemo(() => {
     const baseLocation =
-      locations.find((location) => location.id === activeId) || locations[0];
+      mergedLocations.find((location) => location.id === activeId) ||
+      mergedLocations[0];
 
     if (!baseLocation) return null;
 
@@ -79,7 +133,7 @@ const LocationsSection = () => {
       ...baseLocation,
       images: locationImages[baseLocation.id] || [],
     };
-  }, [activeId, locationImages]);
+  }, [activeId, mergedLocations, locationImages]);
 
   const hasImages = active?.images?.length > 0;
   const showSkeleton = isLoading || !hasImages;
@@ -102,7 +156,7 @@ const LocationsSection = () => {
           role="tablist"
           aria-label="Valitse toimipiste"
         >
-          {locations.map((location) => {
+          {mergedLocations.map((location) => {
             const isActive = location.id === activeId;
 
             return (
@@ -155,7 +209,12 @@ const LocationsSection = () => {
               ) : (
                 <>
                   <div className="bento-tile bento-big">
-                    <img src={active.images[0]} alt="" aria-hidden="true" loading="lazy" />
+                    <img
+                      src={active.images[0]}
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                    />
                   </div>
 
                   <div className="bento-tile bento-small">
@@ -183,6 +242,7 @@ const LocationsSection = () => {
               <div className="locations-info-head">
                 <div className="locations-name-row">
                   <h3 className="locations-name">{active.name}</h3>
+
                   {active.city ? (
                     <span className="locations-city">{active.city}</span>
                   ) : null}
