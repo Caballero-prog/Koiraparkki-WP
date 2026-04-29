@@ -13,7 +13,7 @@ import {
 const MEDIA_API_URL = "/wp-json/wp/v2/media?per_page=100";
 const LOCATIONS_API_URL = "/wp-json/custom/v1/locations";
 
-const getImageNumberFromSlug = (slug) => {
+const getImageNumberFromSlug = (slug = "") => {
   const match = slug.match(/-(\d+)$/);
   return match ? Number(match[1]) : 999;
 };
@@ -38,11 +38,7 @@ const LocationsSection = () => {
     return wpLocations.length ? wpLocations : locations;
   }, [wpLocations]);
 
-  useEffect(() => {
-    if (!activeId && mergedLocations.length) {
-      setActiveId(mergedLocations[0].id);
-    }
-  }, [activeId, mergedLocations]);
+  const currentActiveId = activeId || mergedLocations[0]?.id;
 
   useEffect(() => {
     const fetchLocationsContent = async () => {
@@ -80,16 +76,24 @@ const LocationsSection = () => {
             .filter((item) => item.slug?.startsWith(prefix))
             .sort(
               (a, b) =>
-                getImageNumberFromSlug(a.slug) - getImageNumberFromSlug(b.slug),
+                getImageNumberFromSlug(a.slug) - getImageNumberFromSlug(b.slug)
             )
             .slice(0, 3)
-            .map(
-              (item) =>
-                item.media_details?.sizes?.large?.source_url ||
-                item.media_details?.sizes?.medium_large?.source_url ||
-                item.source_url,
-            );
+            .map((item) => {
+              const version = item.modified_gmt || item.modified || item.id;
+
+              return `${item.source_url}?v=${encodeURIComponent(version)}`;
+            });
         });
+
+        setLocationImages(groupedImages);
+
+        Object.values(groupedImages)
+          .flat()
+          .forEach((src) => {
+            const img = new Image();
+            img.src = src;
+          });
 
         setLocationImages(groupedImages);
       } finally {
@@ -102,7 +106,7 @@ const LocationsSection = () => {
 
   const active = useMemo(() => {
     const baseLocation =
-      mergedLocations.find((location) => location.id === activeId) ||
+      mergedLocations.find((location) => location.id === currentActiveId) ||
       mergedLocations[0];
 
     if (!baseLocation) return null;
@@ -111,7 +115,7 @@ const LocationsSection = () => {
       ...baseLocation,
       images: locationImages[baseLocation.id] || [],
     };
-  }, [activeId, mergedLocations, locationImages]);
+  }, [currentActiveId, mergedLocations, locationImages]);
 
   const hasImages = active?.images?.length > 0;
   const showSkeleton = isLoading || !hasImages;
@@ -135,7 +139,7 @@ const LocationsSection = () => {
           aria-label="Valitse toimipiste"
         >
           {mergedLocations.map((location) => {
-            const isActive = location.id === activeId;
+            const isActive = location.id === currentActiveId;
 
             return (
               <button
@@ -163,36 +167,22 @@ const LocationsSection = () => {
             <div className="locations-bento" aria-label="Toimipisteen kuvat">
               {showSkeleton ? (
                 <>
-                  <div
-                    className="bento-tile bento-big bento-skeleton"
-                    aria-hidden="true"
-                  >
+                  <div className="bento-tile bento-big bento-skeleton" aria-hidden="true">
                     <div className="bento-skeleton-shimmer" />
                   </div>
 
-                  <div
-                    className="bento-tile bento-small bento-skeleton"
-                    aria-hidden="true"
-                  >
+                  <div className="bento-tile bento-small bento-skeleton" aria-hidden="true">
                     <div className="bento-skeleton-shimmer" />
                   </div>
 
-                  <div
-                    className="bento-tile bento-small bento-skeleton"
-                    aria-hidden="true"
-                  >
+                  <div className="bento-tile bento-small bento-skeleton" aria-hidden="true">
                     <div className="bento-skeleton-shimmer" />
                   </div>
                 </>
               ) : (
                 <>
                   <div className="bento-tile bento-big">
-                    <img
-                      src={active.images[0]}
-                      alt=""
-                      aria-hidden="true"
-                      loading="lazy"
-                    />
+                    <img src={active.images[0]} alt="" aria-hidden="true" loading="lazy" />
                   </div>
 
                   <div className="bento-tile bento-small">
@@ -215,7 +205,6 @@ const LocationsSection = () => {
                 </>
               )}
             </div>
-
             <div className="locations-info">
               <div className="locations-info-head">
                 <div className="locations-name-row">
