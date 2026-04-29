@@ -7,6 +7,7 @@ import {
   faInstagram,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
+import { footerData } from "../data/footerData";
 import doglogo from "../assets/doglogo.svg";
 
 const FooterSection = () => {
@@ -37,9 +38,7 @@ const FooterSection = () => {
         <div className="footer-brand">
           <img src={doglogo} alt="Koiraparkki logo" className="footer-logo" />
 
-          <p className="footer-description">
-            Häkitön koirahoitola turvalliseen ja aktiiviseen päivähoitoon.
-          </p>
+          <p className="footer-description">{footerData.description}</p>
 
           <div className="footer-socials">
             <a
@@ -123,8 +122,11 @@ const FooterSection = () => {
           <div className="footer-column">
             <h4>Yhteys</h4>
 
-            <a href="tel:+358456133212">+358 456 133 212</a>
-            <a href="mailto:info@koiraparkki.fi">info@koiraparkki.fi</a>
+            <a href={`tel:${footerData.phone.replace(/\s/g, "")}`}>
+              {footerData.phone}
+            </a>
+
+            <a href={`mailto:${footerData.email}`}>{footerData.email}</a>
           </div>
 
           <div className="footer-column">
@@ -149,13 +151,12 @@ const FooterSection = () => {
             <button type="button" onClick={() => navigate("/privacy")}>
               Tietosuojaseloste
             </button>
-
           </div>
         </div>
       </div>
 
       <div className="footer-bottom">
-        © {new Date().getFullYear()} Koiraparkki
+        © {new Date().getFullYear()} {footerData.copyrightName}
       </div>
     </footer>
   );
