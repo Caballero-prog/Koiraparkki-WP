@@ -1,5 +1,6 @@
 import "../styles/ContactSection.css";
 import { useEffect, useState } from "react";
+import { contactSectionData } from "../data/contactData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPhone,
@@ -7,8 +8,38 @@ import {
   faCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
+const CONTACT_SECTION_API_URL = "/wp-json/custom/v1/contact-section";
+
 const ContactSection = () => {
   const [status, setStatus] = useState("idle");
+  const [wpContactData, setWpContactData] = useState(null);
+
+  const currentContactData =
+    wpContactData?.phone || wpContactData?.email
+      ? wpContactData
+      : contactSectionData;
+
+  const phoneHref = `tel:${currentContactData.phone.replace(/\s/g, "")}`;
+  const emailHref = `mailto:${currentContactData.email}`;
+
+  useEffect(() => {
+    const fetchContactData = async () => {
+      try {
+        const response = await fetch(CONTACT_SECTION_API_URL);
+        if (!response.ok) return;
+
+        const data = await response.json();
+
+        if (data && (data.phone || data.email)) {
+          setWpContactData(data);
+        }
+      } catch {
+        return;
+      }
+    };
+
+    fetchContactData();
+  }, []);
 
   useEffect(() => {
     if (status !== "success") return;
@@ -56,23 +87,21 @@ const ContactSection = () => {
       <div className="contact-inner">
         <header className="contact-header">
           <h2 id="contact-title" className="contact-title">
-            Ota yhteyttä
+            {currentContactData.title}
           </h2>
-          <p className="contact-lead">
-            Voit lähettää meille viestin alla olevalla lomakkeella, niin
-            palaamme asiaan mahdollisimman pian.
-          </p>
+
+          <p className="contact-lead">{currentContactData.lead}</p>
         </header>
 
         <div className="contact-details">
-          <a href="tel:+358456133212" className="contact-detail">
+          <a href={phoneHref} className="contact-detail">
             <FontAwesomeIcon icon={faPhone} />
-            <span>+358 456 133 212</span>
+            <span>{currentContactData.phone}</span>
           </a>
 
-          <a href="mailto:info@koiraparkki.fi" className="contact-detail">
+          <a href={emailHref} className="contact-detail">
             <FontAwesomeIcon icon={faEnvelope} />
-            <span>info@koiraparkki.fi</span>
+            <span>{currentContactData.email}</span>
           </a>
         </div>
 
