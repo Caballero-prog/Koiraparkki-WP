@@ -82,6 +82,15 @@ const GallerySection = () => {
         });
 
         setGalleryImages(groupedImages);
+
+        Object.values(groupedImages)
+          .flat()
+          .forEach((image) => {
+            const img = new Image();
+            img.src = image.src;
+          });
+
+        setGalleryImages(groupedImages);
       } catch {
         return;
       }
