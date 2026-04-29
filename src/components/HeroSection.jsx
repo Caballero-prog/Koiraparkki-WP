@@ -8,13 +8,17 @@ const MEDIA_API_URL = "/wp-json/wp/v2/media?per_page=100";
 
 const HeroSection = () => {
   const [imageSrc, setImageSrc] = useState(null);
-  const [content, setContent] = useState(heroData);
+  const [content, setContent] = useState(null);
 
   useEffect(() => {
     const fetchHeroContent = async () => {
       try {
         const res = await fetch("/wp-json/custom/v1/hero-section");
-        if (!res.ok) return;
+
+        if (!res.ok) {
+          setContent(heroData);
+          return;
+        }
 
         const data = await res.json();
 
@@ -26,9 +30,11 @@ const HeroSection = () => {
             phone: data.phone,
             phoneHref: `tel:${data.phone.replace(/\s+/g, "")}`,
           });
+        } else {
+          setContent(heroData);
         }
       } catch {
-        return;
+        setContent(heroData);
       }
     };
 
@@ -80,26 +86,28 @@ const HeroSection = () => {
 
         <div className="hero-overlay" />
 
-        <div className="hero-content">
-          <h2>{content.title}</h2>
+        {content ? (
+          <div className="hero-content">
+            <h2>{content.title}</h2>
 
-          <p>{content.subtitle}</p>
+            <p>{content.subtitle}</p>
 
-          <div className="hero-actions">
-            <a href={content.phoneHref} className="hero-contact">
-              <FontAwesomeIcon icon={faPhone} />
-              <span>{content.phone}</span>
-            </a>
+            <div className="hero-actions">
+              <a href={content.phoneHref} className="hero-contact">
+                <FontAwesomeIcon icon={faPhone} />
+                <span>{content.phone}</span>
+              </a>
 
-            <a
-              href="/hoitosopimus"
-              className="hero-cta"
-              aria-label="Täytä koiran hoitosopimuslomake"
-            >
-              Täytä hoitosopimus
-            </a>
+              <a
+                href="/hoitosopimus"
+                className="hero-cta"
+                aria-label="Täytä koiran hoitosopimuslomake"
+              >
+                Täytä hoitosopimus
+              </a>
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
     </section>
   );
