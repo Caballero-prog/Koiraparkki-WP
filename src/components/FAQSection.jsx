@@ -5,9 +5,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
 const DESKTOP_BREAKPOINT = 768;
+const FAQ_API_URL = "/wp-json/custom/v1/faq";
 
 const FAQSection = () => {
   const [openIndex, setOpenIndex] = useState(0);
+  const [wpFaqData, setWpFaqData] = useState([]);
   const [isDesktop, setIsDesktop] = useState(
     typeof window !== "undefined"
       ? window.innerWidth >= DESKTOP_BREAKPOINT
@@ -16,7 +18,27 @@ const FAQSection = () => {
 
   const gridRef = useRef(null);
 
-  // Handle resize (mobile vs desktop)
+  const currentFaqData = wpFaqData.length ? wpFaqData : faqData;
+
+  useEffect(() => {
+    const fetchFaqData = async () => {
+      try {
+        const response = await fetch(FAQ_API_URL);
+        if (!response.ok) return;
+
+        const data = await response.json();
+
+        if (Array.isArray(data) && data.length) {
+          setWpFaqData(data);
+        }
+      } catch {
+        return;
+      }
+    };
+
+    fetchFaqData();
+  }, []);
+
   useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth >= DESKTOP_BREAKPOINT);
@@ -28,14 +50,12 @@ const FAQSection = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Equal height cards (desktop only)
   useEffect(() => {
     const setEqualHeights = () => {
       if (!gridRef.current) return;
 
       const cards = gridRef.current.querySelectorAll(".faq-card");
 
-      // reset first
       cards.forEach((card) => {
         card.style.minHeight = "auto";
       });
@@ -54,7 +74,6 @@ const FAQSection = () => {
       });
     };
 
-    // run after layout
     const timeout = setTimeout(setEqualHeights, 50);
 
     window.addEventListener("resize", setEqualHeights);
@@ -63,7 +82,7 @@ const FAQSection = () => {
       clearTimeout(timeout);
       window.removeEventListener("resize", setEqualHeights);
     };
-  }, [isDesktop]);
+  }, [isDesktop, currentFaqData]);
 
   const handleToggle = (index) => {
     if (isDesktop) return;
@@ -85,7 +104,7 @@ const FAQSection = () => {
         </header>
 
         <div className="faq-grid" ref={gridRef}>
-          {faqData.map((item, index) => {
+          {currentFaqData.map((item, index) => {
             const isOpen = isDesktop || openIndex === index;
 
             const panelId = `faq-panel-${index}`;
@@ -93,7 +112,7 @@ const FAQSection = () => {
 
             return (
               <article
-                key={item.question}
+                key={`${item.question}-${index}`}
                 className={`faq-card ${isOpen ? "is-open" : ""}`}
               >
                 <button
