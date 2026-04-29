@@ -54,11 +54,9 @@ const HeroSection = () => {
         );
 
         if (image) {
-          setImageSrc(
-            image.media_details?.sizes?.large?.source_url ||
-              image.media_details?.sizes?.medium_large?.source_url ||
-              image.source_url,
-          );
+          const version = image.modified_gmt || image.modified || image.id;
+
+          setImageSrc(`${image.source_url}?v=${encodeURIComponent(version)}`);
         }
       } catch {
         return;
