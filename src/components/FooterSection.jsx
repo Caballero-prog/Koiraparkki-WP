@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/FooterSection.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,9 +11,51 @@ import {
 import { footerData } from "../data/footerData";
 import doglogo from "../assets/doglogo.svg";
 
+const FOOTER_API_URL = "/wp-json/custom/v1/footer-section";
+
+const socialIcons = {
+  facebook: faFacebook,
+  instagram: faInstagram,
+  x: faXTwitter,
+  youtube: faYoutube,
+};
+
 const FooterSection = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [socials, setSocials] = useState([]);
+  const [wpFooterData, setWpFooterData] = useState({});
+
+  useEffect(() => {
+    const fetchFooterData = async () => {
+      try {
+        const response = await fetch(FOOTER_API_URL);
+        if (!response.ok) return;
+
+        const data = await response.json();
+
+        if (data) {
+          setWpFooterData(data);
+
+          if (Array.isArray(data.socials)) {
+            setSocials(data.socials);
+          }
+        }
+      } catch {
+        return;
+      }
+    };
+
+    fetchFooterData();
+  }, []);
+
+  const currentFooterData = {
+    description: wpFooterData.description || footerData.description,
+    phone: wpFooterData.phone || footerData.phone,
+    email: wpFooterData.email || footerData.email,
+    copyrightName: wpFooterData.copyrightName || footerData.copyrightName,
+  };
 
   const goHomeTop = () => {
     if (location.pathname === "/") {
@@ -38,49 +81,30 @@ const FooterSection = () => {
         <div className="footer-brand">
           <img src={doglogo} alt="Koiraparkki logo" className="footer-logo" />
 
-          <p className="footer-description">{footerData.description}</p>
+          <p className="footer-description">{currentFooterData.description}</p>
 
-          <div className="footer-socials">
-            <a
-              href="https://www.facebook.com/koiraparkki/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-social"
-              aria-label="Facebook"
-            >
-              <FontAwesomeIcon icon={faFacebook} />
-            </a>
+          {socials.length > 0 && (
+            <div className="footer-socials">
+              {socials.map((social) => {
+                const icon = socialIcons[social.platform];
 
-            <a
-              href="https://www.instagram.com/koiraparkki/?hl=fi"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-social"
-              aria-label="Instagram"
-            >
-              <FontAwesomeIcon icon={faInstagram} />
-            </a>
+                if (!icon || !social.url) return null;
 
-            <a
-              href="https://x.com/koiraparkki?lang=fi"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-social"
-              aria-label="X"
-            >
-              <FontAwesomeIcon icon={faXTwitter} />
-            </a>
-
-            <a
-              href="https://www.youtube.com/@Koiraparkkicom-ze8hv"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-social"
-              aria-label="YouTube"
-            >
-              <FontAwesomeIcon icon={faYoutube} />
-            </a>
-          </div>
+                return (
+                  <a
+                    key={`${social.platform}-${social.url}`}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer-social"
+                    aria-label={social.label}
+                  >
+                    <FontAwesomeIcon icon={icon} />
+                  </a>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         <div className="footer-columns">
@@ -122,11 +146,13 @@ const FooterSection = () => {
           <div className="footer-column">
             <h4>Yhteys</h4>
 
-            <a href={`tel:${footerData.phone.replace(/\s/g, "")}`}>
-              {footerData.phone}
+            <a href={`tel:${String(currentFooterData.phone).replace(/\s/g, "")}`}>
+              {currentFooterData.phone}
             </a>
 
-            <a href={`mailto:${footerData.email}`}>{footerData.email}</a>
+            <a href={`mailto:${currentFooterData.email}`}>
+              {currentFooterData.email}
+            </a>
           </div>
 
           <div className="footer-column">
@@ -156,7 +182,7 @@ const FooterSection = () => {
       </div>
 
       <div className="footer-bottom">
-        © {new Date().getFullYear()} {footerData.copyrightName}
+        © {new Date().getFullYear()} {currentFooterData.copyrightName}
       </div>
     </footer>
   );
