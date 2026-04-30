@@ -19,6 +19,7 @@ const GallerySection = () => {
   const [activeId, setActiveId] = useState(null);
   const [wpGalleryData, setWpGalleryData] = useState([]);
   const [galleryImages, setGalleryImages] = useState({});
+  const [locationsLoaded, setLocationsLoaded] = useState(false);
 
   const currentGalleryData = useMemo(() => {
     return wpGalleryData.length ? wpGalleryData : galleryData;
@@ -39,6 +40,8 @@ const GallerySection = () => {
         }
       } catch {
         return;
+      } finally {
+        setLocationsLoaded(true);
       }
     };
 
@@ -47,8 +50,8 @@ const GallerySection = () => {
 
   useEffect(() => {
     if (!currentActiveId) return;
-
-    if (galleryImages[currentActiveId]?.length) return;
+    if (!locationsLoaded) return;
+    if (currentActiveId in galleryImages) return;
 
     const fetchGalleryImages = async () => {
       try {
@@ -72,7 +75,7 @@ const GallerySection = () => {
     };
 
     fetchGalleryImages();
-  }, [currentActiveId, galleryImages]);
+  }, [locationsLoaded, currentActiveId, galleryImages]);
 
   const activeGallery = useMemo(() => {
     const baseGallery =
