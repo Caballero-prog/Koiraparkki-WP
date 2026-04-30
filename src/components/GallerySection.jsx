@@ -2,7 +2,7 @@ import "../styles/GallerySection.css";
 import { useEffect, useMemo, useState } from "react";
 import { galleryData, gallerySectionData } from "../data/galleryData";
 
-const MEDIA_API_URL = "/wp-json/wp/v2/media?per_page=100";
+const GALLERY_IMAGES_API_URL = "/wp-json/custom/v1/gallery-images";
 const GALLERY_LOCATIONS_API_URL = "/wp-json/custom/v1/gallery-locations";
 
 const skeletonTiles = [
@@ -14,11 +14,6 @@ const skeletonTiles = [
   { id: "s6", className: "gallery-slot gallery-slot-6 gallery-tile--skeleton" },
   { id: "s7", className: "gallery-slot gallery-slot-7 gallery-tile--skeleton" },
 ];
-
-const getImageNumberFromSlug = (slug = "") => {
-  const match = slug.match(/-(\d+)$/);
-  return match ? Number(match[1]) : 999;
-};
 
 const GallerySection = () => {
   const [activeId, setActiveId] = useState(null);
@@ -51,53 +46,33 @@ const GallerySection = () => {
   }, []);
 
   useEffect(() => {
+    if (!currentActiveId) return;
+
+    if (galleryImages[currentActiveId]?.length) return;
+
     const fetchGalleryImages = async () => {
       try {
-        const response = await fetch(MEDIA_API_URL);
+        const response = await fetch(
+          `${GALLERY_IMAGES_API_URL}?location=${encodeURIComponent(currentActiveId)}`,
+        );
+
         if (!response.ok) return;
 
-        const mediaItems = await response.json();
-        const groupedImages = {};
+        const data = await response.json();
 
-        currentGalleryData.forEach((location) => {
-          const prefix = `gallery-${location.id}-`;
+        if (!Array.isArray(data)) return;
 
-          groupedImages[location.id] = mediaItems
-            .filter((item) => item.media_type === "image")
-            .filter((item) => item.slug?.startsWith(prefix))
-            .sort(
-              (a, b) =>
-                getImageNumberFromSlug(a.slug) -
-                getImageNumberFromSlug(b.slug)
-            )
-            .map((item) => {
-              const version = item.modified_gmt || item.modified || item.id;
-
-              return {
-                id: item.id,
-                src: `${item.source_url}?v=${encodeURIComponent(version)}`,
-                alt: item.alt_text || item.slug || "",
-              };
-            });
-        });
-
-        setGalleryImages(groupedImages);
-
-        Object.values(groupedImages)
-          .flat()
-          .forEach((image) => {
-            const img = new Image();
-            img.src = image.src;
-          });
-
-        setGalleryImages(groupedImages);
+        setGalleryImages((prev) => ({
+          ...prev,
+          [currentActiveId]: data,
+        }));
       } catch {
         return;
       }
     };
 
     fetchGalleryImages();
-  }, [currentGalleryData]);
+  }, [currentActiveId, galleryImages]);
 
   const activeGallery = useMemo(() => {
     const baseGallery =
