@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-const MEDIA_API_URL = "/wp-json/wp/v2/media?per_page=100";
+const LEGAL_IMAGE_API_URL = "/wp-json/custom/v1/media-image?slug=privacy-main";
 const LEGAL_PAGE_API_URL = "/wp-json/wp/v2/pages?slug=tietosuojaseloste";
 
 const LegalSection = () => {
@@ -51,19 +51,13 @@ const LegalSection = () => {
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const res = await fetch(MEDIA_API_URL);
+        const res = await fetch(LEGAL_IMAGE_API_URL);
         if (!res.ok) return;
 
-        const data = await res.json();
+        const image = await res.json();
 
-        const image = data.find(
-          (item) => item.media_type === "image" && item.slug === "privacy-main"
-        );
-
-        if (image) {
-          const version = image.modified_gmt || image.modified || image.id;
-
-          setImageSrc(`${image.source_url}?v=${encodeURIComponent(version)}`);
+        if (image?.src) {
+          setImageSrc(image.src);
         }
       } catch {
         return;
