@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { heroData } from "../data/heroData";
 
-const MEDIA_API_URL = "/wp-json/wp/v2/media?per_page=100";
+const HERO_IMAGE_API_URL = "/wp-json/custom/v1/media-image?slug=hero-main";
 
 const HeroSection = () => {
   const [imageSrc, setImageSrc] = useState(null);
@@ -44,19 +44,13 @@ const HeroSection = () => {
   useEffect(() => {
     const fetchHeroImage = async () => {
       try {
-        const res = await fetch(MEDIA_API_URL);
+        const res = await fetch(HERO_IMAGE_API_URL);
         if (!res.ok) return;
 
-        const data = await res.json();
+        const image = await res.json();
 
-        const image = data.find(
-          (item) => item.media_type === "image" && item.slug === "hero-main",
-        );
-
-        if (image) {
-          const version = image.modified_gmt || image.modified || image.id;
-
-          setImageSrc(`${image.source_url}?v=${encodeURIComponent(version)}`);
+        if (image?.src) {
+          setImageSrc(image.src);
         }
       } catch {
         return;
