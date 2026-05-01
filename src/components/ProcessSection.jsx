@@ -2,7 +2,7 @@ import "../styles/ProcessSection.css";
 import { useEffect, useMemo, useState } from "react";
 import { processSectionData, processSteps } from "../data/processData";
 
-const MEDIA_API_URL = "/wp-json/wp/v2/media?per_page=100";
+const PROCESS_IMAGE_API_URL = "/wp-json/custom/v1/media-image?slug=process-main";
 const PROCESS_API_URL = "/wp-json/custom/v1/process-section";
 
 const ProcessSection = () => {
@@ -42,32 +42,24 @@ const ProcessSection = () => {
     fetchProcessContent();
   }, []);
 
-  useEffect(() => {
-    const fetchImage = async () => {
-      try {
-        const res = await fetch(MEDIA_API_URL);
-        if (!res.ok) return;
+useEffect(() => {
+  const fetchImage = async () => {
+    try {
+      const res = await fetch(PROCESS_IMAGE_API_URL);
+      if (!res.ok) return;
 
-        const data = await res.json();
+      const image = await res.json();
 
-        const image = data.find(
-          (item) => item.media_type === "image" && item.slug === "process-main"
-        );
-
-        if (image) {
-          setImageSrc(
-            image.media_details?.sizes?.large?.source_url ||
-              image.media_details?.sizes?.medium_large?.source_url ||
-              image.source_url
-          );
-        }
-      } catch {
-        return;
+      if (image?.src) {
+        setImageSrc(image.src);
       }
-    };
+    } catch {
+      return;
+    }
+  };
 
-    fetchImage();
-  }, []);
+  fetchImage();
+}, []);
 
   return (
     <section className="process" aria-labelledby="process-title">
