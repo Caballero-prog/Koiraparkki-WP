@@ -10,13 +10,8 @@ import {
   faArrowUpRightFromSquare,
 } from "@fortawesome/free-solid-svg-icons";
 
-const MEDIA_API_URL = "/wp-json/wp/v2/media?per_page=100";
+const LOCATION_IMAGES_API_URL = "/wp-json/custom/v1/location-images";
 const LOCATIONS_API_URL = "/wp-json/custom/v1/locations";
-
-const getImageNumberFromSlug = (slug = "") => {
-  const match = slug.match(/-(\d+)$/);
-  return match ? Number(match[1]) : 999;
-};
 
 const getMapUrl = (location) => {
   if (location.mapUrl) return location.mapUrl;
@@ -33,6 +28,7 @@ const LocationsSection = () => {
   const [wpLocations, setWpLocations] = useState([]);
   const [locationImages, setLocationImages] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [locationsLoaded, setLocationsLoaded] = useState(false);
 
   const mergedLocations = useMemo(() => {
     return wpLocations.length ? wpLocations : locations;
@@ -53,6 +49,8 @@ const LocationsSection = () => {
         }
       } catch {
         return;
+      } finally {
+        setLocationsLoaded(true);
       }
     };
 
@@ -60,49 +58,78 @@ const LocationsSection = () => {
   }, []);
 
   useEffect(() => {
+    if (!locationsLoaded) return;
+    if (!currentActiveId) return;
+    if (currentActiveId in locationImages) {
+      setIsLoading(false);
+      return;
+    }
+
     const fetchLocationImages = async () => {
       try {
-        const response = await fetch(MEDIA_API_URL);
+        setIsLoading(true);
+
+        const response = await fetch(
+          `${LOCATION_IMAGES_API_URL}?location=${encodeURIComponent(currentActiveId)}`,
+        );
+
         if (!response.ok) return;
 
-        const mediaItems = await response.json();
-        const groupedImages = {};
+        const data = await response.json();
 
-        mergedLocations.forEach((location) => {
-          const prefix = `locations-${location.id}-`;
+        if (!Array.isArray(data)) return;
 
-          groupedImages[location.id] = mediaItems
-            .filter((item) => item.media_type === "image")
-            .filter((item) => item.slug?.startsWith(prefix))
-            .sort(
-              (a, b) =>
-                getImageNumberFromSlug(a.slug) - getImageNumberFromSlug(b.slug)
-            )
-            .slice(0, 3)
-            .map((item) => {
-              const version = item.modified_gmt || item.modified || item.id;
-
-              return `${item.source_url}?v=${encodeURIComponent(version)}`;
-            });
-        });
-
-        setLocationImages(groupedImages);
-
-        Object.values(groupedImages)
-          .flat()
-          .forEach((src) => {
-            const img = new Image();
-            img.src = src;
-          });
-
-        setLocationImages(groupedImages);
+        setLocationImages((prev) => ({
+          ...prev,
+          [currentActiveId]: data.map((image) => image.src),
+        }));
+      } catch {
+        return;
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchLocationImages();
-  }, [mergedLocations]);
+  }, [locationsLoaded, currentActiveId, locationImages]);
+
+  useEffect(() => {
+    if (!locationsLoaded) return;
+    if (!currentActiveId) return;
+    if (!mergedLocations.length) return;
+    if (!(currentActiveId in locationImages)) return;
+
+    const timer = window.setTimeout(() => {
+      mergedLocations.forEach((location) => {
+        if (!location.id) return;
+        if (location.id === currentActiveId) return;
+        if (location.id in locationImages) return;
+
+        fetch(
+          `${LOCATION_IMAGES_API_URL}?location=${encodeURIComponent(location.id)}`,
+        )
+          .then((response) => {
+            if (!response.ok) return null;
+            return response.json();
+          })
+          .then((data) => {
+            if (!Array.isArray(data)) return;
+
+            setLocationImages((prev) => {
+              if (location.id in prev) return prev;
+
+              return {
+                ...prev,
+                [location.id]: data.map((image) => image.src),
+              };
+            });
+          })
+          .catch(() => {});
+      });
+    }, 800);
+
+    return () => window.clearTimeout(timer);
+  }, [locationsLoaded, currentActiveId, mergedLocations, locationImages]);
 
   const active = useMemo(() => {
     const baseLocation =
@@ -167,22 +194,36 @@ const LocationsSection = () => {
             <div className="locations-bento" aria-label="Toimipisteen kuvat">
               {showSkeleton ? (
                 <>
-                  <div className="bento-tile bento-big bento-skeleton" aria-hidden="true">
+                  <div
+                    className="bento-tile bento-big bento-skeleton"
+                    aria-hidden="true"
+                  >
                     <div className="bento-skeleton-shimmer" />
                   </div>
 
-                  <div className="bento-tile bento-small bento-skeleton" aria-hidden="true">
+                  <div
+                    className="bento-tile bento-small bento-skeleton"
+                    aria-hidden="true"
+                  >
                     <div className="bento-skeleton-shimmer" />
                   </div>
 
-                  <div className="bento-tile bento-small bento-skeleton" aria-hidden="true">
+                  <div
+                    className="bento-tile bento-small bento-skeleton"
+                    aria-hidden="true"
+                  >
                     <div className="bento-skeleton-shimmer" />
                   </div>
                 </>
               ) : (
                 <>
                   <div className="bento-tile bento-big">
-                    <img src={active.images[0]} alt="" aria-hidden="true" loading="lazy" />
+                    <img
+                      src={active.images[0]}
+                      alt=""
+                      aria-hidden="true"
+                      loading="eager"
+                    />
                   </div>
 
                   <div className="bento-tile bento-small">
