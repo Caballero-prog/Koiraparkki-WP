@@ -18,23 +18,39 @@ const StatsSection = () => {
   const [content, setContent] = useState(statsData);
 
   useEffect(() => {
-    fetch("/wp-json/custom/v1/stats-section")
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchStats = async () => {
+      try {
+        const cached = sessionStorage.getItem("stats-content");
+
+        if (cached) {
+          setContent(JSON.parse(cached));
+          return;
+        }
+
+        const res = await fetch("/wp-json/custom/v1/stats-section");
+        if (!res.ok) return;
+
+        const data = await res.json();
+
         if (data?.heading && data?.items?.length) {
-          setContent({
+          const formatted = {
             heading: data.heading,
             items: statsData.items.map((fallbackItem, index) => ({
               ...fallbackItem,
               number: data.items[index]?.number || fallbackItem.number,
               label: data.items[index]?.label || fallbackItem.label,
             })),
-          });
+          };
+
+          setContent(formatted);
+          sessionStorage.setItem("stats-content", JSON.stringify(formatted));
         }
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error("Stats fetch failed:", err);
-      });
+      }
+    };
+
+    fetchStats();
   }, []);
 
   return (
