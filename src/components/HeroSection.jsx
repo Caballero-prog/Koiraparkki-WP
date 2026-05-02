@@ -70,6 +70,8 @@ const HeroSection = () => {
             alt=""
             aria-hidden="true"
             className="hero-image"
+            loading="eager"
+            fetchPriority="high"
           />
         ) : (
           <div className="hero-skeleton" aria-hidden="true">
