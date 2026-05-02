@@ -13,7 +13,7 @@ const FAQSection = () => {
   const [isDesktop, setIsDesktop] = useState(
     typeof window !== "undefined"
       ? window.innerWidth >= DESKTOP_BREAKPOINT
-      : false
+      : false,
   );
 
   const gridRef = useRef(null);
@@ -23,6 +23,13 @@ const FAQSection = () => {
   useEffect(() => {
     const fetchFaqData = async () => {
       try {
+        const cached = sessionStorage.getItem("faq");
+
+        if (cached) {
+          setWpFaqData(JSON.parse(cached));
+          return;
+        }
+
         const response = await fetch(FAQ_API_URL);
         if (!response.ok) return;
 
@@ -30,6 +37,7 @@ const FAQSection = () => {
 
         if (Array.isArray(data) && data.length) {
           setWpFaqData(data);
+          sessionStorage.setItem("faq", JSON.stringify(data));
         }
       } catch {
         return;
