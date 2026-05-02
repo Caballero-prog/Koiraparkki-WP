@@ -1,5 +1,6 @@
 import "../styles/BookingFormSection.css";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
@@ -30,12 +31,10 @@ const BookingFormSection = () => {
     return () => clearTimeout(timer);
   }, [formMessage]);
 
+  const navigate = useNavigate();
+
   const handleBack = () => {
-    if (window.history.length > 1) {
-      window.history.back();
-    } else {
-      window.location.href = "#/";
-    }
+    navigate("/", { state: { scrollTop: true } });
   };
 
   const handleSubmit = async (e) => {
