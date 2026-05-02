@@ -41,6 +41,13 @@ const PricingSection = () => {
   useEffect(() => {
     const fetchPricingContent = async () => {
       try {
+        const cached = sessionStorage.getItem("pricing-options");
+
+        if (cached) {
+          setWpPricingOptions(JSON.parse(cached));
+          return;
+        }
+
         const response = await fetch(PRICING_API_URL);
         if (!response.ok) return;
 
@@ -48,6 +55,7 @@ const PricingSection = () => {
 
         if (Array.isArray(data)) {
           setWpPricingOptions(data);
+          sessionStorage.setItem("pricing-options", JSON.stringify(data));
         }
       } catch {
         return;
@@ -60,6 +68,13 @@ const PricingSection = () => {
   useEffect(() => {
     const fetchSeasonalContent = async () => {
       try {
+        const cached = sessionStorage.getItem("pricing-seasonal");
+
+        if (cached) {
+          setWpSeasonalNotice(JSON.parse(cached));
+          return;
+        }
+
         const response = await fetch(PRICING_SEASONAL_API_URL);
         if (!response.ok) return;
 
@@ -67,6 +82,7 @@ const PricingSection = () => {
 
         if (data?.title && data?.modifier && data?.description) {
           setWpSeasonalNotice(data);
+          sessionStorage.setItem("pricing-seasonal", JSON.stringify(data));
         }
       } catch {
         return;
