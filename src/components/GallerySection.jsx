@@ -112,6 +112,18 @@ const GallerySection = () => {
         if (location.id === currentActiveId) return;
         if (location.id in galleryImages) return;
 
+        const cacheKey = `gallery-images-${location.id}`;
+        const cached = sessionStorage.getItem(cacheKey);
+
+        if (cached) {
+          setGalleryImages((prev) => ({
+            ...prev,
+            [location.id]: JSON.parse(cached),
+          }));
+
+          return;
+        }
+
         fetch(
           `${GALLERY_IMAGES_API_URL}?location=${encodeURIComponent(location.id)}`,
         )
@@ -125,10 +137,7 @@ const GallerySection = () => {
             setGalleryImages((prev) => {
               if (location.id in prev) return prev;
 
-              sessionStorage.setItem(
-                `gallery-images-${location.id}`,
-                JSON.stringify(data),
-              );
+              sessionStorage.setItem(cacheKey, JSON.stringify(data));
 
               return {
                 ...prev,
@@ -158,7 +167,7 @@ const GallerySection = () => {
 
   const featuredImages = activeGallery?.images?.slice(0, 7) || [];
   const restImages = activeGallery?.images?.slice(7) || [];
-  
+
   return (
     <section
       className="gallery"
