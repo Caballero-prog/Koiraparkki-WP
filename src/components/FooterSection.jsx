@@ -30,6 +30,20 @@ const FooterSection = () => {
   useEffect(() => {
     const fetchFooterData = async () => {
       try {
+        const cached = sessionStorage.getItem("footer");
+
+        if (cached) {
+          const data = JSON.parse(cached);
+
+          setWpFooterData(data);
+
+          if (Array.isArray(data.socials)) {
+            setSocials(data.socials);
+          }
+
+          return;
+        }
+
         const response = await fetch(FOOTER_API_URL);
         if (!response.ok) return;
 
@@ -41,6 +55,8 @@ const FooterSection = () => {
           if (Array.isArray(data.socials)) {
             setSocials(data.socials);
           }
+
+          sessionStorage.setItem("footer", JSON.stringify(data));
         }
       } catch {
         return;
@@ -146,7 +162,9 @@ const FooterSection = () => {
           <div className="footer-column">
             <h4>Yhteys</h4>
 
-            <a href={`tel:${String(currentFooterData.phone).replace(/\s/g, "")}`}>
+            <a
+              href={`tel:${String(currentFooterData.phone).replace(/\s/g, "")}`}
+            >
               {currentFooterData.phone}
             </a>
 
