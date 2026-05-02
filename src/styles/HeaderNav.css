@@ -113,6 +113,8 @@
 /* Mobile menu */
 
 .mobile-menu {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   top: var(--nav-h, 60px);
   left: 0;
@@ -205,6 +207,63 @@
   transform: translateY(-1px);
 }
 
+/* Language */
+
+.language-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.language-button {
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: rgba(0, 0, 0, 0.04);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  transition: all 0.15s ease;
+}
+
+.language-button:hover {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.language-button.is-active {
+  background: var(--color-accent-soft);
+  border-color: rgba(0, 102, 255, 0.25);
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.language-divider {
+  opacity: 0.5;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.language-switcher-desktop {
+  display: none;
+}
+
+.mobile-menu .language-switcher-mobile {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 1rem 0.25rem;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 18px 50px rgba(16, 24, 40, 0.14);
+}
+
+.mobile-menu .language-switcher-mobile + ul {
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  padding-top: 0.5rem;
+}
+
 /* Tablet */
 
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -238,8 +297,9 @@
   }
 
   .mobile-menu ul {
-    height: 100%;
-    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+    flex: 1;
+    min-height: 0;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   }
 }
 
@@ -276,8 +336,9 @@
   }
 
   .mobile-menu ul {
-    height: 100%;
-    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+    flex: 1;
+    min-height: 0;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   }
 }
 
@@ -332,6 +393,16 @@
 
   .site-title-desktop {
     font-size: 1.9rem;
+  }
+
+  .language-switcher-mobile {
+    display: none;
+  }
+
+  .language-switcher-desktop {
+    display: flex;
+    margin-left: 1rem;
+    justify-self: end;
   }
 }
 

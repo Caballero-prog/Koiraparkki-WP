@@ -13,7 +13,10 @@ const HeroSection = () => {
 
   useEffect(() => {
     const fetchHeroContent = async () => {
-      const cached = sessionStorage.getItem("hero-content");
+      const lang = localStorage.getItem("lang") || "fi";
+      const cacheKey = `hero-content-${lang}`;
+
+      const cached = sessionStorage.getItem(cacheKey);
 
       if (cached) {
         setContent(JSON.parse(cached));
@@ -21,7 +24,7 @@ const HeroSection = () => {
       }
 
       try {
-        const res = await fetch("/wp-json/custom/v1/hero-section");
+        const res = await fetch(`/wp-json/custom/v1/hero-section?lang=${lang}`);
         if (!res.ok) throw new Error();
 
         const data = await res.json();
@@ -31,17 +34,24 @@ const HeroSection = () => {
           title: data.title,
           subtitle: data.subtitle,
           phone: data.phone,
-          phoneHref: `tel:${data.phone.replace(/\s+/g, "")}`,
+          phoneHref: data.phoneHref || `tel:${data.phone.replace(/\s+/g, "")}`,
+          cta: data.cta || heroData.cta,
         };
 
         setContent(formatted);
-        sessionStorage.setItem("hero-content", JSON.stringify(formatted));
+        sessionStorage.setItem(cacheKey, JSON.stringify(formatted));
       } catch {
         setContent(heroData);
       }
     };
 
     fetchHeroContent();
+
+    window.addEventListener("languagechange", fetchHeroContent);
+
+    return () => {
+      window.removeEventListener("languagechange", fetchHeroContent);
+    };
   }, []);
 
   useEffect(() => {
@@ -106,9 +116,9 @@ const HeroSection = () => {
               <Link
                 to="/hoitosopimus"
                 className="hero-cta"
-                aria-label="Täytä koiran hoitosopimuslomake"
+                aria-label={content.cta}
               >
-                Täytä hoitosopimus
+                {content.cta || "Täytä hoitosopimus"}
               </Link>
             </div>
           </div>

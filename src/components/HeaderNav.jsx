@@ -9,6 +9,17 @@ const HeaderNav = () => {
   const [open, setOpen] = useState(false);
   const navRef = useRef(null);
 
+  const [language, setLanguage] = useState(
+    localStorage.getItem("lang") || "fi",
+  );
+
+  const changeLanguage = (lang) => {
+    setLanguage(lang);
+    localStorage.setItem("lang", lang);
+    sessionStorage.clear();
+    window.dispatchEvent(new Event("languagechange"));
+  };
+
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -53,6 +64,28 @@ const HeaderNav = () => {
     });
     closeMenu();
   };
+
+  const languageSwitcher = (
+    <div className="language-switcher" aria-label="Valitse kieli">
+      <button
+        type="button"
+        className={`language-button ${language === "fi" ? "is-active" : ""}`}
+        onClick={() => changeLanguage("fi")}
+      >
+        FI
+      </button>
+
+      <span className="language-divider">|</span>
+
+      <button
+        type="button"
+        className={`language-button ${language === "en" ? "is-active" : ""}`}
+        onClick={() => changeLanguage("en")}
+      >
+        EN
+      </button>
+    </div>
+  );
 
   return (
     <header className="site-header" id="site-header">
@@ -122,6 +155,8 @@ const HeaderNav = () => {
             </li>
           ))}
         </ul>
+        {/* Desktop language switcher */}
+        <div className="language-switcher-desktop">{languageSwitcher}</div>
       </nav>
 
       {/* Mobile menu */}
@@ -131,6 +166,8 @@ const HeaderNav = () => {
         aria-hidden={!open}
         inert={!open ? true : undefined}
       >
+        <div className="language-switcher-mobile">{languageSwitcher}</div>
+
         <ul>
           {navData.sectionLinks.map((link) => (
             <li key={link.targetId}>
