@@ -25,6 +25,13 @@ const ContactSection = () => {
   useEffect(() => {
     const fetchContactData = async () => {
       try {
+        const cached = sessionStorage.getItem("contact");
+
+        if (cached) {
+          setWpContactData(JSON.parse(cached));
+          return;
+        }
+
         const response = await fetch(CONTACT_SECTION_API_URL);
         if (!response.ok) return;
 
@@ -32,6 +39,7 @@ const ContactSection = () => {
 
         if (data && (data.phone || data.email)) {
           setWpContactData(data);
+          sessionStorage.setItem("contact", JSON.stringify(data));
         }
       } catch {
         return;
