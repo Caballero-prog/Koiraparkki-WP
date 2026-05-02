@@ -21,6 +21,13 @@ const CardFormSection = () => {
   useEffect(() => {
     const fetchPlans = async () => {
       try {
+        const cached = sessionStorage.getItem("plans");
+
+        if (cached) {
+          setWpPlans(JSON.parse(cached));
+          return;
+        }
+
         const response = await fetch(PLANS_API_URL);
         if (!response.ok) return;
 
@@ -28,6 +35,7 @@ const CardFormSection = () => {
 
         if (Array.isArray(data)) {
           setWpPlans(data);
+          sessionStorage.setItem("plans", JSON.stringify(data));
         }
       } catch {
         return;
