@@ -19,6 +19,13 @@ const MonthlyPlansSection = () => {
   useEffect(() => {
     const fetchPlans = async () => {
       try {
+        const cached = sessionStorage.getItem("plans");
+
+        if (cached) {
+          setWpPlans(JSON.parse(cached));
+          return;
+        }
+
         const res = await fetch(PLANS_API_URL);
         if (!res.ok) return;
 
@@ -26,6 +33,7 @@ const MonthlyPlansSection = () => {
 
         if (Array.isArray(data)) {
           setWpPlans(data);
+          sessionStorage.setItem("plans", JSON.stringify(data));
         }
       } catch {
         return;
@@ -38,17 +46,27 @@ const MonthlyPlansSection = () => {
   useEffect(() => {
     const fetchPlansInfo = async () => {
       try {
+        const cached = sessionStorage.getItem("plans-info");
+
+        if (cached) {
+          setWpPlansInfo(JSON.parse(cached));
+          return;
+        }
+
         const res = await fetch(PLANS_INFO_API_URL);
         if (!res.ok) return;
 
         const data = await res.json();
 
         if (data?.title && Array.isArray(data?.items)) {
-          setWpPlansInfo({
+          const formatted = {
             ...monthlyPlansInfo,
             noteTitle: data.title,
             items: data.items,
-          });
+          };
+
+          setWpPlansInfo(formatted);
+          sessionStorage.setItem("plans-info", JSON.stringify(formatted));
         }
       } catch {
         return;
