@@ -55,6 +55,13 @@ const ProcessSection = () => {
   useEffect(() => {
     const fetchImage = async () => {
       try {
+        const cached = sessionStorage.getItem("process-image");
+
+        if (cached) {
+          setImageSrc(cached);
+          return;
+        }
+
         const res = await fetch(PROCESS_IMAGE_API_URL);
         if (!res.ok) return;
 
@@ -62,6 +69,7 @@ const ProcessSection = () => {
 
         if (image?.src) {
           setImageSrc(image.src);
+          sessionStorage.setItem("process-image", image.src);
         }
       } catch {
         return;
