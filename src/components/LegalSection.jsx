@@ -51,6 +51,13 @@ const LegalSection = () => {
   useEffect(() => {
     const fetchImage = async () => {
       try {
+        const cached = sessionStorage.getItem("legal-image");
+
+        if (cached) {
+          setImageSrc(cached);
+          return;
+        }
+
         const res = await fetch(LEGAL_IMAGE_API_URL);
         if (!res.ok) return;
 
@@ -58,6 +65,7 @@ const LegalSection = () => {
 
         if (image?.src) {
           setImageSrc(image.src);
+          sessionStorage.setItem("legal-image", image.src);
         }
       } catch {
         return;
