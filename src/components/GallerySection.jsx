@@ -30,6 +30,14 @@ const GallerySection = () => {
   useEffect(() => {
     const fetchGalleryLocations = async () => {
       try {
+        const cached = sessionStorage.getItem("gallery-locations");
+
+        if (cached) {
+          setWpGalleryData(JSON.parse(cached));
+          setLocationsLoaded(true);
+          return;
+        }
+
         const response = await fetch(GALLERY_LOCATIONS_API_URL);
         if (!response.ok) return;
 
@@ -37,6 +45,7 @@ const GallerySection = () => {
 
         if (Array.isArray(data)) {
           setWpGalleryData(data);
+          sessionStorage.setItem("gallery-locations", JSON.stringify(data));
         }
       } catch {
         return;
@@ -51,10 +60,22 @@ const GallerySection = () => {
   useEffect(() => {
     if (!locationsLoaded) return;
     if (!currentActiveId) return;
+
     if (currentActiveId in galleryImages) return;
 
     const fetchGalleryImages = async () => {
       try {
+        const cacheKey = `gallery-images-${currentActiveId}`;
+        const cached = sessionStorage.getItem(cacheKey);
+
+        if (cached) {
+          setGalleryImages((prev) => ({
+            ...prev,
+            [currentActiveId]: JSON.parse(cached),
+          }));
+          return;
+        }
+
         const response = await fetch(
           `${GALLERY_IMAGES_API_URL}?location=${encodeURIComponent(currentActiveId)}`,
         );
@@ -69,6 +90,8 @@ const GallerySection = () => {
           ...prev,
           [currentActiveId]: data,
         }));
+
+        sessionStorage.setItem(cacheKey, JSON.stringify(data));
       } catch {
         return;
       }
@@ -102,6 +125,11 @@ const GallerySection = () => {
             setGalleryImages((prev) => {
               if (location.id in prev) return prev;
 
+              sessionStorage.setItem(
+                `gallery-images-${location.id}`,
+                JSON.stringify(data),
+              );
+
               return {
                 ...prev,
                 [location.id]: data,
@@ -130,6 +158,7 @@ const GallerySection = () => {
 
   const featuredImages = activeGallery?.images?.slice(0, 7) || [];
   const restImages = activeGallery?.images?.slice(7) || [];
+  
   return (
     <section
       className="gallery"
