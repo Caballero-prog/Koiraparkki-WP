@@ -39,6 +39,14 @@ const LocationsSection = () => {
   useEffect(() => {
     const fetchLocationsContent = async () => {
       try {
+        const cached = sessionStorage.getItem("locations-content");
+
+        if (cached) {
+          setWpLocations(JSON.parse(cached));
+          setLocationsLoaded(true);
+          return;
+        }
+
         const response = await fetch(LOCATIONS_API_URL);
         if (!response.ok) return;
 
@@ -46,6 +54,7 @@ const LocationsSection = () => {
 
         if (Array.isArray(data)) {
           setWpLocations(data);
+          sessionStorage.setItem("locations-content", JSON.stringify(data));
         }
       } catch {
         return;
@@ -60,6 +69,7 @@ const LocationsSection = () => {
   useEffect(() => {
     if (!locationsLoaded) return;
     if (!currentActiveId) return;
+
     if (currentActiveId in locationImages) {
       setIsLoading(false);
       return;
@@ -68,6 +78,17 @@ const LocationsSection = () => {
     const fetchLocationImages = async () => {
       try {
         setIsLoading(true);
+
+        const cacheKey = `location-images-${currentActiveId}`;
+        const cached = sessionStorage.getItem(cacheKey);
+
+        if (cached) {
+          setLocationImages((prev) => ({
+            ...prev,
+            [currentActiveId]: JSON.parse(cached),
+          }));
+          return;
+        }
 
         const response = await fetch(
           `${LOCATION_IMAGES_API_URL}?location=${encodeURIComponent(currentActiveId)}`,
@@ -79,10 +100,14 @@ const LocationsSection = () => {
 
         if (!Array.isArray(data)) return;
 
+        const images = data.map((image) => image.src);
+
         setLocationImages((prev) => ({
           ...prev,
-          [currentActiveId]: data.map((image) => image.src),
+          [currentActiveId]: images,
         }));
+
+        sessionStorage.setItem(cacheKey, JSON.stringify(images));
       } catch {
         return;
       } finally {
@@ -118,9 +143,16 @@ const LocationsSection = () => {
             setLocationImages((prev) => {
               if (location.id in prev) return prev;
 
+              const images = data.map((image) => image.src);
+
+              sessionStorage.setItem(
+                `location-images-${location.id}`,
+                JSON.stringify(images),
+              );
+
               return {
                 ...prev,
-                [location.id]: data.map((image) => image.src),
+                [location.id]: images,
               };
             });
           })
