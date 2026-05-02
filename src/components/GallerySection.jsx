@@ -49,8 +49,8 @@ const GallerySection = () => {
   }, []);
 
   useEffect(() => {
-    if (!currentActiveId) return;
     if (!locationsLoaded) return;
+    if (!currentActiveId) return;
     if (currentActiveId in galleryImages) return;
 
     const fetchGalleryImages = async () => {
@@ -77,6 +77,44 @@ const GallerySection = () => {
     fetchGalleryImages();
   }, [locationsLoaded, currentActiveId, galleryImages]);
 
+  useEffect(() => {
+    if (!locationsLoaded) return;
+    if (!currentActiveId) return;
+    if (!currentGalleryData.length) return;
+    if (!(currentActiveId in galleryImages)) return;
+
+    const timer = window.setTimeout(() => {
+      currentGalleryData.forEach((location) => {
+        if (!location.id) return;
+        if (location.id === currentActiveId) return;
+        if (location.id in galleryImages) return;
+
+        fetch(
+          `${GALLERY_IMAGES_API_URL}?location=${encodeURIComponent(location.id)}`,
+        )
+          .then((response) => {
+            if (!response.ok) return null;
+            return response.json();
+          })
+          .then((data) => {
+            if (!Array.isArray(data)) return;
+
+            setGalleryImages((prev) => {
+              if (location.id in prev) return prev;
+
+              return {
+                ...prev,
+                [location.id]: data,
+              };
+            });
+          })
+          .catch(() => {});
+      });
+    }, 1000);
+
+    return () => window.clearTimeout(timer);
+  }, [locationsLoaded, currentActiveId, currentGalleryData, galleryImages]);
+
   const activeGallery = useMemo(() => {
     const baseGallery =
       currentGalleryData.find((location) => location.id === currentActiveId) ||
@@ -92,7 +130,6 @@ const GallerySection = () => {
 
   const featuredImages = activeGallery?.images?.slice(0, 7) || [];
   const restImages = activeGallery?.images?.slice(7) || [];
-
   return (
     <section
       className="gallery"
