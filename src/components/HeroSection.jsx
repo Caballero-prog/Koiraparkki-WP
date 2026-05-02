@@ -47,6 +47,13 @@ const HeroSection = () => {
   useEffect(() => {
     const fetchHeroImage = async () => {
       try {
+        const cached = sessionStorage.getItem("hero-image");
+
+        if (cached) {
+          setImageSrc(cached);
+          return;
+        }
+
         const res = await fetch(HERO_IMAGE_API_URL);
         if (!res.ok) return;
 
@@ -54,6 +61,7 @@ const HeroSection = () => {
 
         if (image?.src) {
           setImageSrc(image.src);
+          sessionStorage.setItem("hero-image", image.src);
         }
       } catch {
         return;
