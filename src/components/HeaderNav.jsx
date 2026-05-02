@@ -150,7 +150,7 @@ const HeaderNav = () => {
                 className="nav-link-button"
                 onClick={() => scrollToSection(link.targetId)}
               >
-                {link.label}
+                {link.label[language] || link.label.fi}
               </button>
             </li>
           ))}
@@ -176,7 +176,7 @@ const HeaderNav = () => {
                 className="nav-link-button"
                 onClick={() => scrollToSection(link.targetId)}
               >
-                {link.label}
+                {link.label[language] || link.label.fi}
               </button>
             </li>
           ))}
