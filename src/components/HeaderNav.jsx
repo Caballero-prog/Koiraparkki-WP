@@ -129,7 +129,7 @@ const HeaderNav = () => {
         id="mobile-menu"
         className={`mobile-menu ${open ? "open" : ""}`}
         aria-hidden={!open}
-        inert={!open ? "" : undefined}
+        inert={!open ? true : undefined}
       >
         <ul>
           {navData.sectionLinks.map((link) => (

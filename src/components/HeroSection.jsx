@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { heroData } from "../data/heroData";
+import { Link } from "react-router-dom";
 
 const HERO_IMAGE_API_URL = "/wp-json/custom/v1/media-image?slug=hero-main";
 
@@ -90,13 +91,13 @@ const HeroSection = () => {
                 <span>{content.phone}</span>
               </a>
 
-              <a
-                href="/hoitosopimus"
+              <Link
+                to="/hoitosopimus"
                 className="hero-cta"
                 aria-label="Täytä koiran hoitosopimuslomake"
               >
                 Täytä hoitosopimus
-              </a>
+              </Link>
             </div>
           </div>
         ) : null}

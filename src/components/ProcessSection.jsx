@@ -1,8 +1,10 @@
 import "../styles/ProcessSection.css";
 import { useEffect, useMemo, useState } from "react";
 import { processSectionData, processSteps } from "../data/processData";
+import { Link } from "react-router-dom";
 
-const PROCESS_IMAGE_API_URL = "/wp-json/custom/v1/media-image?slug=process-main";
+const PROCESS_IMAGE_API_URL =
+  "/wp-json/custom/v1/media-image?slug=process-main";
 const PROCESS_API_URL = "/wp-json/custom/v1/process-section";
 
 const ProcessSection = () => {
@@ -42,24 +44,24 @@ const ProcessSection = () => {
     fetchProcessContent();
   }, []);
 
-useEffect(() => {
-  const fetchImage = async () => {
-    try {
-      const res = await fetch(PROCESS_IMAGE_API_URL);
-      if (!res.ok) return;
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const res = await fetch(PROCESS_IMAGE_API_URL);
+        if (!res.ok) return;
 
-      const image = await res.json();
+        const image = await res.json();
 
-      if (image?.src) {
-        setImageSrc(image.src);
+        if (image?.src) {
+          setImageSrc(image.src);
+        }
+      } catch {
+        return;
       }
-    } catch {
-      return;
-    }
-  };
+    };
 
-  fetchImage();
-}, []);
+    fetchImage();
+  }, []);
 
   return (
     <section className="process" aria-labelledby="process-title">
@@ -97,12 +99,12 @@ useEffect(() => {
                   <p className="process-step-description">{step.text}</p>
 
                   {step.hasCta ? (
-                    <a
-                      href={currentProcessData.ctaHref}
+                    <Link
+                      to={currentProcessData.ctaHref}
                       className="process-cta"
                     >
                       {currentProcessData.ctaText}
-                    </a>
+                    </Link>
                   ) : null}
                 </div>
               </li>
