@@ -5,12 +5,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const LEGAL_IMAGE_API_URL = "/wp-json/custom/v1/media-image?slug=privacy-main";
-const LEGAL_PAGE_API_URL = "/wp-json/wp/v2/pages?slug=tietosuojaseloste";
+const LEGAL_PAGE_API_URL = "/wp-json/custom/v1/legal-page";
 
 const LegalSection = () => {
   const [imageSrc, setImageSrc] = useState(null);
-  const [legalTitle, setLegalTitle] = useState("Tietosuojaseloste");
-  const [legalContent, setLegalContent] = useState("");
+
+  const cachedLegalContent = sessionStorage.getItem("legal-content");
+  const parsedLegalContent = cachedLegalContent
+    ? JSON.parse(cachedLegalContent)
+    : null;
+
+  const [legalTitle, setLegalTitle] = useState(
+    parsedLegalContent?.title || "Tietosuojaseloste",
+  );
+
+  const [legalContent, setLegalContent] = useState(
+    parsedLegalContent?.content || "",
+  );
 
   useEffect(() => {
     window.scrollTo({
@@ -42,13 +53,12 @@ const LegalSection = () => {
         if (!res.ok) return;
 
         const data = await res.json();
-        const page = Array.isArray(data) ? data[0] : null;
 
-        if (!page) return;
+        if (!data?.title) return;
 
         const formatted = {
-          title: page.title?.rendered || "Tietosuojaseloste",
-          content: page.content?.rendered || "",
+          title: data.title,
+          content: data.content || "",
         };
 
         setLegalTitle(formatted.title);
