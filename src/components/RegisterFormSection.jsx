@@ -1,5 +1,6 @@
 import "../styles/RegisterFormSection.css";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
@@ -47,12 +48,10 @@ const RegisterFormSection = () => {
     }
   };
 
+  const navigate = useNavigate();
+
   const handleBack = () => {
-    if (window.history.length > 1) {
-      window.history.back();
-    } else {
-      window.location.href = "/";
-    }
+    navigate("/", { state: { scrollTop: true } });
   };
 
   if (status === "success") {
@@ -72,7 +71,10 @@ const RegisterFormSection = () => {
               <FontAwesomeIcon icon={faCircleCheck} />
             </div>
 
-            <h1 id="agreement-success-title" className="agreement-success-title">
+            <h1
+              id="agreement-success-title"
+              className="agreement-success-title"
+            >
               Lomake lähetetty onnistuneesti
             </h1>
 
@@ -89,11 +91,7 @@ const RegisterFormSection = () => {
   return (
     <section className="agreement" aria-labelledby="agreement-title">
       <div className="agreement-inner">
-        <button
-          type="button"
-          className="agreement-back"
-          onClick={handleBack}
-        >
+        <button type="button" className="agreement-back" onClick={handleBack}>
           <FontAwesomeIcon icon={faArrowLeft} />
           <span>Takaisin</span>
         </button>
