@@ -13,27 +13,29 @@ const HeroSection = () => {
 
   useEffect(() => {
     const fetchHeroContent = async () => {
+      const cached = sessionStorage.getItem("hero-content");
+
+      if (cached) {
+        setContent(JSON.parse(cached));
+        return;
+      }
+
       try {
         const res = await fetch("/wp-json/custom/v1/hero-section");
-
-        if (!res.ok) {
-          setContent(heroData);
-          return;
-        }
+        if (!res.ok) throw new Error();
 
         const data = await res.json();
 
-        if (data?.title && data?.subtitle && data?.phone) {
-          setContent({
-            ...heroData,
-            title: data.title,
-            subtitle: data.subtitle,
-            phone: data.phone,
-            phoneHref: `tel:${data.phone.replace(/\s+/g, "")}`,
-          });
-        } else {
-          setContent(heroData);
-        }
+        const formatted = {
+          ...heroData,
+          title: data.title,
+          subtitle: data.subtitle,
+          phone: data.phone,
+          phoneHref: `tel:${data.phone.replace(/\s+/g, "")}`,
+        };
+
+        setContent(formatted);
+        sessionStorage.setItem("hero-content", JSON.stringify(formatted));
       } catch {
         setContent(heroData);
       }
