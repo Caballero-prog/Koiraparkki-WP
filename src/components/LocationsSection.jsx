@@ -130,6 +130,18 @@ const LocationsSection = () => {
         if (location.id === currentActiveId) return;
         if (location.id in locationImages) return;
 
+        const cacheKey = `location-images-${location.id}`;
+        const cached = sessionStorage.getItem(cacheKey);
+
+        if (cached) {
+          setLocationImages((prev) => ({
+            ...prev,
+            [location.id]: JSON.parse(cached),
+          }));
+
+          return;
+        }
+
         fetch(
           `${LOCATION_IMAGES_API_URL}?location=${encodeURIComponent(location.id)}`,
         )
@@ -145,10 +157,7 @@ const LocationsSection = () => {
 
               const images = data.map((image) => image.src);
 
-              sessionStorage.setItem(
-                `location-images-${location.id}`,
-                JSON.stringify(images),
-              );
+              sessionStorage.setItem(cacheKey, JSON.stringify(images));
 
               return {
                 ...prev,
