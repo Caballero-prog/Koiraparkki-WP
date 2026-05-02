@@ -28,6 +28,13 @@ const ProcessSection = () => {
   useEffect(() => {
     const fetchProcessContent = async () => {
       try {
+        const cached = sessionStorage.getItem("process-content");
+
+        if (cached) {
+          setWpProcessData(JSON.parse(cached));
+          return;
+        }
+
         const res = await fetch(PROCESS_API_URL);
         if (!res.ok) return;
 
@@ -35,6 +42,7 @@ const ProcessSection = () => {
 
         if (data?.title && Array.isArray(data?.steps)) {
           setWpProcessData(data);
+          sessionStorage.setItem("process-content", JSON.stringify(data));
         }
       } catch {
         return;
