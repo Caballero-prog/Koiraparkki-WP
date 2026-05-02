@@ -29,6 +29,15 @@ const LegalSection = () => {
   useEffect(() => {
     const fetchLegalContent = async () => {
       try {
+        const cached = sessionStorage.getItem("legal-content");
+
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          setLegalTitle(parsed.title);
+          setLegalContent(parsed.content);
+          return;
+        }
+
         const res = await fetch(LEGAL_PAGE_API_URL);
         if (!res.ok) return;
 
@@ -37,8 +46,15 @@ const LegalSection = () => {
 
         if (!page) return;
 
-        setLegalTitle(page.title?.rendered || "Tietosuojaseloste");
-        setLegalContent(page.content?.rendered || "");
+        const formatted = {
+          title: page.title?.rendered || "Tietosuojaseloste",
+          content: page.content?.rendered || "",
+        };
+
+        setLegalTitle(formatted.title);
+        setLegalContent(formatted.content);
+
+        sessionStorage.setItem("legal-content", JSON.stringify(formatted));
       } catch {
         return;
       }
