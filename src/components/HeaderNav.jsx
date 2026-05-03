@@ -14,6 +14,8 @@ const HeaderNav = () => {
   );
 
   const changeLanguage = (lang) => {
+    if (lang === language) return;
+
     setLanguage(lang);
     localStorage.setItem("lang", lang);
     sessionStorage.clear();
@@ -66,7 +68,10 @@ const HeaderNav = () => {
   };
 
   const languageSwitcher = (
-    <div className="language-switcher" aria-label="Valitse kieli">
+    <div
+      className="language-switcher"
+      aria-label={language === "fi" ? "Valitse kieli" : "Choose language"}
+    >
       <button
         type="button"
         className={`language-button ${language === "fi" ? "is-active" : ""}`}
@@ -89,14 +94,26 @@ const HeaderNav = () => {
 
   return (
     <header className="site-header" id="site-header">
-      <nav ref={navRef} className="navigation-bar" aria-label="Päänavigaatio">
+      <nav
+        ref={navRef}
+        className="navigation-bar"
+        aria-label={language === "fi" ? "Päänavigaatio" : "Main navigation"}
+      >
         <button
           className={`burger-menu ${open ? "open" : ""}`}
           type="button"
           onClick={() => setOpen((prev) => !prev)}
           aria-expanded={open}
           aria-controls="mobile-menu"
-          aria-label={open ? "Sulje valikko" : "Avaa valikko"}
+          aria-label={
+            open
+              ? language === "fi"
+                ? "Sulje valikko"
+                : "Close menu"
+              : language === "fi"
+                ? "Avaa valikko"
+                : "Open menu"
+          }
         >
           <FontAwesomeIcon icon={open ? faTimes : faBars} />
         </button>
