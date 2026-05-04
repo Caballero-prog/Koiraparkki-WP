@@ -246,24 +246,30 @@ const BookingFormSection = () => {
             <div className="booking-fields">
               <div className="booking-field booking-field--half">
                 <label htmlFor="bookingStartDate">Alkaa *</label>
-                <input
-                  id="bookingStartDate"
-                  type="date"
-                  name="startDate"
-                  min={today}
-                  required
-                />
+
+                <div className="date-field">
+                  <input
+                    id="bookingStartDate"
+                    type="date"
+                    name="startDate"
+                    min={today}
+                    required
+                  />
+                </div>
               </div>
 
               <div className="booking-field booking-field--half">
                 <label htmlFor="bookingEndDate">Päättyy *</label>
-                <input
-                  id="bookingEndDate"
-                  type="date"
-                  name="endDate"
-                  min={today}
-                  required
-                />
+
+                <div className="date-field">
+                  <input
+                    id="bookingEndDate"
+                    type="date"
+                    name="endDate"
+                    min={today}
+                    required
+                  />
+                </div>
               </div>
             </div>
           </section>
