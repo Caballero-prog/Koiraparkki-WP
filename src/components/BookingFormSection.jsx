@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import CustomSelect from "./CustomSelect";
+
 
 const BookingFormSection = () => {
   const [status, setStatus] = useState("idle");
@@ -212,19 +214,19 @@ const BookingFormSection = () => {
           </section>
 
           <section className="booking-card">
-            <h2 className="booking-card-title">Toimipiste</h2>
-
-            <div className="select-wrap">
-              <select name="location" defaultValue="" required>
-                <option value="" disabled>
-                  Valitse toimipiste
-                </option>
-                <option value="Espoo">Espoo</option>
-                <option value="Herttoniemi">Herttoniemi</option>
-                <option value="Kamppi">Kamppi</option>
-                <option value="Lahti">Lahti</option>
-              </select>
-            </div>
+            <CustomSelect
+              id="bookingLocation"
+              name="location"
+              label="Toimipiste *"
+              placeholder="Valitse toimipiste"
+              required
+              options={[
+                { value: "Espoo", label: "Espoo" },
+                { value: "Herttoniemi", label: "Herttoniemi" },
+                { value: "Kamppi", label: "Kamppi" },
+                { value: "Lahti", label: "Lahti" },
+              ]}
+            />
           </section>
 
           <section className="booking-card">
