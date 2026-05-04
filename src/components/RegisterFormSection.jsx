@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import CustomSelect from "./CustomSelect";
 
 const RegisterFormSection = () => {
   const [status, setStatus] = useState("idle");
@@ -278,45 +279,39 @@ const RegisterFormSection = () => {
               </div>
 
               <div className="field field--half">
-                <label htmlFor="dogLocation">Hoitopaikka *</label>
-                <div className="select-wrap">
-                  <select
-                    id="dogLocation"
-                    name="dogLocation"
-                    defaultValue=""
-                    required
-                  >
-                    <option value="" disabled>
-                      Valitse hoitopaikka
-                    </option>
-                    <option value="Espoo Latokaski">Espoo Latokaski</option>
-                    <option value="Helsinki Kamppi">Helsinki Kamppi</option>
-                    <option value="Helsinki Herttoniemi">
-                      Helsinki Herttoniemi
-                    </option>
-                    <option value="Lahti Mukkula">Lahti Mukkula</option>
-                  </select>
-                </div>
+                <CustomSelect
+                  id="dogLocation"
+                  name="dogLocation"
+                  label="Hoitopaikka *"
+                  placeholder="Valitse hoitopaikka"
+                  required
+                  options={[
+                    { value: "Espoo Latokaski", label: "Espoo Latokaski" },
+                    { value: "Helsinki Kamppi", label: "Helsinki Kamppi" },
+                    {
+                      value: "Helsinki Herttoniemi",
+                      label: "Helsinki Herttoniemi",
+                    },
+                    { value: "Lahti Mukkula", label: "Lahti Mukkula" },
+                  ]}
+                />
               </div>
 
               <div className="field field--half">
-                <label htmlFor="dogSterilized">Steriloitu / kastroitu</label>
-                <div className="select-wrap">
-                  <select
-                    id="dogSterilized"
-                    name="dogSterilized"
-                    defaultValue=""
-                  >
-                    <option value="" disabled>
-                      Valitse
-                    </option>
-                    <option value="Kyllä">Kyllä</option>
-                    <option value="Ei">Ei</option>
-                    <option value="Kemiallinen kastraatio">
-                      Kemiallinen kastraatio
-                    </option>
-                  </select>
-                </div>
+                <CustomSelect
+                  id="dogSterilized"
+                  name="dogSterilized"
+                  label="Steriloitu / kastroitu"
+                  placeholder="Valitse"
+                  options={[
+                    { value: "Kyllä", label: "Kyllä" },
+                    { value: "Ei", label: "Ei" },
+                    {
+                      value: "Kemiallinen kastraatio",
+                      label: "Kemiallinen kastraatio",
+                    },
+                  ]}
+                />
               </div>
             </div>
           </section>
