@@ -127,7 +127,7 @@
 .booking-field textarea,
 .booking-fields input,
 .booking-fields textarea,
-.booking-card textarea{
+.booking-card textarea {
   width: 100%;
   min-width: 0;
   box-sizing: border-box;

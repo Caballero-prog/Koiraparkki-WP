@@ -10,14 +10,17 @@ const CustomSelect = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+  const [touched, setTouched] = useState(false);
   const wrapperRef = useRef(null);
 
   const selectedOption = options.find((option) => option.value === value);
+  const showError = required && touched && !value;
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (!wrapperRef.current?.contains(event.target)) {
         setOpen(false);
+        setTouched(true);
       }
     };
 
@@ -34,12 +37,18 @@ const CustomSelect = ({
         {label}
       </label>
 
-      <input id={id} name={name} type="hidden" value={value} required={required} />
+      <input name={name} type="hidden" value={value} />
 
       <button
+        id={id}
         type="button"
-        className={`custom-select-button ${open ? "is-open" : ""}`}
-        onClick={() => setOpen((current) => !current)}
+        className={`custom-select-button ${open ? "is-open" : ""} ${
+          showError ? "has-error" : ""
+        }`}
+        onClick={() => {
+          setOpen((current) => !current);
+          setTouched(true);
+        }}
         aria-haspopup="listbox"
         aria-expanded={open}
       >
@@ -60,6 +69,7 @@ const CustomSelect = ({
               onClick={() => {
                 setValue(option.value);
                 setOpen(false);
+                setTouched(true);
               }}
               role="option"
               aria-selected={value === option.value}
@@ -68,6 +78,10 @@ const CustomSelect = ({
             </button>
           ))}
         </div>
+      )}
+
+      {showError && (
+        <p className="custom-select-error">Valitse vaihtoehto.</p>
       )}
     </div>
   );

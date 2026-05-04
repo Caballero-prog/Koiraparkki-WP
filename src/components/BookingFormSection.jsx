@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import CustomSelect from "./CustomSelect";
 
-
 const BookingFormSection = () => {
   const [status, setStatus] = useState("idle");
   const [formMessage, setFormMessage] = useState("");
+  const [formResetKey, setFormResetKey] = useState(0);
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -48,6 +48,12 @@ const BookingFormSection = () => {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
+    if (!data.location) {
+      setFormMessage("Valitse toimipiste.");
+      setStatus("error");
+      return;
+    }
+
     if (data.startDate && data.endDate && data.endDate < data.startDate) {
       setFormMessage("Päättymispäivä ei voi olla ennen alkamispäivää.");
       setStatus("error");
@@ -70,6 +76,7 @@ const BookingFormSection = () => {
       }
 
       form.reset();
+      setFormResetKey((current) => current + 1);
       setStatus("success");
     } catch (error) {
       console.error("Error:", error);
@@ -215,6 +222,7 @@ const BookingFormSection = () => {
 
           <section className="booking-card">
             <CustomSelect
+              key={formResetKey}
               id="bookingLocation"
               name="location"
               label="Toimipiste *"
