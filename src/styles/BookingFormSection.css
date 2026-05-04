@@ -125,12 +125,9 @@
 
 .booking-field input,
 .booking-field textarea,
-.booking-field select,
 .booking-fields input,
 .booking-fields textarea,
-.booking-fields select,
-.booking-card textarea,
-.booking-card select {
+.booking-card textarea{
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
@@ -164,12 +161,9 @@
 
 .booking-field input:focus,
 .booking-field textarea:focus,
-.booking-field select:focus,
 .booking-fields input:focus,
 .booking-fields textarea:focus,
-.booking-fields select:focus,
-.booking-card textarea:focus,
-.booking-card select:focus {
+.booking-card textarea:focus {
   outline: none;
   border-color: var(--color-accent);
   box-shadow: 0 0 0 3px var(--color-accent-soft);
@@ -318,37 +312,6 @@
 
 .booking-field input[type="date"]::-webkit-calendar-picker-indicator:hover {
   opacity: 1;
-}
-
-.booking .select-wrap {
-  position: relative;
-  width: 100%;
-}
-
-.booking .select-wrap::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 1rem;
-  width: 10px;
-  height: 10px;
-  border-right: 2px solid var(--color-accent);
-  border-bottom: 2px solid var(--color-accent);
-  transform: translateY(-65%) rotate(45deg);
-  pointer-events: none;
-}
-
-.booking .select-wrap select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  padding-right: 3rem;
-  background-image: none;
-  cursor: pointer;
-}
-
-.booking .select-wrap select::-ms-expand {
-  display: none;
 }
 
 /* Tablet */
