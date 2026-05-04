@@ -7,6 +7,7 @@ import CustomSelect from "./CustomSelect";
 
 const RegisterFormSection = () => {
   const [status, setStatus] = useState("idle");
+  const [formResetKey, setFormResetKey] = useState(0);
 
   useEffect(() => {
     if (status !== "success") return;
@@ -26,6 +27,12 @@ const RegisterFormSection = () => {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
+    if (!data.dogLocation) {
+      console.error("Missing required field: dogLocation");
+      setStatus("error");
+      return;
+    }
+
     try {
       const response = await fetch("/wp-json/custom/v1/register", {
         method: "POST",
@@ -43,6 +50,7 @@ const RegisterFormSection = () => {
 
       setStatus("success");
       form.reset();
+      setFormResetKey((current) => current + 1);
     } catch (error) {
       console.error("Error:", error);
       setStatus("error");
@@ -280,6 +288,7 @@ const RegisterFormSection = () => {
 
               <div className="field field--half">
                 <CustomSelect
+                  key={`location-${formResetKey}`}
                   id="dogLocation"
                   name="dogLocation"
                   label="Hoitopaikka *"
@@ -299,6 +308,7 @@ const RegisterFormSection = () => {
 
               <div className="field field--half">
                 <CustomSelect
+                  key={`sterilized-${formResetKey}`}
                   id="dogSterilized"
                   name="dogSterilized"
                   label="Steriloitu / kastroitu"

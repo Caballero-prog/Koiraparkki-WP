@@ -229,10 +229,13 @@ const BookingFormSection = () => {
               placeholder="Valitse toimipiste"
               required
               options={[
-                { value: "Espoo", label: "Espoo" },
-                { value: "Herttoniemi", label: "Herttoniemi" },
-                { value: "Kamppi", label: "Kamppi" },
-                { value: "Lahti", label: "Lahti" },
+                { value: "Espoo Latokaski", label: "Espoo Latokaski" },
+                {
+                  value: "Helsinki Herttoniemi",
+                  label: "Helsinki Herttoniemi",
+                },
+                { value: "Helsinki Kamppi", label: "Helsinki Kamppi" },
+                { value: "Lahti Mukkula", label: "Lahti Mukkula" },
               ]}
             />
           </section>
