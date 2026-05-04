@@ -179,7 +179,6 @@
 }
 
 /* Select */
-
 .select-wrap {
   position: relative;
 }
@@ -195,19 +194,18 @@
   border-bottom: 2px solid var(--color-accent);
   transform: translateY(-65%) rotate(45deg);
   pointer-events: none;
+  opacity: 0.7;
 }
 
 .select-wrap select {
+  width: 100%;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   padding-right: 3rem;
-  background-image: none;
+  font-size: 16px;
+  min-height: 48px;
   cursor: pointer;
-}
-
-.select-wrap select::-ms-expand {
-  display: none;
 }
 
 /* Checkboxes */
@@ -502,50 +500,5 @@
 
   .agreement-success-title {
     font-size: 2.5rem;
-  }
-}
-
-@supports (appearance: base-select) {
-  .select-wrap::after {
-    display: block;
-    z-index: 2;
-  }
-
-  .select-wrap select,
-  .select-wrap select::picker(select) {
-    appearance: base-select;
-  }
-
-  .select-wrap select {
-    cursor: pointer;
-    padding-right: 3rem;
-  }
-
-  .select-wrap select::picker-icon {
-    display: none;
-  }
-
-  .select-wrap select::picker(select) {
-    margin-top: 0.4rem;
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
-    background: var(--color-white);
-    box-shadow: 0 14px 34px rgba(16, 24, 40, 0.14);
-  }
-
-  .select-wrap option {
-    padding: 0.85rem 1rem;
-    background: var(--color-white);
-    color: var(--color-text-strong);
-  }
-
-  .select-wrap option:hover,
-  .select-wrap option:focus {
-    background: var(--color-bg-soft);
-  }
-
-  .select-wrap option:checked {
-    background: var(--color-accent);
-    color: var(--color-white);
   }
 }

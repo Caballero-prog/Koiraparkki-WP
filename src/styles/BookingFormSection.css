@@ -176,39 +176,6 @@
   background-color: var(--color-white);
 }
 
-/* Select */
-
-.select-wrap {
-  position: relative;
-  width: 100%;
-}
-
-.select-wrap::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 1rem;
-  width: 10px;
-  height: 10px;
-  border-right: 2px solid var(--color-accent);
-  border-bottom: 2px solid var(--color-accent);
-  transform: translateY(-65%) rotate(45deg);
-  pointer-events: none;
-}
-
-.select-wrap select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  padding-right: 3rem;
-  background-image: none;
-  cursor: pointer;
-}
-
-.select-wrap select::-ms-expand {
-  display: none;
-}
-
 /* Radio */
 
 .booking-radio-group {
@@ -353,49 +320,35 @@
   opacity: 1;
 }
 
-@supports (appearance: base-select) {
-  .select-wrap::after {
-    display: block;
-    z-index: 2;
-  }
+.booking .select-wrap {
+  position: relative;
+  width: 100%;
+}
 
-  .select-wrap select,
-  .select-wrap select::picker(select) {
-    appearance: base-select;
-  }
+.booking .select-wrap::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--color-accent);
+  border-bottom: 2px solid var(--color-accent);
+  transform: translateY(-65%) rotate(45deg);
+  pointer-events: none;
+}
 
-  .select-wrap select {
-    cursor: pointer;
-    padding-right: 3rem;
-  }
+.booking .select-wrap select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 3rem;
+  background-image: none;
+  cursor: pointer;
+}
 
-  .select-wrap select::picker-icon {
-    display: none;
-  }
-
-  .select-wrap select::picker(select) {
-    margin-top: 0.4rem;
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
-    background: var(--color-white);
-    box-shadow: 0 14px 34px rgba(16, 24, 40, 0.14);
-  }
-
-  .select-wrap option {
-    padding: 0.85rem 1rem;
-    background: var(--color-white);
-    color: var(--color-text-strong);
-  }
-
-  .select-wrap option:hover,
-  .select-wrap option:focus {
-    background: var(--color-bg-soft);
-  }
-
-  .select-wrap option:checked {
-    background: var(--color-accent);
-    color: var(--color-white);
-  }
+.booking .select-wrap select::-ms-expand {
+  display: none;
 }
 
 /* Tablet */
