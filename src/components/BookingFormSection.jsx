@@ -254,6 +254,7 @@ const BookingFormSection = () => {
                     name="startDate"
                     min={today}
                     required
+                    onClick={(e) => e.currentTarget.showPicker?.()}
                   />
                 </div>
               </div>
@@ -268,6 +269,7 @@ const BookingFormSection = () => {
                     name="endDate"
                     min={today}
                     required
+                    onClick={(e) => e.currentTarget.showPicker?.()}
                   />
                 </div>
               </div>

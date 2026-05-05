@@ -300,15 +300,19 @@
   color: var(--color-text-muted);
 }
 
-.booking-field input[type="date"] {
+.date-field {
+  width: 100%;
+}
+
+.date-field input[type="date"] {
+  width: 100%;
   cursor: pointer;
   color-scheme: light;
   min-height: 48px;
   padding-right: 1rem;
 }
 
-.booking-field input[type="date"]::-webkit-calendar-picker-indicator {
-  margin-right: 0.15rem;
+.date-field input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
 }
 
